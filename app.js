@@ -266,6 +266,84 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
+  // --- Core Explorer Category Switcher ---
+  const categoryPills = document.querySelectorAll('.category-pill');
+  const categoryPanels = document.querySelectorAll('.category-panel');
+
+  categoryPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      categoryPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+
+      const targetCat = pill.getAttribute('data-cat');
+      categoryPanels.forEach(panel => {
+        panel.classList.remove('active');
+        if (panel.id === `cat-panel-${targetCat}`) {
+          panel.classList.add('active');
+        }
+      });
+    });
+  });
+
+  // --- Mock Explorer File Selector ---
+  const sidebarItems = document.querySelectorAll('.sidebar-item');
+  const viewerContents = document.querySelectorAll('.viewer-content');
+
+  sidebarItems.forEach(item => {
+    item.addEventListener('click', () => {
+      sidebarItems.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+
+      const targetFile = item.getAttribute('data-file');
+      viewerContents.forEach(content => {
+        content.classList.remove('active');
+        if (content.id === `view-${targetFile}`) {
+          content.classList.add('active');
+        }
+      });
+    });
+  });
+
+  // --- Goal Tracker Slider Logic ---
+  const sliderTrack = document.getElementById('goal-slider-track');
+  const sliderBtns = document.querySelectorAll('.slider-btn');
+
+  if (sliderTrack && sliderBtns.length > 0) {
+    sliderBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const slideIndex = parseInt(btn.getAttribute('data-slide'));
+        const slideWidth = sliderTrack.clientWidth;
+        
+        // Scroll track to the appropriate offset
+        sliderTrack.scrollTo({
+          left: slideWidth * slideIndex,
+          behavior: 'smooth'
+        });
+
+        // Set active button
+        sliderBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Update active dots when user swipes natively
+    sliderTrack.addEventListener('scroll', () => {
+      const scrollPos = sliderTrack.scrollLeft;
+      const slideWidth = sliderTrack.clientWidth;
+      if (slideWidth > 0) {
+        const activeIndex = Math.round(scrollPos / slideWidth);
+
+        sliderBtns.forEach((btn, idx) => {
+          if (idx === activeIndex) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+    });
+  }
+
   // --- Simple Reveal Animations on Scroll ---
   const sections = document.querySelectorAll('section');
   const revealOnScroll = () => {
@@ -283,3 +361,5 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', revealOnScroll);
   revealOnScroll(); // trigger once on start
 });
+
+

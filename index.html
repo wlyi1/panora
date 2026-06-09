@@ -141,6 +141,113 @@
     </div>
   </section>
 
+  <!-- Core Explorer Section -->
+  <section class="core-explorer-section" id="explorer">
+    <div class="container">
+      <div class="explorer-grid">
+        <div class="explorer-content">
+          <span class="section-tag">Core File Browser</span>
+          <h2 class="section-title">View and edit files, <br><span class="text-gradient">no external apps needed.</span></h2>
+          <p class="section-desc">
+            Panora is built on a high-performance local file browser. Open code, spreadsheets, PDFs, or media files instantly in custom-built tabs. No slow load times, no application switching.
+          </p>
+          
+          <div class="file-type-categories">
+            <button class="category-pill active" data-cat="documents" id="pill-docs">📄 Documents</button>
+            <button class="category-pill" data-cat="spreadsheets" id="pill-sheets">📊 Sheets & Data</button>
+            <button class="category-pill" data-cat="media" id="pill-media">🖼️ Media Files</button>
+            <button class="category-pill" data-cat="code" id="pill-code">💻 Code & Notes</button>
+          </div>
+          
+          <div class="category-details">
+            <div class="category-panel active" id="cat-panel-documents">
+              <p>Preview and edit office and text documents directly. Full formatting, layout rendering, and OCR capabilities are integrated locally.</p>
+              <div class="badges-group">
+                <span class="file-badge badge-view">PDF (Read & Split)</span>
+                <span class="file-badge badge-view">DOCX / DOC (Preview)</span>
+                <span class="file-badge badge-edit">Markdown (Edit)</span>
+                <span class="file-badge badge-edit">TXT (Edit)</span>
+              </div>
+            </div>
+            <div class="category-panel" id="cat-panel-spreadsheets">
+              <p>Manage raw datasets and heavy tabular data. Open heavy spreadsheets, edit cells in a visual table, and convert instantly.</p>
+              <div class="badges-group">
+                <span class="file-badge badge-view">XLSX / XLS (Read)</span>
+                <span class="file-badge badge-edit">CSV / TSV (Table Edit)</span>
+                <span class="file-badge badge-view">Parquet (Browse)</span>
+                <span class="file-badge badge-edit">JSON (Convert)</span>
+              </div>
+            </div>
+            <div class="category-panel" id="cat-panel-media">
+              <p>Process graphics and video clips without launching heavy editing suites. Crop images, remove backgrounds, or clip video timeline reels.</p>
+              <div class="badges-group">
+                <span class="file-badge badge-edit">PNG / JPG / WebP (Crop)</span>
+                <span class="file-badge badge-view">HEIC (Preview)</span>
+                <span class="file-badge badge-edit">MP4 / YouTube (Clip)</span>
+                <span class="file-badge badge-view">SVG / ICO (Convert)</span>
+              </div>
+            </div>
+            <div class="category-panel" id="cat-panel-code">
+              <p>An integrated developer workspace. Edit script files using CodeMirror syntax highlighting, or run Jupyter notebooks cell-by-cell.</p>
+              <div class="badges-group">
+                <span class="file-badge badge-edit">Jupyter (.ipynb)</span>
+                <span class="file-badge badge-edit">JS / HTML / CSS</span>
+                <span class="file-badge badge-edit">SQL Scripts</span>
+                <span class="file-badge badge-edit">JSON Configs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="explorer-visual">
+          <!-- Mock File Explorer Frame -->
+          <div class="explorer-mockup-window">
+            <div class="mockup-sidebar">
+              <span class="sidebar-header">FILES</span>
+              <button class="sidebar-item active" data-file="notes" id="side-item-notes">📝 notes.md</button>
+              <button class="sidebar-item" data-file="analysis" id="side-item-analysis">📊 sales.csv</button>
+              <button class="sidebar-item" data-file="paper" id="side-item-paper">🧠 brain.pdf</button>
+            </div>
+            <div class="mockup-viewer-pane">
+              <!-- notes.md preview -->
+              <div class="viewer-content active" id="view-notes">
+                <div class="pane-header">notes.md <span class="badge-edit-mode">Editable</span></div>
+                <div class="markdown-preview-editor">
+                  <h4 style="font-family:'Outfit',sans-serif;margin-bottom:8px;font-weight:700;"># Project Vision</h4>
+                  <p style="font-size:13px;color:var(--text-secondary);">Panora is the ultimate local-first workspace for managing documents, goals, and visual boards...</p>
+                  <div class="cursor-pulsing">|</div>
+                </div>
+              </div>
+              <!-- sales.csv preview -->
+              <div class="viewer-content" id="view-analysis">
+                <div class="pane-header">sales.csv <span class="badge-view-mode">Table view</span></div>
+                <div class="table-preview-mock">
+                  <table>
+                    <thead>
+                      <tr><th>Month</th><th>Sales</th><th>Growth</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Jan</td><td>$12,400</td><td>+4.2%</td></tr>
+                      <tr><td>Feb</td><td>$14,200</td><td>+14.5%</td></tr>
+                      <tr><td>Mar</td><td>$15,800</td><td>+11.2%</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- brain.pdf preview -->
+              <div class="viewer-content" id="view-paper">
+                <div class="pane-header">brain.pdf <span class="badge-view-mode">PDF Studio</span></div>
+                <div class="pdf-preview-mini">
+                  <img src="pdf viewer.png" alt="Brain NeuroScience PDF" class="pdf-mini-screenshot">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Spaces Tour Section -->
   <section class="spaces-section" id="spaces">
     <div class="container">
@@ -365,8 +472,21 @@
           <div class="card-content">
             <h3>Visual Goal Tracker</h3>
             <p>Pin milestone markers over customizable motivation boards. Monitor your checklist progress inside detail drawers and complete targets systematically.</p>
-            <div class="goal-map-preview">
-              <img src="goal tracker.png" alt="Goal Tracker Map" class="goal-map-img">
+            <div class="goal-slider-container">
+              <div class="goal-slider-track" id="goal-slider-track">
+                <div class="goal-slide">
+                  <span class="slide-badge">Milestone Map</span>
+                  <img src="goal tracker.png" alt="Goal Tracker Map" class="goal-slider-img">
+                </div>
+                <div class="goal-slide">
+                  <span class="slide-badge">Detail Drawer</span>
+                  <img src="goal tracker 2.png" alt="Milestone Checklist Drawer" class="goal-slider-img">
+                </div>
+              </div>
+              <div class="slider-controls">
+                <button class="slider-btn active" data-slide="0" aria-label="Go to slide 1"></button>
+                <button class="slider-btn" data-slide="1" aria-label="Go to slide 2"></button>
+              </div>
             </div>
           </div>
         </div>
