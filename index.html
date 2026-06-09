@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Panora is a beautiful, local-first desktop productivity workspace. Organize your files, edit code, split PDFs, remove image backgrounds, track goals, clip videos, and journal in one unified app. Absolute privacy, zero cloud database needed.">
+  <meta name="keywords" content="Panora, desktop app, local-first, productivity tools, document editor, PDF utility, video clipper, Kanban board, goal tracker, diary app, local storage, Electron app">
+  <meta name="author" content="Waliyuddin">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Panora — Beautiful Local-First Workspace for Desktop">
+  <meta property="og:description" content="Keep your local work in one gorgeous place. Text editing, PDF tools, image conversion, Kanban boards, diaries, and goals. Built for speed and privacy.">
+  <meta property="og:image" content="panora.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Panora — Beautiful Local-First Workspace for Desktop">
+  <meta property="twitter:description" content="Keep your local work in one gorgeous place. Text editing, PDF tools, image conversion, Kanban boards, diaries, and goals. Built for speed and privacy.">
+  <meta property="twitter:image" content="panora.png">
+
+  <title>Panora — Your Local Multi-Tool Workspace</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-nest">
+
+  <!-- Floating Toast Notification -->
+  <div id="download-toast" class="toast-notification hidden" role="alert" aria-live="assertive">
+    <div class="toast-content">
+      <svg class="toast-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      <div class="toast-text">
+        <h4 class="toast-title">Download Initiated!</h4>
+        <p class="toast-desc">Thank you for downloading Panora. Your installer is starting.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Section -->
+  <header class="navbar-header" id="navbar">
+    <div class="container navbar-container">
+      <a href="#" class="logo-link" id="logo-brand">
+        <span class="logo-dot"></span>
+        <span class="logo-text">Panora</span>
+      </a>
+      
+      <nav class="nav-menu" id="nav-menu" aria-label="Main Navigation">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#spaces" class="nav-link">Spaces</a>
+        <a href="#local-first" class="nav-link">Local-First</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </nav>
+
+      <div class="navbar-actions">
+        <!-- Theme Dropdown selector (mirrors the app theme switcher) -->
+        <div class="theme-dropdown-container">
+          <label for="app-theme-selector" class="sr-only">Choose Theme</label>
+          <div class="theme-selector-trigger" id="theme-selector-trigger">
+            <span id="active-theme-label">NEST</span>
+            <svg class="arrow-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="theme-dropdown-options" id="theme-dropdown-options">
+            <button class="theme-option active" data-theme="nest" id="theme-btn-nest">NEST</button>
+            <button class="theme-option" data-theme="mello" id="theme-btn-mello">MELLO</button>
+          </div>
+        </div>
+
+        <a href="#download" class="btn btn-secondary nav-cta-btn" id="nav-download-btn">Download</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <!-- Dynamic Decorative Elements -->
+    <div class="hero-bg-accent glow-nest"></div>
+    <div class="hero-bg-accent glow-mello"></div>
+    <div class="decorative-sparkle sparkle-1">✦</div>
+    <div class="decorative-sparkle sparkle-2">✦</div>
+    <div class="decorative-doodle doodle-wave"></div>
+    
+    <div class="container hero-container">
+      <div class="hero-content">
+        <div class="hero-tagline" id="hero-tagline">
+          <span class="tag-icon">✨</span> <span id="tagline-text">Local-First Workspace</span>
+        </div>
+        
+        <h1 class="hero-title" id="hero-main-title">
+          Your local workspace,<br><span class="text-gradient">organized in spaces.</span>
+        </h1>
+        
+        <p class="hero-desc" id="hero-main-desc">
+          A multi-tool desktop companion for files, media, documents, and personal planning. Keep your work structured, offline, and beautifully visual.
+        </p>
+
+        <div class="hero-cta-wrapper">
+          <div class="download-button-group">
+            <button class="btn btn-primary btn-large download-trigger" id="primary-download-btn">
+              <svg class="download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span id="download-text">Download for Windows</span>
+            </button>
+            <div class="dropdown-trigger-wrapper">
+              <button class="btn btn-primary btn-large btn-dropdown-toggle" id="download-dropdown-toggle" aria-label="Open download options">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+              <div class="download-dropdown-menu" id="download-dropdown-menu">
+                <button class="dropdown-item download-trigger" data-os="windows">Windows Installer (.exe)</button>
+                <button class="dropdown-item download-trigger" data-os="macos">macOS Apple Silicon / Intel (.dmg)</button>
+                <button class="dropdown-item download-trigger" data-os="linux">Linux Package (.AppImage)</button>
+              </div>
+            </div>
+          </div>
+          <span class="cta-subtext" id="cta-subtext">Free & open source. No sign-up required.</span>
+        </div>
+      </div>
+
+      <!-- App Preview Frame -->
+      <div class="hero-preview-wrapper" id="hero-preview-frame">
+        <div class="macbook-frame">
+          <div class="frame-header">
+            <div class="window-controls">
+              <span class="control-dot close"></span>
+              <span class="control-dot minimize"></span>
+              <span class="control-dot expand"></span>
+            </div>
+            <div class="frame-title" id="preview-frame-title">Panora - Nest Space</div>
+          </div>
+          <div class="frame-body">
+            <!-- Nest Theme Screenshot -->
+            <img src="panora.png" alt="Panora Desktop App Dashboard - Nest Theme" class="app-screenshot active" id="screenshot-nest">
+            <!-- Mello Theme Screenshot -->
+            <img src="panora2.png" alt="Panora Desktop App Dashboard - Mello Theme" class="app-screenshot" id="screenshot-mello">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spaces Tour Section -->
+  <section class="spaces-section" id="spaces">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Visual Organization</span>
+        <h2 class="section-title" id="spaces-title">Focus on your context with Spaces</h2>
+        <p class="section-desc">
+          Instead of generic folders, organize your life in beautiful, visual environments. Each space contains its own notebooks, files, templates, and utilities.
+        </p>
+      </div>
+
+      <div class="spaces-interactive-layout">
+        <!-- Interactive Room list representing the files -->
+        <div class="spaces-menu" id="spaces-menu" role="tablist">
+          <button class="space-tab active" data-space="study" id="space-tab-study" role="tab" aria-selected="true" aria-controls="space-panel-study">
+            <span class="space-icon icon-nest">📚</span>
+            <span class="space-icon icon-mello hidden">🩵</span>
+            <div class="space-tab-info">
+              <span class="space-name">Study</span>
+              <span class="space-meta" id="study-meta">10 items</span>
+            </div>
+          </button>
+          
+          <button class="space-tab" data-space="work" id="space-tab-work" role="tab" aria-selected="false" aria-controls="space-panel-work">
+            <span class="space-icon icon-nest">💼</span>
+            <span class="space-icon icon-mello hidden">🩷</span>
+            <div class="space-tab-info">
+              <span class="space-name">Work</span>
+              <span class="space-meta" id="work-meta">1 item</span>
+            </div>
+          </button>
+          
+          <button class="space-tab" data-space="design" id="space-tab-design" role="tab" aria-selected="false" aria-controls="space-panel-design">
+            <span class="space-icon icon-nest">⚡</span>
+            <span class="space-icon icon-mello hidden">💜</span>
+            <div class="space-tab-info">
+              <span class="space-name">Design</span>
+              <span class="space-meta" id="design-meta">3 items</span>
+            </div>
+          </button>
+          
+          <button class="space-tab" data-space="personal" id="space-tab-personal" role="tab" aria-selected="false" aria-controls="space-panel-personal">
+            <span class="space-icon icon-nest">🛋️</span>
+            <span class="space-icon icon-mello hidden">💛</span>
+            <div class="space-tab-info">
+              <span class="space-name">Personal</span>
+              <span class="space-meta" id="personal-meta">27 files</span>
+            </div>
+          </button>
+
+          <button class="space-tab" data-space="media" id="space-tab-media" role="tab" aria-selected="false" aria-controls="space-panel-media">
+            <span class="space-icon icon-nest">🎬</span>
+            <span class="space-icon icon-mello hidden">💚</span>
+            <div class="space-tab-info">
+              <span class="space-name">Media</span>
+              <span class="space-meta" id="media-meta">1 file</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- Spaces details panels -->
+        <div class="spaces-content-display">
+          <div class="spaces-panel active" id="space-panel-study" role="tabpanel">
+            <div class="panel-visual study-color">
+              <div class="floating-sticker sticker-1">✍️ Focus</div>
+              <div class="floating-sticker sticker-2">💡 Study Session</div>
+              <div class="window-mockup">
+                <img src="pdf viewer.png" alt="PDF Studio Document Reader" class="mockup-img">
+              </div>
+            </div>
+            <div class="panel-details">
+              <span class="panel-space-tag">Study Space</span>
+              <h3>Master your learning curve</h3>
+              <p>Keep courses, homework notes, and reference books in one place. Integrate Jupyter notebooks directly for computational homework or research scripts without launching external local kernels.</p>
+              <ul class="panel-feature-list">
+                <li>CodeMirror editor with syntax highlights</li>
+                <li>Excalidraw canvas mapping for brainstorm diagrams</li>
+                <li>Direct PDF split/merge utility for lecture slides</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="spaces-panel" id="space-panel-work" role="tabpanel">
+            <div class="panel-visual work-color">
+              <div class="floating-sticker sticker-1">🚀 Launch</div>
+              <div class="floating-sticker sticker-2">📊 Spreadsheets</div>
+              <div class="room-illustration nest-view">
+                <div class="room-card-mini">
+                  <span class="card-mini-title">Daily Operations</span>
+                  <div class="progress-bar-small"><div class="fill" style="width: 45%"></div></div>
+                  <span class="card-mini-meta">Excel conversions active</span>
+                </div>
+              </div>
+            </div>
+            <div class="panel-details">
+              <span class="panel-space-tag">Work Space</span>
+              <h3>Professional utility in action</h3>
+              <p>Organize corporate worksheets, project checklists, and clients data safely. Easily parse and manage dense records with built-in tabular spreadsheets supporting XLSX, CSV, and Parquet formatting.</p>
+              <ul class="panel-feature-list">
+                <li>CSV Table Editor and direct conversion to Excel worksheets</li>
+                <li>Tabbed workspaces supporting multiple opened client documents</li>
+                <li>OCR features through LiteParse for document extractions</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="spaces-panel" id="space-panel-design" role="tabpanel">
+            <div class="panel-visual design-color">
+              <div class="floating-sticker sticker-1">🎨 Palette</div>
+              <div class="floating-sticker sticker-2">📐 Excalidraw</div>
+            </div>
+            <div class="panel-details">
+              <span class="panel-space-tag">Design Space</span>
+              <h3>Creative ideas, visual execution</h3>
+              <p>Store design inspirations, client branding assets, color configurations, and sketch boards. Make visual planning interactive using clean canvas tools without leaving the app container.</p>
+              <ul class="panel-feature-list">
+                <li>Integrated Excalidraw diagram tools (.excalidraw format)</li>
+                <li>Image Studio with background removal, cropping, and rotation</li>
+                <li>Fast image converters: convert SVG, BMP, ICO to PNG or WebP</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="spaces-panel" id="space-panel-personal" role="tabpanel">
+            <div class="panel-visual personal-color">
+              <div class="floating-sticker sticker-1">🏡 Diary</div>
+              <div class="floating-sticker sticker-2">📅 Plans</div>
+              <div class="goal-tracker-stack">
+                <img src="goal tracker.png" alt="Goal Tracker Map" class="map-img-stack">
+                <img src="goal tracker 2.png" alt="Milestone Checklist Drawer" class="drawer-img-stack">
+              </div>
+            </div>
+            <div class="panel-details">
+              <span class="panel-space-tag">Personal Space</span>
+              <h3>Your personal journal & agenda</h3>
+              <p>Express yourself through customized scrapbooks or track life targets on visual goal maps. Store private reflections and checklists completely offline on your desktop.</p>
+              <ul class="panel-feature-list">
+                <li>Cozy Diary book shelf layout with custom spread styles</li>
+                <li>Goal tracking milestone map with interactive preview drawers</li>
+                <li>Subtasks and checklist prioritization in a clean interface</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="spaces-panel" id="space-panel-media" role="tabpanel">
+            <div class="panel-visual media-color">
+              <div class="floating-sticker sticker-1">✂️ Clip</div>
+              <div class="floating-sticker sticker-2">📹 YouTube</div>
+            </div>
+            <div class="panel-details">
+              <span class="panel-space-tag">Media Space</span>
+              <h3>Media production & downloads</h3>
+              <p>Process, download, and trim local and online media links in seconds. Designed with fast background tasks to process media files seamlessly.</p>
+              <ul class="panel-feature-list">
+                <li>YouTube downloader with quality presets</li>
+                <li>Video Clipper tool backing TikTok/Reels crop coordinates</li>
+                <li>FFmpeg integration for local high-fidelity video rendering</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bento Grid Features Section -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">App Launcher</span>
+        <h2 class="section-title">An entire suite in a single package</h2>
+        <p class="section-desc">
+          Say goodbye to multiple SaaS subscriptions. Panora wraps core desktop productivity utilities in a single, lightning-fast application.
+        </p>
+      </div>
+
+      <div class="bento-grid">
+        <!-- Bento Card 1: Kanban -->
+        <div class="bento-card col-span-2 row-span-2 kanban-highlight">
+          <div class="card-badge">Kanban & Planning</div>
+          <div class="card-content">
+            <h3>Visual Kanban Boards</h3>
+            <p>Keep folders organized and projects on track. Create custom columns, select accent colors, check items, establish low/medium/high priorities, and attach local file paths directly to individual cards.</p>
+            <div class="bento-visual mock-kanban">
+              <div class="kanban-col">
+                <span class="col-title">To-Do</span>
+                <div class="kanban-item priority-high">Write landing page text</div>
+                <div class="kanban-item priority-medium">Record video tutorial</div>
+              </div>
+              <div class="kanban-col">
+                <span class="col-title">Progress</span>
+                <div class="kanban-item priority-low">Optimize asset assets</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Card 2: Diary -->
+        <div class="bento-card diary-highlight">
+          <div class="card-badge">Creative journaling</div>
+          <div class="card-content">
+            <h3>Personal Diary</h3>
+            <p>Write with handwritten styles on textured paper. Drag text stickers, attach local memory images, and customize polaroids.</p>
+            <div class="diary-notebook-preview">
+              <img src="diary.png" alt="Diary Spread Page Preview" class="diary-page-img">
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Card 3: Video Clipper -->
+        <div class="bento-card video-highlight">
+          <div class="card-badge">Video Processing</div>
+          <div class="card-content">
+            <h3>Video Clipper</h3>
+            <p>Input local video files or YouTube clips, select start/end timelines, and export clipped reels using local FFmpeg engines.</p>
+          </div>
+        </div>
+
+        <!-- Bento Card 4: Goal Tracker -->
+        <div class="bento-card col-span-2 goal-highlight">
+          <div class="card-badge">Motivations</div>
+          <div class="card-content">
+            <h3>Visual Goal Tracker</h3>
+            <p>Pin milestone markers over customizable motivation boards. Monitor your checklist progress inside detail drawers and complete targets systematically.</p>
+            <div class="goal-map-preview">
+              <img src="goal tracker.png" alt="Goal Tracker Map" class="goal-map-img">
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Card 5: PDF Studio -->
+        <div class="bento-card pdf-highlight">
+          <div class="card-badge">PDF utility</div>
+          <div class="card-content">
+            <h3>PDF Studio</h3>
+            <p>Split document pages, rotate templates, merge files, compress assets, and read documents with zero external server uploads.</p>
+            <div class="pdf-studio-preview">
+              <img src="pdf viewer.png" alt="PDF Studio Document Reader" class="pdf-img">
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Card 6: Image Studio -->
+        <div class="bento-card image-highlight">
+          <div class="card-badge">Image Processing</div>
+          <div class="card-content">
+            <h3>Image Studio</h3>
+            <p>Crop layouts, remove image backgrounds locally, and convert images into web-ready formats (PNG, WebP, JPG, SVG, HEIC, PDF).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Local First Section -->
+  <section class="local-first-section" id="local-first">
+    <div class="container">
+      <div class="local-grid">
+        <div class="local-content">
+          <span class="section-tag highlight-tag">Privacy Promise</span>
+          <h2 class="section-title">Your files. Your computer.<br>Absolute ownership.</h2>
+          <p class="section-desc">
+            Many productivity tools lock your files in their databases and force monthly subscriptions. Panora takes a different stand. Everything you create resides securely on your local disk.
+          </p>
+          
+          <div class="local-features-group">
+            <div class="local-feature-item">
+              <div class="icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              </div>
+              <div class="feature-text">
+                <h3>Absolute Privacy</h3>
+                <p>Data never leaves your system. No trackers, no cookies, no profiling. Safe for corporate documents and personal diary entries.</p>
+              </div>
+            </div>
+
+            <div class="local-feature-item">
+              <div class="icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              </div>
+              <div class="feature-text">
+                <h3>Zero Latency</h3>
+                <p>Since all processors run on your machine's CPU/GPU, tasks initiate instantly. No loading spinners or cloud timeouts.</p>
+              </div>
+            </div>
+
+            <div class="local-feature-item">
+              <div class="icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              </div>
+              <div class="feature-text">
+                <h3>100% Offline Capability</h3>
+                <p>Work on flights, subways, or remote locations. Panora operates perfectly without an internet connection.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="local-visual-display">
+          <div class="local-map-container">
+            <div class="device-node main-device">
+              <div class="device-icon">💻</div>
+              <span class="device-label">Your Machine</span>
+              <span class="status-indicator online">Local data</span>
+            </div>
+            
+            <div class="data-stream-lines">
+              <span class="stream-item doc-tag">Diary Spreads</span>
+              <span class="stream-item media-tag">Video Clips</span>
+              <span class="stream-item file-tag">Kanban Files</span>
+            </div>
+
+            <div class="cloud-shield">
+              <span class="shield-label">Privacy Shield Active</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">FAQ</span>
+        <h2 class="section-title">Got questions? We've got answers.</h2>
+      </div>
+
+      <div class="faq-accordion-wrapper">
+        <div class="faq-item" id="faq-item-1">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
+            <span>Where is my data saved?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div class="faq-answer" id="faq-answer-1" hidden>
+            <p>All user files, text edits, Jupyter configurations, diary indexes, and Kanban layouts are stored locally on your desktop filesystem. Panora does not upload anything to cloud hosting nodes, keeping your data entirely yours.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq-item-2">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
+            <span>Is Panora really free?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div class="faq-answer" id="faq-answer-2" hidden>
+            <p>Yes! Panora is fully open-source and free to download. There are no monthly payments, hidden features behind paywalls, or cloud subscriptions.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq-item-3">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
+            <span>What operating systems are supported?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div class="faq-answer" id="faq-answer-3" hidden>
+            <p>We officially build and distribute binaries for Windows (.exe installers), macOS (.dmg packages, supporting both M1/M2 Apple Silicon and older Intel architectures), and Linux installations (.AppImage packages).</p>
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq-item-4">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
+            <span>Can I customize the visual layout?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <div class="faq-answer" id="faq-answer-4" hidden>
+            <p>Absolutely! The app features multiple built-in design visual skins: standard layouts, cozy warm-toned workspace aesthetics (Nest Theme), and colorful cute pastel motifs (Mello Theme), including folder customizations, colors, and textures.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Download Section -->
+  <section class="cta-download-section" id="download">
+    <div class="container text-center">
+      <h2 class="cta-title">Start organizing your spaces today</h2>
+      <p class="cta-desc">Download Panora for desktop and experience a new, local-first workflow.</p>
+      
+      <div class="cta-buttons-wrapper">
+        <button class="btn btn-primary btn-large download-trigger" id="footer-download-btn">
+          <svg class="download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span>Get Panora for Desktop</span>
+        </button>
+      </div>
+      <p class="license-note">Licensed under MIT. Source code available on GitHub.</p>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer-layout">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <span class="logo-text">Panora</span>
+        <p class="footer-slogan">Step into your spaces and pick up where you left off.</p>
+      </div>
+      
+      <div class="footer-links-wrapper">
+        <div class="footer-links-column">
+          <h4>Product</h4>
+          <a href="#features">Features</a>
+          <a href="#spaces">Spaces</a>
+          <a href="#download">Download App</a>
+        </div>
+        <div class="footer-links-column">
+          <h4>Privacy</h4>
+          <a href="#local-first">Security Model</a>
+          <a href="#local-first">Local Storage</a>
+        </div>
+        <div class="footer-links-column">
+          <h4>Development</h4>
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="#faq">Documentation</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom text-center">
+      <p class="copyright-text">&copy; 2026 Panora App. All rights reserved. Created with 🤍 for beautiful workspaces.</p>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
