@@ -344,22 +344,202 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Simple Reveal Animations on Scroll ---
-  const sections = document.querySelectorAll('section');
-  const revealOnScroll = () => {
-    const triggerBottom = window.innerHeight * 0.85;
-    
-    sections.forEach(section => {
-      const sectionTop = section.getBoundingClientRect().top;
-      if (sectionTop < triggerBottom) {
-        section.classList.add('revealed');
+
+  // ===========================================================================
+  // INTERACTIVE ENHANCEMENTS — v2.0
+  // ===========================================================================
+
+  // --- 1. Scroll Progress Bar ---
+  const scrollBar = document.getElementById('scroll-progress');
+  const updateScrollProgress = () => {
+    if (!scrollBar) return;
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    scrollBar.style.width = pct + '%';
+  };
+  window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+  // --- 2. Navbar: shadow on scroll + auto-hide ---
+  const navbar = document.getElementById('navbar');
+  let lastScrollY = 0;
+  const handleNavbar = () => {
+    const y = window.scrollY;
+    if (navbar) {
+      if (y > 20) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+      // Auto-hide on scroll down, reveal on scroll up
+      if (y > lastScrollY + 8 && y > 120) {
+        navbar.style.transform = 'translateY(-100%)';
+      } else if (y < lastScrollY - 5) {
+        navbar.style.transform = 'translateY(0)';
+      }
+      lastScrollY = y;
+    }
+  };
+  window.addEventListener('scroll', handleNavbar, { passive: true });
+
+  // --- 3. IntersectionObserver: Reveal Animations ---
+  const revealTargets = document.querySelectorAll(
+    '.reveal-up, .reveal-left, .reveal-right, .reveal-fade, .stagger-children, .section-header'
+  );
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target); // fire once
       }
     });
+  }, { threshold: 0.12 });
+
+  revealTargets.forEach(el => revealObserver.observe(el));
+
+  // Immediately reveal hero (above the fold)
+  document.querySelectorAll('#hero .reveal-left, #hero .reveal-right').forEach(el => {
+    setTimeout(() => el.classList.add('in-view'), 120);
+  });
+
+  // --- 4. Active Nav Link on Scroll ---
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sectionEls = document.querySelectorAll('section[id]');
+
+  const updateActiveNav = () => {
+    let currentId = '';
+    sectionEls.forEach(s => {
+      const top = s.getBoundingClientRect().top;
+      if (top <= 100) currentId = s.id;
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
+    });
   };
-  
-  // Set initial scroll trigger check
-  window.addEventListener('scroll', revealOnScroll);
-  revealOnScroll(); // trigger once on start
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+  // --- 5. Animated Counter (Stats Ticker) ---
+  const animateCounter = (el, target, duration = 1200) => {
+    const start = performance.now();
+    const update = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease-out quad
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target);
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  };
+
+  const statNumbers = document.querySelectorAll('.stat-number');
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.count, 10);
+        animateCounter(el, target);
+        statsObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  statNumbers.forEach(n => statsObserver.observe(n));
+
+  // --- 6. Floating Particles Canvas ---
+  const canvas = document.getElementById('particles-canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let W = canvas.offsetWidth;
+    let H = canvas.offsetHeight;
+    canvas.width = W;
+    canvas.height = H;
+
+    const isMello = () => document.body.classList.contains('theme-mello');
+
+    const particles = Array.from({ length: 30 }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() * 2.5 + 1,
+      dx: (Math.random() - 0.5) * 0.4,
+      dy: -(Math.random() * 0.4 + 0.2),
+      alpha: Math.random() * 0.4 + 0.1,
+    }));
+
+    const getParticleColor = () => isMello()
+      ? `rgba(255, 168, 186,`
+      : `rgba(125, 99, 70,`;
+
+    const drawParticles = () => {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `${getParticleColor()} ${p.alpha})`;
+        ctx.fill();
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
+        if (p.x < 0) p.x = W;
+        if (p.x > W) p.x = 0;
+      });
+      requestAnimationFrame(drawParticles);
+    };
+    drawParticles();
+
+    window.addEventListener('resize', () => {
+      W = canvas.offsetWidth;
+      H = canvas.offsetHeight;
+      canvas.width = W;
+      canvas.height = H;
+    });
+  }
+
+  // --- 7. 3D Parallax Tilt on App Preview Frame ---
+  const previewWrapper = document.getElementById('hero-preview-frame');
+  const macbookFrame = previewWrapper ? previewWrapper.querySelector('.macbook-frame') : null;
+
+  if (macbookFrame) {
+    previewWrapper.addEventListener('mousemove', (e) => {
+      const rect = previewWrapper.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width / 2);   // -1 to 1
+      const dy = (e.clientY - cy) / (rect.height / 2);  // -1 to 1
+      const maxTilt = 8; // degrees
+      const rotX = (-dy * maxTilt).toFixed(2);
+      const rotY = (dx * maxTilt).toFixed(2);
+      macbookFrame.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+      macbookFrame.classList.add('tilt-active');
+    });
+
+    previewWrapper.addEventListener('mouseleave', () => {
+      macbookFrame.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
+  }
+
+  // --- 8. Magnetic Pulse on CTA Buttons ---
+  document.querySelectorAll('.btn-primary').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.12}px, ${y * 0.18}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = 'translate(0,0)';
+    });
+  });
+
+  // --- 9. Simple Reveal Animations on Scroll (legacy sections fallback) ---
+  const legacySections = document.querySelectorAll('section');
+  const revealOnScroll = () => {
+    const triggerBottom = window.innerHeight * 0.88;
+    legacySections.forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+      if (sectionTop < triggerBottom) section.classList.add('revealed');
+    });
+  };
+  window.addEventListener('scroll', revealOnScroll, { passive: true });
+  revealOnScroll();
+
 });
-
-

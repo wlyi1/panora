@@ -30,6 +30,9 @@
 </head>
 <body class="theme-nest">
 
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-bar" id="scroll-progress"></div>
+
   <!-- Floating Toast Notification -->
   <div id="download-toast" class="toast-notification hidden" role="alert" aria-live="assertive">
     <div class="toast-content">
@@ -77,21 +80,23 @@
 
   <!-- Hero Section -->
   <section class="hero-section" id="hero">
+    <!-- Animated Particles Canvas -->
+    <canvas class="particles-canvas" id="particles-canvas"></canvas>
     <!-- Dynamic Decorative Elements -->
     <div class="hero-bg-accent glow-nest"></div>
     <div class="hero-bg-accent glow-mello"></div>
     <div class="decorative-sparkle sparkle-1">✦</div>
     <div class="decorative-sparkle sparkle-2">✦</div>
-    <div class="decorative-doodle doodle-wave"></div>
+    <div class="decorative-sparkle sparkle-3">✦</div>
     
     <div class="container hero-container">
-      <div class="hero-content">
+      <div class="hero-content reveal-left">
         <div class="hero-tagline" id="hero-tagline">
           <span class="tag-icon">✨</span> <span id="tagline-text">Local-First Workspace</span>
         </div>
         
         <h1 class="hero-title" id="hero-main-title">
-          Your local workspace,<br><span class="text-gradient">organized in spaces.</span>
+          Your local workspace,<br><span class="text-gradient" id="typed-text">organized in spaces.</span>
         </h1>
         
         <p class="hero-desc" id="hero-main-desc">
@@ -120,7 +125,7 @@
       </div>
 
       <!-- App Preview Frame -->
-      <div class="hero-preview-wrapper" id="hero-preview-frame">
+      <div class="hero-preview-wrapper reveal-right" id="hero-preview-frame">
         <div class="macbook-frame">
           <div class="frame-header">
             <div class="window-controls">
@@ -141,11 +146,38 @@
     </div>
   </section>
 
+  <!-- Stats Ticker Strip -->
+  <div class="stats-ticker-strip">
+    <div class="container">
+      <div class="stats-row">
+        <div class="stat-item">
+          <span class="stat-number" data-count="20">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">File Formats Supported</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" data-count="6">0</span><span class="stat-suffix"></span>
+          <span class="stat-label">Built-In Apps</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" data-count="100">0</span><span class="stat-suffix">%</span>
+          <span class="stat-label">Offline & Local</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" data-count="0">0</span><span class="stat-suffix"></span>
+          <span class="stat-label">Cloud Subscriptions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Core Explorer Section -->
   <section class="core-explorer-section" id="explorer">
     <div class="container">
       <div class="explorer-grid">
-        <div class="explorer-content">
+        <div class="explorer-content reveal-left">
           <span class="section-tag">Core File Browser</span>
           <h2 class="section-title">View and edit files, <br><span class="text-gradient">no external apps needed.</span></h2>
           <p class="section-desc">
@@ -199,7 +231,7 @@
           </div>
         </div>
         
-        <div class="explorer-visual">
+        <div class="explorer-visual reveal-right">
           <!-- Mock File Explorer Frame -->
           <div class="explorer-mockup-window">
             <div class="mockup-sidebar">
@@ -251,7 +283,7 @@
   <!-- Spaces Tour Section -->
   <section class="spaces-section" id="spaces">
     <div class="container">
-      <div class="section-header text-center">
+      <div class="section-header text-center reveal-fade">
         <span class="section-tag">Visual Organization</span>
         <h2 class="section-title" id="spaces-title">Focus on your context with Spaces</h2>
         <p class="section-desc">
@@ -416,7 +448,7 @@
   <!-- Bento Grid Features Section -->
   <section class="features-section" id="features">
     <div class="container">
-      <div class="section-header text-center">
+      <div class="section-header text-center reveal-fade">
         <span class="section-tag">App Launcher</span>
         <h2 class="section-title">An entire suite in a single package</h2>
         <p class="section-desc">
@@ -424,7 +456,7 @@
         </p>
       </div>
 
-      <div class="bento-grid">
+      <div class="bento-grid stagger-children">
         <!-- Bento Card 1: Kanban -->
         <div class="bento-card col-span-2 row-span-2 kanban-highlight">
           <div class="card-badge">Kanban & Planning</div>
@@ -521,7 +553,7 @@
       <div class="local-grid">
         <div class="local-content">
           <span class="section-tag highlight-tag">Privacy Promise</span>
-          <h2 class="section-title">Your files. Your computer.<br>Absolute ownership.</h2>
+          <h2 class="section-title reveal-left">Your files. Your computer.<br>Absolute ownership.</h2>
           <p class="section-desc">
             Many productivity tools lock your files in their databases and force monthly subscriptions. Panora takes a different stand. Everything you create resides securely on your local disk.
           </p>
@@ -559,7 +591,7 @@
           </div>
         </div>
 
-        <div class="local-visual-display">
+        <div class="local-visual-display reveal-right">
           <div class="local-map-container">
             <div class="device-node main-device">
               <div class="device-icon">💻</div>
@@ -585,7 +617,7 @@
   <!-- FAQ Section -->
   <section class="faq-section" id="faq">
     <div class="container">
-      <div class="section-header text-center">
+      <div class="section-header text-center reveal-fade">
         <span class="section-tag">FAQ</span>
         <h2 class="section-title">Got questions? We've got answers.</h2>
       </div>

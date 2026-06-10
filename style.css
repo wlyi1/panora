@@ -234,7 +234,8 @@ body.theme-mello .btn-primary {
   background-color: rgba(250, 248, 245, 0.85);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
-  transition: background-color var(--transition-slow), border-color var(--transition-slow);
+  transition: background-color var(--transition-slow), border-color var(--transition-slow),
+              transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--transition-normal);
 }
 
 body.theme-mello .navbar-header {
@@ -2019,6 +2020,396 @@ body.theme-mello .slider-btn {
 body.theme-mello .slider-btn.active {
   background-color: #FF85A2;
 }
+
+/* ==========================================================================
+   INTERACTIVE ENHANCEMENTS — v2.0
+   Scroll progress • Reveal animations • Stats ticker • Particle canvas
+   Parallax tilt • Gradient border frame • Colored card glows • Magnetic btns
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Scroll Progress Bar
+   -------------------------------------------------------------------------- */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  z-index: 9999;
+  transition: width 0.1s linear;
+  border-radius: 0 var(--radius-full) var(--radius-full) 0;
+}
+
+body.theme-mello .scroll-progress-bar {
+  background: linear-gradient(90deg, #FFA8BA, #8FD3FF);
+}
+
+/* --------------------------------------------------------------------------
+   Particles Canvas
+   -------------------------------------------------------------------------- */
+.particles-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.hero-section {
+  position: relative;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Extra sparkle */
+.sparkle-3 {
+  top: 60%;
+  left: 60%;
+  font-size: 16px;
+  animation: float 7s ease-in-out infinite 2s;
+}
+
+/* --------------------------------------------------------------------------
+   Scroll Reveal Animations
+   -------------------------------------------------------------------------- */
+.reveal-up,
+.reveal-left,
+.reveal-right,
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-up    { transform: translateY(40px); }
+.reveal-left  { transform: translateX(-40px); }
+.reveal-right { transform: translateX(40px); }
+.reveal-fade  { transform: scale(0.97); }
+
+.reveal-up.in-view,
+.reveal-left.in-view,
+.reveal-right.in-view,
+.reveal-fade.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* Staggered children */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.stagger-children.in-view > *:nth-child(1) { opacity:1; transform:none; transition-delay: 0.0s; }
+.stagger-children.in-view > *:nth-child(2) { opacity:1; transform:none; transition-delay: 0.1s; }
+.stagger-children.in-view > *:nth-child(3) { opacity:1; transform:none; transition-delay: 0.2s; }
+.stagger-children.in-view > *:nth-child(4) { opacity:1; transform:none; transition-delay: 0.3s; }
+.stagger-children.in-view > *:nth-child(5) { opacity:1; transform:none; transition-delay: 0.4s; }
+.stagger-children.in-view > *:nth-child(6) { opacity:1; transform:none; transition-delay: 0.5s; }
+
+/* --------------------------------------------------------------------------
+   Stats Ticker Strip
+   -------------------------------------------------------------------------- */
+.stats-ticker-strip {
+  padding: 32px 0;
+  background-color: var(--card-bg);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color var(--transition-slow), border-color var(--transition-slow);
+}
+
+body.theme-mello .stats-ticker-strip {
+  background: linear-gradient(90deg, rgba(255,168,186,0.08) 0%, rgba(143,211,255,0.08) 100%);
+}
+
+.stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 120px;
+  text-align: center;
+}
+
+.stat-number {
+  font-family: 'Outfit', sans-serif;
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--primary-color);
+  line-height: 1;
+  transition: color var(--transition-slow);
+}
+
+.stat-suffix {
+  font-family: 'Outfit', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent-color);
+  display: inline;
+  margin-left: 2px;
+}
+
+.stat-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 48px;
+  background-color: var(--border-color);
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .stat-divider { display: none; }
+  .stats-row { justify-content: center; }
+}
+
+/* --------------------------------------------------------------------------
+   Parallax Tilt on App Preview Frame
+   -------------------------------------------------------------------------- */
+.macbook-frame {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform;
+  transition: box-shadow var(--transition-normal);
+}
+
+.macbook-frame.tilt-active {
+  transition: transform 0.08s ease-out;
+}
+
+.macbook-frame:hover {
+  box-shadow: 0 40px 80px rgba(44, 38, 32, 0.12), 0 20px 40px rgba(44, 38, 32, 0.06);
+}
+
+/* --------------------------------------------------------------------------
+   Animated Gradient Border on App Preview Frame (Hero)
+   -------------------------------------------------------------------------- */
+.hero-preview-wrapper {
+  position: relative;
+}
+
+.hero-preview-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--accent-color),
+    var(--success-color),
+    var(--primary-color)
+  );
+  background-size: 300% 300%;
+  animation: gradientBorder 4s ease infinite;
+  z-index: -1;
+  opacity: 0.6;
+  filter: blur(2px);
+}
+
+body.theme-mello .hero-preview-wrapper::before {
+  background: linear-gradient(
+    135deg,
+    #FFA8BA,
+    #8FD3FF,
+    #C1B4FF,
+    #FFA8BA
+  );
+  background-size: 300% 300%;
+  animation: gradientBorder 4s ease infinite;
+  opacity: 0.5;
+}
+
+@keyframes gradientBorder {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* --------------------------------------------------------------------------
+   Colored Bento Card Hover Glows
+   -------------------------------------------------------------------------- */
+.bento-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.bento-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  pointer-events: none;
+}
+
+.bento-card:hover::after {
+  opacity: 1;
+}
+
+.kanban-highlight::after {
+  background: radial-gradient(ellipse at top left, rgba(85, 122, 149, 0.06), transparent 60%);
+}
+.diary-highlight::after {
+  background: radial-gradient(ellipse at top left, rgba(215, 160, 90, 0.07), transparent 60%);
+}
+.video-highlight::after {
+  background: radial-gradient(ellipse at top left, rgba(239, 68, 68, 0.05), transparent 60%);
+}
+.goal-highlight::after {
+  background: radial-gradient(ellipse at top left, rgba(96, 128, 102, 0.07), transparent 60%);
+}
+.pdf-highlight::after {
+  background: radial-gradient(ellipse at top left, rgba(125, 99, 70, 0.06), transparent 60%);
+}
+.image-highlight::after {
+  background: radial-gradient(ellipse at top left, rgba(143, 211, 255, 0.06), transparent 60%);
+}
+
+/* Stronger lift on bento hover */
+.bento-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 24px 48px rgba(44, 38, 32, 0.08), 0 6px 16px rgba(44, 38, 32, 0.04);
+}
+
+/* --------------------------------------------------------------------------
+   Magnetic Button Effect (via JS, style side)
+   -------------------------------------------------------------------------- */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s ease, height 0.5s ease;
+}
+
+.btn-primary:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* --------------------------------------------------------------------------
+   Active Nav Link Indicator
+   -------------------------------------------------------------------------- */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Section Entry Animations (via IntersectionObserver in JS)
+   -------------------------------------------------------------------------- */
+.section-header {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.section-header.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Smooth Hover Lift on Space Tabs
+   -------------------------------------------------------------------------- */
+.space-tab {
+  position: relative;
+  overflow: hidden;
+}
+
+.space-tab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--primary-color);
+  opacity: 0;
+  border-radius: inherit;
+  transition: opacity var(--transition-fast);
+}
+
+.space-tab.active::before {
+  opacity: 0.04;
+}
+
+/* --------------------------------------------------------------------------
+   Navbar scroll-shadow enhancement
+   -------------------------------------------------------------------------- */
+.navbar-header.scrolled {
+  box-shadow: 0 4px 20px rgba(44, 38, 32, 0.06);
+}
+
+body.theme-mello .navbar-header.scrolled {
+  box-shadow: 0 4px 20px rgba(255, 168, 186, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   FAQ hover glow row
+   -------------------------------------------------------------------------- */
+.faq-item {
+  transition: background-color var(--transition-fast), border-radius var(--transition-fast);
+  border-radius: var(--radius-sm);
+}
+
+.faq-item:hover {
+  background-color: var(--bg-secondary);
+}
+
+.faq-question {
+  padding: 20px 12px;
+}
+
 
 
 
