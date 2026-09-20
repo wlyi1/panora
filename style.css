@@ -1875,6 +1875,18 @@ body.theme-mello .sticker-2 {
   color: var(--text-secondary);
 }
 
+.faq-email-link {
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity var(--transition-fast);
+}
+
+.faq-email-link:hover {
+  opacity: 0.8;
+}
+
 /* --------------------------------------------------------------------------
    10. CTA Download Section
    -------------------------------------------------------------------------- */
