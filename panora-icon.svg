@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+  <defs>
+    <linearGradient id="panora-gradient" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C78F2"/>
+      <stop offset="1" stop-color="#5B57D9"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="20" height="20" rx="6" fill="url(#panora-gradient)"/>
+  <path d="M7.25 17.5V6.5H12.7C15.55 6.5 17.4 8.14 17.4 10.66C17.4 13.18 15.55 14.82 12.7 14.82H10.25V17.5H7.25ZM10.25 12.25H12.43C13.65 12.25 14.36 11.67 14.36 10.66C14.36 9.65 13.65 9.07 12.43 9.07H10.25V12.25Z" fill="white"/>
+  <circle cx="18.45" cy="5.55" r="1.15" fill="#C8C6FF"/>
+</svg>

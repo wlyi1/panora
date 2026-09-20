@@ -34,7 +34,9 @@ The app is designed around one main idea: keep local work in one place. A user c
 - Open file with the system default app.
 - Reveal/open paths in the OS file explorer.
 - File icons and type-aware visual badges.
-- Customizable folder art and file extension icons (Fur plush and Hand Draw / Luna packs, plus custom image upload).
+- Customized look of the File Explorer.
+- Customizable folder art and file extension icons (with built-in packs like Fur plush and Hand Draw / Luna, plus custom image upload support).
+- Custom icons for file extensions and app launcher desktop entries.
 - Add files directly into Kanban boards from the file context menu.
 - Create a new Kanban board from a selected file.
 
@@ -103,13 +105,7 @@ The app is designed around one main idea: keep local work in one place. A user c
 - Open local videos.
 - YouTube embed/video support.
 - Byte-range style local playback support through Electron file APIs.
-- Video Clipper app.
-- Select clip start/end.
-- Preview video clips.
-- Export completed clip.
-- Open output folder.
 - FFmpeg-backed processing.
-- TikTok/Reels style clip workflow.
 
 ## YouTube Studio
 
@@ -126,9 +122,16 @@ The app is designed around one main idea: keep local work in one place. A user c
 - Dedicated Kanban Board app.
 - Multiple Kanban boards/projects.
 - Create new Kanban boards.
+- Import Kanban cards from CSV.
+- CSV import preview before adding cards.
+- CSV import defaults to replacing the current board as a fresh template.
+- CSV import can append to the existing board when selected.
+- CSV import can map common fields such as title/task/name, column/status, description/notes, priority, due date, tags, checklist, subtasks, file paths, and URLs.
+- CSV import creates missing target columns automatically.
 - Delete boards.
 - Rename boards.
 - Board sidebar for switching projects.
+- Fullscreen board view.
 - Default columns such as To-Do, On Progress, and Done.
 - Custom columns.
 - Add columns.
@@ -141,7 +144,7 @@ The app is designed around one main idea: keep local work in one place. A user c
 - Click a card to open a detail modal.
 - Card title editing.
 - Card description editing.
-- Card priority.
+- Optional card priority.
 - Priority colors for Low, Medium, and High.
 - Card tags.
 - Checklist items.
@@ -149,6 +152,9 @@ The app is designed around one main idea: keep local work in one place. A user c
 - Checklist and subtask status rendering on cards.
 - Add/remove checklist items in modal.
 - Add/remove subtasks in modal.
+- Start date and due date fields.
+- Minimal card timeline/progress bar when both start date and due date exist.
+- Timeline bar represents elapsed time and shows remaining days.
 - Attach multiple local files to a card.
 - Attach multiple URL links to a card.
 - File attachment rows show file type icon and filename.
@@ -160,6 +166,95 @@ The app is designed around one main idea: keep local work in one place. A user c
 - Date logic works across all columns, not only Done.
 - Card file/link data stores paths and URLs, not file blobs.
 - File context menu can add a file directly into an existing or new Kanban board.
+
+## Notes
+
+- Dedicated Notes app.
+- BlockNote-powered block editor.
+- Light themed writing surface.
+- Multiple local notes.
+- Card-based notes library instead of a plain sidebar.
+- Filing-cabinet style folder sidebar for note categories.
+- Create note folders.
+- Rename note folders.
+- Delete note folders and move their notes into another folder.
+- Filter notes by folder.
+- Move a note between folders from the editor.
+- Each note card shows title, description/preview, and last updated date.
+- Note cards have a pinned paper visual style.
+- Note card preview text is clamped for consistent card sizing.
+- Create new notes.
+- New notes open directly into the BlockNote editor.
+- Click a note card to open the BlockNote editor.
+- Rename notes from the title field.
+- Delete notes.
+- Search notes from the library view.
+- Search uses note title, folder, description metadata, and saved preview for scalable library scanning.
+- Filter notes by the card date from the library view.
+- Insert local images into the BlockNote document through the Electron file picker.
+- Insert local videos into the BlockNote document through the Electron file picker.
+- Insert local files/documents into the BlockNote document through the Electron file picker.
+- Local note media stores file paths through `local-media://`, not blobs or base64.
+- Supports rich block-based writing such as paragraphs, headings, lists, and checklist-style notes through BlockNote.
+- Slash-command editing from BlockNote.
+- Quiet autosave while typing.
+- Persists the notes library locally.
+- Saves note folders and note card metadata in a compact notes index.
+- Saves full BlockNote document content separately per note in file-backed Electron storage, so editing one note does not rewrite every note body.
+- Loads full note content only when the user opens that note.
+- Automatically migrates older notes that stored content inside the main notes object.
+- Uses a React mount inside the existing Electron/Vite workspace, similar to Excalidraw.
+
+## Folder Forge
+
+- Dedicated Folder Forge app.
+- Converts a plain-text outline into a folder structure.
+- Supports headings, bullet lists, indentation, numbered lines, and direct paths such as `src/components`.
+- Uses 2 spaces per folder level, with Tab and Shift+Tab shortcuts for indent/outdent.
+- Sanitizes invalid folder name characters before creation.
+- Live preview as a nested tree.
+- Alternate flat list preview.
+- Example templates for data learning and web projects.
+- Clear action for starting a fresh structure.
+- Indent and outdent actions for selected lines.
+- Pick a destination folder through the Electron directory picker.
+- Copy the generated folder list.
+- Create all folders on disk.
+- Skips folders that already exist.
+- Reports created, skipped, and failed folders.
+- Stores the current draft locally.
+- Stores the last destination folder locally.
+
+## Canvaya
+
+- Dedicated Canvaya app.
+- Opens to a board library/gate instead of directly entering the canvas.
+- Create multiple Canvaya boards.
+- Board library shows compact glass board cards with title plus edit/delete actions.
+- Board library supports list and grid views.
+- Open a board by clicking its library card.
+- Rename boards from the library card actions.
+- Delete boards from the library card actions.
+- Return to the board library from the canvas toolbar.
+- React Flow-powered freeform whiteboard canvas.
+- Add connected visual nodes on an infinite canvas.
+- Supports note cards, checklist cards, image cards, link cards, table cards, file cards, board/group frames, text labels, and diagram shapes.
+- Drag, pan, zoom, and connect elements.
+- Canvas context menu for quick element creation.
+- Top toolbar for adding cards and changing board modes.
+- Color picker controls for node and edge styling.
+- Font theme picker for board typography.
+- Checklist cards include item progress behavior.
+- Image and file nodes support local attachment-style workflows from the imported Canvaya app.
+- Link nodes support bookmark-style notes.
+- Table nodes support editable grid-style content.
+- Shape nodes support multiple diagram shapes.
+- Board data persists through Electron IPC using split JSON storage.
+- Canvaya storage uses a small `milla/index.json` board index plus one JSON file per board under `milla/boards/`.
+- Multi-board library uses the split board storage so each board remains separate.
+- Existing old localStorage board data is migrated into the file-backed default board when possible.
+- Mounted as an isolated React app inside the existing Electron/Vite workspace.
+- Canvaya CSS is scoped under `.milla-app` so its canvas styles do not leak into the rest of Panora.
 
 ## Diary
 
@@ -262,9 +357,24 @@ The app is designed around one main idea: keep local work in one place. A user c
 - React-based Excalidraw mount inside the Electron app.
 - Handles save callbacks and active tab state.
 
+## Note Deck
+
+- Dedicated Note Deck app.
+- Opens to a board library for managing multiple note boards.
+- Create separate boards for work, home, travel, planning, and other contexts.
+- Board library supports search, open, rename, duplicate, and delete actions.
+- Each board opens as a freeform note deck with note, checklist, bookmark, file, photo, flashcard, countdown, budget, Eisenhower, time block, and date block cards.
+- New users start with an empty library and empty boards instead of default sample notes.
+- Note Deck stores board metadata separately from board content for large-board scalability.
+- Note Deck uses Electron file-backed split storage under `note-deck/index.json` plus one board JSON file per board.
+
 ## Gallery View
 
 - Open folders as visual gallery views.
+- Grid, list, and nested tree folder views.
+- Tree view expands subfolders inline.
+- Tree view has a user-selectable depth limit, defaulting to 4 levels.
+- Grid and list view preference is remembered; tree view is manual-only and is not saved as the default.
 - Navigate into folders from gallery.
 - Go back to previous folder.
 - Open image/media files from gallery.
@@ -293,7 +403,11 @@ The app is designed around one main idea: keep local work in one place. A user c
 - Normal files save to disk.
 - Kanban data persists through Electron IPC.
 - Diary library, book index, and spreads persist through Electron IPC.
+- Notes persist locally with a split file-backed index plus per-note content storage, with localStorage fallback.
+- Canvaya persists locally with a split file-backed index plus per-board JSON storage, with localStorage fallback.
+- Note Deck persists locally with a split file-backed index plus per-board JSON storage, with localStorage fallback.
 - Goal Tracker library currently persists in browser local storage for tracker metadata and card data.
+- Folder Forge draft and last destination persist in browser local storage.
 - Goal Tracker map image path is stored as a path reference instead of base64 for new uploads.
 - Diary image elements store file paths.
 - Kanban attachments store file paths and URLs, not blobs.
@@ -309,14 +423,19 @@ The app is designed around one main idea: keep local work in one place. A user c
 - Cards used for repeated items, modals, and contained tools.
 - Diary has a warm book/library visual style.
 - Kanban has a professional clean board style.
+- Folder Forge has a light two-panel planning and preview style.
+- Canvaya has a flexible canvas/whiteboard style.
 - Goal Tracker has a visual map/milestone style.
 - Toolbar-heavy apps prioritize practical controls over marketing screens.
 
 ## Current App Launcher Items
 
 - YouTube Studio.
-- Video Clipper.
 - Kanban Board.
+- Notes.
+- Note Deck.
+- Folder Forge.
+- Canvaya.
 - Goal Tracker.
 - Diary.
 - Excalidraw.
@@ -332,6 +451,8 @@ The app is designed around one main idea: keep local work in one place. A user c
 - This is an Electron app, so selected local file paths can be safely handled through the app-controlled Electron bridge.
 - A normal browser website cannot reliably store and reuse arbitrary local file paths, but this desktop app can use `electronAPI` and `local-media://` to display selected files.
 - For large future features, prefer path references or per-document storage instead of embedding large blobs in one large object.
-- For large collections, prefer split storage by entity: per diary book, per diary spread, per Kanban board, or per goal tracker.
+- For large collections, prefer split storage by entity: per diary book, per diary spread, per Kanban board, per Canvaya board, or per goal tracker.
 - Avoid saving huge base64 images in local storage.
 - For new image-heavy features, follow the Diary/Goal Tracker path-based approach.
+- Folder Forge creates folders through Electron IPC and validates that generated paths stay inside the selected destination folder.
+- Canvaya is integrated from `milla-electron-dist`, with the original localStorage persistence replaced by Electron file-backed JSON storage.

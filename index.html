@@ -20,6 +20,9 @@
   <meta property="twitter:image" content="panora.png">
 
   <title>Panora — Your Local Multi-Tool Workspace</title>
+  <link rel="icon" type="image/svg+xml" href="panora-icon.svg">
+  <link rel="shortcut icon" href="panora-icon.ico">
+  <link rel="apple-touch-icon" href="panora-icon.svg">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,14 +51,15 @@
   <header class="navbar-header" id="navbar">
     <div class="container navbar-container">
       <a href="#" class="logo-link" id="logo-brand">
-        <span class="logo-dot"></span>
+        <img src="panora-icon.svg" alt="Panora Icon" class="logo-icon-img" width="28" height="28">
         <span class="logo-text">Panora</span>
       </a>
       
       <nav class="nav-menu" id="nav-menu" aria-label="Main Navigation">
-        <a href="#features" class="nav-link">Features</a>
-        <a href="#spaces" class="nav-link">Spaces</a>
-        <a href="#local-first" class="nav-link">Local-First</a>
+        <a href="#features" class="nav-link">For You</a>
+        <a href="#spaces" class="nav-link">File Browser</a>
+        <a href="#themes" class="nav-link">Themes</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
         <a href="#faq" class="nav-link">FAQ</a>
       </nav>
 
@@ -70,10 +74,11 @@
           <div class="theme-dropdown-options" id="theme-dropdown-options">
             <button class="theme-option active" data-theme="nest" id="theme-btn-nest">NEST</button>
             <button class="theme-option" data-theme="mello" id="theme-btn-mello">MELLO</button>
+            <button class="theme-option" data-theme="clean" id="theme-btn-clean">CLEAN</button>
           </div>
         </div>
 
-        <a href="#download" class="btn btn-secondary nav-cta-btn" id="nav-download-btn">Download</a>
+        <a href="https://panoralab.gumroad.com/l/panora" target="_blank" rel="noopener noreferrer" class="btn btn-secondary nav-cta-btn" id="nav-download-btn">Download</a>
       </div>
     </div>
   </header>
@@ -92,35 +97,50 @@
     <div class="container hero-container">
       <div class="hero-content reveal-left">
         <div class="hero-tagline" id="hero-tagline">
-          <span class="tag-icon">✨</span> <span id="tagline-text">Local-First Workspace</span>
+          <span class="tag-icon">🗂️</span> <span id="tagline-text">Your files are scattered. Your apps are everywhere.</span>
         </div>
         
         <h1 class="hero-title" id="hero-main-title">
-          Your local workspace,<br><span class="text-gradient" id="typed-text">organized in spaces.</span>
+          Your desktop, finally<br><span class="text-gradient" id="typed-text">all together.</span>
         </h1>
         
         <p class="hero-desc" id="hero-main-desc">
-          A multi-tool desktop companion for files, media, documents, and personal planning. Keep your work structured, offline, and beautifully visual.
+          Panora is one local workspace where your files, tasks, notes, and goals actually live side by side — beautifully organized, completely offline, no subscriptions, no tab switching.
         </p>
 
         <div class="hero-cta-wrapper">
           <div class="download-button-group">
-            <button class="btn btn-primary btn-large download-trigger" id="primary-download-btn">
+            <a href="https://panoralab.gumroad.com/l/panora" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large download-trigger" id="primary-download-btn">
               <svg class="download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-              <span id="download-text">Download for Windows</span>
-            </button>
-            <div class="dropdown-trigger-wrapper">
-              <button class="btn btn-primary btn-large btn-dropdown-toggle" id="download-dropdown-toggle" aria-label="Open download options">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </button>
-              <div class="download-dropdown-menu" id="download-dropdown-menu">
-                <button class="dropdown-item download-trigger" data-os="windows">Windows Installer (.exe)</button>
-                <button class="dropdown-item download-trigger" data-os="macos">macOS Apple Silicon / Intel (.dmg)</button>
-                <button class="dropdown-item download-trigger" data-os="linux">Linux Package (.AppImage)</button>
-              </div>
+              <span id="download-text">Get Panora for Windows — $19.99 <s style="opacity:0.65;font-weight:400;margin-left:4px;">$60</s></span>
+            </a>
+          </div>
+          <span class="cta-subtext" id="cta-subtext">✨ One-time payment. Zero monthly subscriptions. Windows 10 &amp; 11.</span>
+        </div>
+
+        <!-- Hero Feature Highlights Grid -->
+        <div class="hero-feature-highlights">
+          <div class="hero-highlight-pill">
+            <span class="highlight-emoji">📂</span>
+            <div class="highlight-text">
+              <strong>Files &amp; Custom Icons</strong>
+              <span>Open, edit, style — 20+ file types</span>
             </div>
           </div>
-          <span class="cta-subtext" id="cta-subtext">Free & open source. No sign-up required.</span>
+          <div class="hero-highlight-pill accent-highlight">
+            <span class="highlight-emoji">🧩</span>
+            <div class="highlight-text">
+              <strong>One workspace. Everything.</strong>
+              <span>Kanban · Goals · Notes · PDF · Media</span>
+            </div>
+          </div>
+          <div class="hero-highlight-pill">
+            <span class="highlight-emoji">🔒</span>
+            <div class="highlight-text">
+              <strong>Yours. Offline. Forever.</strong>
+              <span>No cloud, no fees, no tracking</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -133,45 +153,65 @@
               <span class="control-dot minimize"></span>
               <span class="control-dot expand"></span>
             </div>
-            <div class="frame-title" id="preview-frame-title">Panora - Nest Space</div>
+            <div class="frame-title" id="preview-frame-title">Panora - Nest Folder</div>
           </div>
           <div class="frame-body">
             <!-- Nest Theme Screenshot -->
             <img src="panora.png" alt="Panora Desktop App Dashboard - Nest Theme" class="app-screenshot active" id="screenshot-nest">
             <!-- Mello Theme Screenshot -->
             <img src="panora2.png" alt="Panora Desktop App Dashboard - Mello Theme" class="app-screenshot" id="screenshot-mello">
+            <!-- Clean Theme Screenshot -->
+            <img src="images/clean-theme.png" alt="Panora Desktop App Dashboard - Clean Theme" class="app-screenshot" id="screenshot-clean">
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Stats Ticker Strip -->
-  <div class="stats-ticker-strip">
+  <!-- Soft Hook Intro Statement Section -->
+  <section class="intro-statement-section reveal-fade" id="overview">
     <div class="container">
-      <div class="stats-row">
-        <div class="stat-item">
-          <span class="stat-number" data-count="20">0</span><span class="stat-suffix">+</span>
-          <span class="stat-label">File Formats Supported</span>
+      <div class="intro-statement-card">
+
+        <div class="intro-hook-line">
+          <span class="intro-hook-quote">"My files are in one place, my tasks in another, my notes in a third app…"</span>
+          <span class="intro-hook-label">Sound familiar?</span>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
-          <span class="stat-number" data-count="6">0</span><span class="stat-suffix"></span>
-          <span class="stat-label">Built-In Apps</span>
+
+        <h2 class="intro-heading">
+          Panora puts it all in one place —
+          <span class="text-gradient">right on your desktop.</span>
+        </h2>
+        <p class="intro-lead">
+          No more jumping between a file manager, a cloud task board, a separate PDF tool, and a notes app. Panora is a single local workspace where your files live right next to your Kanban boards, goal trackers, journals, and media tools. Everything is already here. Just organized beautifully.
+        </p>
+        
+        <div class="intro-grid-preview">
+          <div class="intro-grid-item">
+            <div class="intro-icon-box">📁</div>
+            <h4>File &amp; Code Studio</h4>
+            <p>Open, browse, and edit code, Markdown, PDFs, spreadsheets, and images — 20+ file types, zero tab switching.</p>
+          </div>
+          <div class="intro-grid-item featured-item">
+            <div class="intro-icon-box">📋</div>
+            <h4>Kanban Boards</h4>
+            <p>Drag &amp; drop task cards with priorities, local file attachments, due dates, and CSV import — all stored locally.</p>
+          </div>
+          <div class="intro-grid-item">
+            <div class="intro-icon-box">🎯</div>
+            <h4>Visual Goal Tracker</h4>
+            <p>Map milestones, track habits, and visualize progress on interactive goal maps. Offline and private.</p>
+          </div>
+          <div class="intro-grid-item">
+            <div class="intro-icon-box">📓</div>
+            <h4>Block Notes &amp; Diary</h4>
+            <p>Rich block writing with slash commands, local media, filing cabinet folders, and a personal diary journal.</p>
+          </div>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
-          <span class="stat-number" data-count="100">0</span><span class="stat-suffix">%</span>
-          <span class="stat-label">Offline & Local</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
-          <span class="stat-number" data-count="0">0</span><span class="stat-suffix"></span>
-          <span class="stat-label">Cloud Subscriptions</span>
-        </div>
+
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Core Explorer Section -->
   <section class="core-explorer-section" id="explorer">
@@ -211,11 +251,11 @@
               </div>
             </div>
             <div class="category-panel" id="cat-panel-media">
-              <p>Process graphics and video clips without launching heavy editing suites. Crop images, remove backgrounds, or clip video timeline reels.</p>
+              <p>Process graphics and video without launching heavy editing suites. Crop images, remove backgrounds, convert formats, or stream YouTube downloads directly into the app.</p>
               <div class="badges-group">
                 <span class="file-badge badge-edit">PNG / JPG / WebP (Crop)</span>
                 <span class="file-badge badge-view">HEIC (Preview)</span>
-                <span class="file-badge badge-edit">MP4 / YouTube (Clip)</span>
+                <span class="file-badge badge-edit">MP4 / YouTube (Play)</span>
                 <span class="file-badge badge-view">SVG / ICO (Convert)</span>
               </div>
             </div>
@@ -284,19 +324,20 @@
   <section class="spaces-section" id="spaces">
     <div class="container">
       <div class="section-header text-center reveal-fade">
-        <span class="section-tag">Visual Organization</span>
-        <h2 class="section-title" id="spaces-title">Focus on your context with Spaces</h2>
+        <span class="section-tag">Favorite Folders &amp; Quick Access</span>
+        <h2 class="section-title" id="spaces-title">Pin your favorite folders <span class="text-gradient">right to the front.</span></h2>
         <p class="section-desc">
-          Instead of generic folders, organize your life in beautiful, visual environments. Each space contains its own notebooks, files, templates, and utilities.
+          Pick the folders you use every day and pin them to your home screen. Customize each card with custom art, colors, and icon styles — then jump straight into your files, gallery views, and tools with a single click.
         </p>
       </div>
 
       <div class="spaces-interactive-layout">
-        <!-- Interactive Room list representing the files -->
+        <!-- Interactive Folder list representing the pinned folders -->
         <div class="spaces-menu" id="spaces-menu" role="tablist">
           <button class="space-tab active" data-space="study" id="space-tab-study" role="tab" aria-selected="true" aria-controls="space-panel-study">
-            <span class="space-icon icon-nest">📚</span>
-            <span class="space-icon icon-mello hidden">🩵</span>
+            <span class="space-folder-icon folder-study">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+            </span>
             <div class="space-tab-info">
               <span class="space-name">Study</span>
               <span class="space-meta" id="study-meta">10 items</span>
@@ -304,8 +345,9 @@
           </button>
           
           <button class="space-tab" data-space="work" id="space-tab-work" role="tab" aria-selected="false" aria-controls="space-panel-work">
-            <span class="space-icon icon-nest">💼</span>
-            <span class="space-icon icon-mello hidden">🩷</span>
+            <span class="space-folder-icon folder-work">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+            </span>
             <div class="space-tab-info">
               <span class="space-name">Work</span>
               <span class="space-meta" id="work-meta">1 item</span>
@@ -313,8 +355,9 @@
           </button>
           
           <button class="space-tab" data-space="design" id="space-tab-design" role="tab" aria-selected="false" aria-controls="space-panel-design">
-            <span class="space-icon icon-nest">⚡</span>
-            <span class="space-icon icon-mello hidden">💜</span>
+            <span class="space-folder-icon folder-design">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+            </span>
             <div class="space-tab-info">
               <span class="space-name">Design</span>
               <span class="space-meta" id="design-meta">3 items</span>
@@ -322,8 +365,9 @@
           </button>
           
           <button class="space-tab" data-space="personal" id="space-tab-personal" role="tab" aria-selected="false" aria-controls="space-panel-personal">
-            <span class="space-icon icon-nest">🛋️</span>
-            <span class="space-icon icon-mello hidden">💛</span>
+            <span class="space-folder-icon folder-personal">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+            </span>
             <div class="space-tab-info">
               <span class="space-name">Personal</span>
               <span class="space-meta" id="personal-meta">27 files</span>
@@ -331,8 +375,9 @@
           </button>
 
           <button class="space-tab" data-space="media" id="space-tab-media" role="tab" aria-selected="false" aria-controls="space-panel-media">
-            <span class="space-icon icon-nest">🎬</span>
-            <span class="space-icon icon-mello hidden">💚</span>
+            <span class="space-folder-icon folder-media">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+            </span>
             <div class="space-tab-info">
               <span class="space-name">Media</span>
               <span class="space-meta" id="media-meta">1 file</span>
@@ -342,101 +387,352 @@
 
         <!-- Spaces details panels -->
         <div class="spaces-content-display">
+          <!-- 1. Study Panel -->
           <div class="spaces-panel active" id="space-panel-study" role="tabpanel">
             <div class="panel-visual study-color">
-              <div class="floating-sticker sticker-1">✍️ Focus</div>
-              <div class="floating-sticker sticker-2">💡 Study Session</div>
-              <div class="window-mockup">
-                <img src="pdf viewer.png" alt="PDF Studio Document Reader" class="mockup-img">
-              </div>
-            </div>
-            <div class="panel-details">
-              <span class="panel-space-tag">Study Space</span>
-              <h3>Master your learning curve</h3>
-              <p>Keep courses, homework notes, and reference books in one place. Integrate Jupyter notebooks directly for computational homework or research scripts without launching external local kernels.</p>
-              <ul class="panel-feature-list">
-                <li>CodeMirror editor with syntax highlights</li>
-                <li>Excalidraw canvas mapping for brainstorm diagrams</li>
-                <li>Direct PDF split/merge utility for lecture slides</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="spaces-panel" id="space-panel-work" role="tabpanel">
-            <div class="panel-visual work-color">
-              <div class="floating-sticker sticker-1">🚀 Launch</div>
-              <div class="floating-sticker sticker-2">📊 Spreadsheets</div>
-              <div class="room-illustration nest-view">
-                <div class="room-card-mini">
-                  <span class="card-mini-title">Daily Operations</span>
-                  <div class="progress-bar-small"><div class="fill" style="width: 45%"></div></div>
-                  <span class="card-mini-meta">Excel conversions active</span>
+              <div class="folder-preview-card">
+                <div class="folder-card-header">
+                  <div class="folder-card-title-group">
+                    <span class="folder-badge-icon study-badge">📚</span>
+                    <div class="folder-header-text">
+                      <span class="folder-card-name">Study</span>
+                      <span class="folder-card-count">10 items &bull; Pinned Folder</span>
+                    </div>
+                  </div>
+                  <span class="folder-card-dots">&bull;&bull;&bull;</span>
+                </div>
+                <div class="folder-files-list">
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-pdf">PDF</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">syllabus_2026.pdf</span>
+                        <span class="file-meta">1.2 MB &bull; PDF Studio</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">Open</span>
+                  </div>
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-ipynb">IPYNB</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">neural_nets.ipynb</span>
+                        <span class="file-meta">42 KB &bull; Jupyter</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">Run</span>
+                  </div>
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-draw">DRAW</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">concept_map.excalidraw</span>
+                        <span class="file-meta">18 KB &bull; Sketch</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">View</span>
+                  </div>
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-md">MD</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">lecture_notes.md</span>
+                        <span class="file-meta">24 KB &bull; Notes</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">Edit</span>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="panel-details">
-              <span class="panel-space-tag">Work Space</span>
-              <h3>Professional utility in action</h3>
-              <p>Organize corporate worksheets, project checklists, and clients data safely. Easily parse and manage dense records with built-in tabular spreadsheets supporting XLSX, CSV, and Parquet formatting.</p>
+              <span class="panel-space-tag">Study Folder</span>
+              <h3>Lectures, notes &amp; research</h3>
+              <p>Group all your learning materials in one place. Lecture slides, course PDFs, homework files, reference books, and Jupyter notebooks — everything you need for study sessions lives here.</p>
               <ul class="panel-feature-list">
-                <li>CSV Table Editor and direct conversion to Excel worksheets</li>
-                <li>Tabbed workspaces supporting multiple opened client documents</li>
-                <li>OCR features through LiteParse for document extractions</li>
+                <li>PDFs, DOCX, and Markdown files for course notes</li>
+                <li>Jupyter notebooks (.ipynb) for data science homework</li>
+                <li>.excalidraw sketches for brainstorm diagrams</li>
               </ul>
             </div>
           </div>
 
-          <div class="spaces-panel" id="space-panel-design" role="tabpanel">
-            <div class="panel-visual design-color">
-              <div class="floating-sticker sticker-1">🎨 Palette</div>
-              <div class="floating-sticker sticker-2">📐 Excalidraw</div>
-            </div>
-            <div class="panel-details">
-              <span class="panel-space-tag">Design Space</span>
-              <h3>Creative ideas, visual execution</h3>
-              <p>Store design inspirations, client branding assets, color configurations, and sketch boards. Make visual planning interactive using clean canvas tools without leaving the app container.</p>
-              <ul class="panel-feature-list">
-                <li>Integrated Excalidraw diagram tools (.excalidraw format)</li>
-                <li>Image Studio with background removal, cropping, and rotation</li>
-                <li>Fast image converters: convert SVG, BMP, ICO to PNG or WebP</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="spaces-panel" id="space-panel-personal" role="tabpanel">
-            <div class="panel-visual personal-color">
-              <div class="floating-sticker sticker-1">🏡 Diary</div>
-              <div class="floating-sticker sticker-2">📅 Plans</div>
-              <div class="goal-tracker-stack">
-                <img src="goal tracker.png" alt="Goal Tracker Map" class="map-img-stack">
-                <img src="goal tracker 2.png" alt="Milestone Checklist Drawer" class="drawer-img-stack">
+          <!-- 2. Work Panel -->
+          <div class="spaces-panel" id="space-panel-work" role="tabpanel">
+            <div class="panel-visual work-color">
+              <div class="folder-preview-card">
+                <div class="folder-card-header">
+                  <div class="folder-card-title-group">
+                    <span class="folder-badge-icon work-badge">💼</span>
+                    <div class="folder-header-text">
+                      <span class="folder-card-name">Work</span>
+                      <span class="folder-card-count">5 items &bull; Pinned Folder</span>
+                    </div>
+                  </div>
+                  <span class="folder-card-dots">&bull;&bull;&bull;</span>
+                </div>
+                <div class="folder-files-list">
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-xlsx">XLSX</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">q3_revenue.xlsx</span>
+                        <span class="file-meta">2.1 MB &bull; Spreadsheet</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">Open</span>
+                  </div>
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-parquet">PARQUET</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">users_cohort.parquet</span>
+                        <span class="file-meta">480 KB &bull; Data Table</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">View</span>
+                  </div>
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-sql">SQL</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">analytics_query.sql</span>
+                        <span class="file-meta">14 KB &bull; SQL Editor</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">Edit</span>
+                  </div>
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-csv">CSV</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">sprint_goals.csv</span>
+                        <span class="file-meta">8.4 KB &bull; Table</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">Open</span>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="panel-details">
-              <span class="panel-space-tag">Personal Space</span>
-              <h3>Your personal journal & agenda</h3>
-              <p>Express yourself through customized scrapbooks or track life targets on visual goal maps. Store private reflections and checklists completely offline on your desktop.</p>
+              <span class="panel-space-tag">Work Folder</span>
+              <h3>Spreadsheets, scripts &amp; client files</h3>
+              <p>Keep your professional files separated from everything else. Drop in CSV reports, Excel worksheets, SQL scripts, Parquet datasets, and client documents — all neatly categorized under one work context.</p>
               <ul class="panel-feature-list">
-                <li>Cozy Diary book shelf layout with custom spread styles</li>
-                <li>Goal tracking milestone map with interactive preview drawers</li>
-                <li>Subtasks and checklist prioritization in a clean interface</li>
+                <li>CSV, TSV, XLSX, and Parquet data files</li>
+                <li>SQL scripts and JSON config files</li>
+                <li>Client DOCX reports and project briefs</li>
               </ul>
             </div>
           </div>
 
-          <div class="spaces-panel" id="space-panel-media" role="tabpanel">
-            <div class="panel-visual media-color">
-              <div class="floating-sticker sticker-1">✂️ Clip</div>
-              <div class="floating-sticker sticker-2">📹 YouTube</div>
+          <!-- 3. Design Panel -->
+          <div class="spaces-panel" id="space-panel-design" role="tabpanel">
+            <div class="panel-visual design-color">
+              <div class="folder-preview-card">
+                <div class="folder-card-header">
+                  <div class="folder-card-title-group">
+                    <span class="folder-badge-icon design-badge">⚡</span>
+                    <div class="folder-header-text">
+                      <span class="folder-card-name">Design</span>
+                      <span class="folder-card-count">3 items &bull; Pinned Folder</span>
+                    </div>
+                  </div>
+                  <span class="folder-card-dots">&bull;&bull;&bull;</span>
+                </div>
+                <div class="folder-files-list">
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-png">PNG</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">hero_mockup.png</span>
+                        <span class="file-meta">4.8 MB &bull; Image Studio</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">Crop</span>
+                  </div>
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-draw">DRAW</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">logo_drafts.excalidraw</span>
+                        <span class="file-meta">32 KB &bull; Whiteboard</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">Sketch</span>
+                  </div>
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-svg">SVG</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">icons_pack.svg</span>
+                        <span class="file-meta">118 KB &bull; Vector</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">View</span>
+                  </div>
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-webp">WEBP</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">render_preview.webp</span>
+                        <span class="file-meta">890 KB &bull; Converted</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">Open</span>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="panel-details">
-              <span class="panel-space-tag">Media Space</span>
-              <h3>Media production & downloads</h3>
-              <p>Process, download, and trim local and online media links in seconds. Designed with fast background tasks to process media files seamlessly.</p>
+              <span class="panel-space-tag">Design Folder</span>
+              <h3>Assets, sketches &amp; visuals</h3>
+              <p>Collect your creative files in one visual folder. Branding images, color references, icon sets, wireframe sketches, and canvas files — everything design-related stays organized here.</p>
               <ul class="panel-feature-list">
-                <li>YouTube downloader with quality presets</li>
-                <li>Video Clipper tool backing TikTok/Reels crop coordinates</li>
-                <li>FFmpeg integration for local high-fidelity video rendering</li>
+                <li>PNG, JPG, WebP, SVG, and ICO image assets</li>
+                <li>.excalidraw wireframes and diagram sketches</li>
+                <li>HEIC photos and BMP source files</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 4. Personal Panel -->
+          <div class="spaces-panel" id="space-panel-personal" role="tabpanel">
+            <div class="panel-visual personal-color">
+              <div class="folder-preview-card">
+                <div class="folder-card-header">
+                  <div class="folder-card-title-group">
+                    <span class="folder-badge-icon personal-badge">🛋️</span>
+                    <div class="folder-header-text">
+                      <span class="folder-card-name">Personal</span>
+                      <span class="folder-card-count">27 files &bull; Pinned Folder</span>
+                    </div>
+                  </div>
+                  <span class="folder-card-dots">&bull;&bull;&bull;</span>
+                </div>
+                <div class="folder-files-list">
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-md">MD</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">diary_2026.md</span>
+                        <span class="file-meta">85 KB &bull; Diary Journal</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">Read</span>
+                  </div>
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-jpg">JPG</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">kyoto_trip.jpg</span>
+                        <span class="file-meta">3.2 MB &bull; Gallery</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">View</span>
+                  </div>
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-md">MD</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">wishlist_2026.md</span>
+                        <span class="file-meta">8 KB &bull; Notes</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">Edit</span>
+                  </div>
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-xlsx">XLSX</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">monthly_budget.xlsx</span>
+                        <span class="file-meta">45 KB &bull; Sheet</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">Open</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-details">
+              <span class="panel-space-tag">Personal Folder</span>
+              <h3>Photos, journals &amp; private files</h3>
+              <p>A private space for the files that are just yours. Family photos, personal documents, journal entries, saved bookmarks, and anything you want to keep separate from work or study.</p>
+              <ul class="panel-feature-list">
+                <li>Personal photos, scanned documents, and receipts</li>
+                <li>Private text files, markdown journals, and saved notes</li>
+                <li>Goal plans, wish lists, and life checklists</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 5. Media Panel -->
+          <div class="spaces-panel" id="space-panel-media" role="tabpanel">
+            <div class="panel-visual media-color">
+              <div class="folder-preview-card">
+                <div class="folder-card-header">
+                  <div class="folder-card-title-group">
+                    <span class="folder-badge-icon media-badge">🎬</span>
+                    <div class="folder-header-text">
+                      <span class="folder-card-name">Media</span>
+                      <span class="folder-card-count">1 file &bull; Pinned Folder</span>
+                    </div>
+                  </div>
+                  <span class="folder-card-dots">&bull;&bull;&bull;</span>
+                </div>
+                <div class="folder-files-list">
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-mp4">MP4</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">tutorial_record.mp4</span>
+                        <span class="file-meta">180 MB &bull; Video Clipper</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">Play</span>
+                  </div>
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-mp3">MP3</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">voice_memo_01.mp3</span>
+                        <span class="file-meta">4.2 MB &bull; Audio</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">Play</span>
+                  </div>
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-webm">WEBM</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">screen_capture.webm</span>
+                        <span class="file-meta">28 MB &bull; Video</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">View</span>
+                  </div>
+                  <div class="folder-file-row">
+                    <div class="file-info-group">
+                      <span class="file-ext-icon icon-heic">HEIC</span>
+                      <div class="file-name-wrap">
+                        <span class="file-title">camera_shot.heic</span>
+                        <span class="file-meta">12 MB &bull; Image Studio</span>
+                      </div>
+                    </div>
+                    <span class="file-action-badge">Convert</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-details">
+              <span class="panel-space-tag">Media Folder</span>
+              <h3>Videos, music &amp; downloads</h3>
+              <p>Keep all your media files organized — local video recordings, downloaded clips, music tracks, and screen captures. Everything media-heavy goes here so it doesn't clutter your other folders.</p>
+              <ul class="panel-feature-list">
+                <li>MP4, AVI, and MKV video files</li>
+                <li>YouTube downloads and saved clips</li>
+                <li>Audio files and screen recordings</li>
               </ul>
             </div>
           </div>
@@ -445,170 +741,556 @@
     </div>
   </section>
 
-  <!-- Bento Grid Features Section -->
-  <section class="features-section" id="features">
+  <!-- ════════════════════════════════════════════════
+       THEME CUSTOMIZATION SECTION — "Make It Yours"
+       ════════════════════════════════════════════════ -->
+  <section class="theme-showcase-section" id="themes">
     <div class="container">
       <div class="section-header text-center reveal-fade">
-        <span class="section-tag">App Launcher</span>
-        <h2 class="section-title">An entire suite in a single package</h2>
+        <span class="section-tag">Full Customization</span>
+        <h2 class="section-title">Make it <span class="text-gradient">yours.</span></h2>
         <p class="section-desc">
-          Say goodbye to multiple SaaS subscriptions. Panora wraps core desktop productivity utilities in a single, lightning-fast application.
+          Switch between stunning visual themes and icon styles — instantly. Every pixel of Panora can match your personality.
         </p>
       </div>
 
-      <div class="bento-grid stagger-children">
-        <!-- Bento Card 1: Kanban -->
-        <div class="bento-card col-span-2 row-span-2 kanban-highlight">
-          <div class="card-badge">Kanban & Planning</div>
-          <div class="card-content">
-            <h3>Visual Kanban Boards</h3>
-            <p>Keep folders organized and projects on track. Create custom columns, select accent colors, check items, establish low/medium/high priorities, and attach local file paths directly to individual cards.</p>
-            <div class="bento-visual mock-kanban">
-              <div class="kanban-col">
-                <span class="col-title">To-Do</span>
-                <div class="kanban-item priority-high">Write landing page text</div>
-                <div class="kanban-item priority-medium">Record video tutorial</div>
-              </div>
-              <div class="kanban-col">
-                <span class="col-title">Progress</span>
-                <div class="kanban-item priority-low">Optimize asset assets</div>
-              </div>
+      <!-- ─── Theme Picker ─── -->
+      <div class="ts-tabs-wrapper">
+        <div class="ts-tabs" id="ts-theme-tabs" role="tablist" aria-label="Choose a theme">
+          <button class="ts-tab active" data-theme-preview="clean"  id="ts-btn-clean"  role="tab" aria-selected="true">
+            <span class="ts-tab-dot" style="background:#F8F8F8;border:2px solid #ddd;"></span>
+            <span class="ts-tab-name">Clean</span>
+          </button>
+          <button class="ts-tab" data-theme-preview="flow"   id="ts-btn-flow"   role="tab" aria-selected="false">
+            <span class="ts-tab-dot" style="background:linear-gradient(135deg,#b8d4f8,#f8d4e4);"></span>
+            <span class="ts-tab-name">Flow</span>
+          </button>
+          <button class="ts-tab" data-theme-preview="graphite" id="ts-btn-graphite" role="tab" aria-selected="false">
+            <span class="ts-tab-dot" style="background:linear-gradient(135deg,#18181b,#3f3f46);border:1px solid #52525b;"></span>
+            <span class="ts-tab-name">Graphite</span>
+          </button>
+          <button class="ts-tab" data-theme-preview="mello"  id="ts-btn-mello"  role="tab" aria-selected="false">
+            <span class="ts-tab-dot" style="background:linear-gradient(135deg,#ffd6e0,#ffe9cc);"></span>
+            <span class="ts-tab-name">Mello</span>
+          </button>
+          <button class="ts-tab" data-theme-preview="nest"   id="ts-btn-nest"   role="tab" aria-selected="false">
+            <span class="ts-tab-dot" style="background:linear-gradient(135deg,#c8b89a,#a5d6a7);"></span>
+            <span class="ts-tab-name">Nest</span>
+          </button>
+          <button class="ts-tab" data-theme-preview="profes" id="ts-btn-profes" role="tab" aria-selected="false">
+            <span class="ts-tab-dot" style="background:linear-gradient(135deg,#1e293b,#475569);border:1px solid #334155;"></span>
+            <span class="ts-tab-name">Profes</span>
+          </button>
+          <button class="ts-tab" data-theme-preview="verve"  id="ts-btn-verve"  role="tab" aria-selected="false">
+            <span class="ts-tab-dot" style="background:linear-gradient(135deg,#c5cae9,#e8d5b7);"></span>
+            <span class="ts-tab-name">Verve</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ─── Main Preview Frame ─── -->
+      <div class="ts-preview-stage reveal-fade">
+        <div class="ts-browser-chrome">
+          <div class="ts-chrome-dots">
+            <span class="ts-dot ts-dot-red"></span>
+            <span class="ts-dot ts-dot-yellow"></span>
+            <span class="ts-dot ts-dot-green"></span>
+          </div>
+          <div class="ts-chrome-title" id="ts-chrome-title">Panora — Clean Theme</div>
+        </div>
+        <div class="ts-preview-viewport" id="ts-preview-viewport">
+          <img src="images/clean-theme.png"  alt="Clean theme preview"    class="ts-preview-img active" id="ts-img-clean"    data-preview="clean">
+          <img src="images/flow-theme.png"   alt="Flow theme preview"     class="ts-preview-img"        id="ts-img-flow"     data-preview="flow">
+          <img src="images/graphite.png"     alt="Graphite theme preview" class="ts-preview-img"        id="ts-img-graphite" data-preview="graphite">
+          <img src="images/mello-theme.png"  alt="Mello theme preview"    class="ts-preview-img"        id="ts-img-mello"    data-preview="mello">
+          <img src="images/nest-theme.png"   alt="Nest theme preview"     class="ts-preview-img"        id="ts-img-nest"     data-preview="nest">
+          <img src="images/profes-theme.png" alt="Profes theme preview"   class="ts-preview-img"        id="ts-img-profes"   data-preview="profes">
+          <img src="images/verve-theme.png"  alt="Verve theme preview"    class="ts-preview-img"        id="ts-img-verve"    data-preview="verve">
+        </div>
+      </div>
+
+      <!-- ─── Folder & File Icon Style Section ─── -->
+      <div class="ts-folder-icon-section">
+        <div class="ts-icon-header">
+          <div class="ts-icon-header-left">
+            <span class="ts-icon-section-tag">Folder &amp; File Customization</span>
+            <h3 class="ts-icon-section-title">Customize folder art &amp; file extension icons.</h3>
+            <p class="ts-icon-section-desc">
+              Personalize your file explorer workspace. Swap folder covers and file extension badges with 10 unique icon packs — from cosy 3D plush velvet textures to playful doodles, neon glow, pastel kawaii, and voxel cubes — or upload your own custom images.
+            </p>
+          </div>
+          <div class="ts-icon-custom-badge">
+            <span class="ts-custom-badge-icon">📂</span>
+            <div>
+              <strong>Extension-aware</strong>
+              <span>Unique icons for .sql, .xlsx, .docx, &amp; more</span>
             </div>
           </div>
         </div>
 
-        <!-- Bento Card 2: Diary -->
-        <div class="bento-card diary-highlight">
-          <div class="card-badge">Creative journaling</div>
-          <div class="card-content">
-            <h3>Personal Diary</h3>
-            <p>Write with handwritten styles on textured paper. Drag text stickers, attach local memory images, and customize polaroids.</p>
-            <div class="diary-notebook-preview">
-              <img src="diary.png" alt="Diary Spread Page Preview" class="diary-page-img">
+        <div class="ts-icon-layout">
+
+          <!-- Left: Big zoomed preview for Folder & File Icons -->
+          <div class="ts-icon-big-preview" id="ts-folder-icon-big-preview">
+            <div class="ts-icon-frame-chrome">
+              <div class="ts-chrome-dots">
+                <span class="ts-dot ts-dot-red"></span>
+                <span class="ts-dot ts-dot-yellow"></span>
+                <span class="ts-dot ts-dot-green"></span>
+              </div>
+              <span class="ts-icon-frame-label" id="ts-folder-icon-frame-label">Fur Pack — Soft plush 3D folder &amp; extension icons</span>
             </div>
+            <div class="ts-icon-zoom-wrap">
+              <img src="images/files%20icons/fur.png"        alt="Fur folder and file icon style preview"      class="ts-folder-zoom-img active" id="ts-folder-zoom-fur"      data-folder-zoom="fur">
+              <img src="images/files%20icons/glow.png"       alt="Glow folder and file icon style preview"     class="ts-folder-zoom-img"        id="ts-folder-zoom-glow"     data-folder-zoom="glow">
+              <img src="images/files%20icons/luna.png"       alt="Hand Draw folder and file icon style preview" class="ts-folder-zoom-img"        id="ts-folder-zoom-luna"     data-folder-zoom="luna">
+              <img src="images/files%20icons/kawaii.png"     alt="Kawaii folder and file icon style preview"   class="ts-folder-zoom-img"        id="ts-folder-zoom-kawaii"   data-folder-zoom="kawaii">
+              <img src="images/files%20icons/cat.png"        alt="Cat folder and file icon style preview"      class="ts-folder-zoom-img"        id="ts-folder-zoom-cat"      data-folder-zoom="cat">
+              <img src="images/files%20icons/flat.png"       alt="Flat folder and file icon style preview"     class="ts-folder-zoom-img"        id="ts-folder-zoom-flat"     data-folder-zoom="flat">
+              <img src="images/files%20icons/low%20poly.png" alt="Low Poly folder and file icon style preview" class="ts-folder-zoom-img"        id="ts-folder-zoom-low-poly" data-folder-zoom="low-poly">
+              <img src="images/files%20icons/pillow.png"     alt="Pillow folder and file icon style preview"   class="ts-folder-zoom-img"        id="ts-folder-zoom-pillow"   data-folder-zoom="pillow">
+              <img src="images/files%20icons/plastic.png"    alt="Plastic folder and file icon style preview"  class="ts-folder-zoom-img"        id="ts-folder-zoom-plastic"  data-folder-zoom="plastic">
+              <img src="images/files%20icons/voxel.png"      alt="Voxel folder and file icon style preview"    class="ts-folder-zoom-img"        id="ts-folder-zoom-voxel"    data-folder-zoom="voxel">
+            </div>
+            <div class="ts-icon-zoom-hint">File Explorer — Custom folder textures &amp; type-aware file badges</div>
           </div>
-        </div>
 
-        <!-- Bento Card 3: Video Clipper -->
-        <div class="bento-card video-highlight">
-          <div class="card-badge">Video Processing</div>
-          <div class="card-content">
-            <h3>Video Clipper</h3>
-            <p>Input local video files or YouTube clips, select start/end timelines, and export clipped reels using local FFmpeg engines.</p>
-          </div>
-        </div>
+          <!-- Right: Folder Style selector -->
+          <div class="ts-icon-selector">
+            <p class="ts-icon-selector-label">Choose an Explorer Icon Pack (10 styles)</p>
 
-        <!-- Bento Card 4: Goal Tracker -->
-        <div class="bento-card col-span-2 goal-highlight">
-          <div class="card-badge">Motivations</div>
-          <div class="card-content">
-            <h3>Visual Goal Tracker</h3>
-            <p>Pin milestone markers over customizable motivation boards. Monitor your checklist progress inside detail drawers and complete targets systematically.</p>
-            <div class="goal-slider-container">
-              <div class="goal-slider-track" id="goal-slider-track">
-                <div class="goal-slide">
-                  <span class="slide-badge">Milestone Map</span>
-                  <img src="goal tracker.png" alt="Goal Tracker Map" class="goal-slider-img">
+            <div class="ts-icon-pills-list">
+              <button class="ts-icon-pill ts-folder-pill active" data-folder-icon-target="fur" id="ts-folder-btn-fur" aria-label="Fur folder icon style">
+                <div class="ts-pill-swatch ts-swatch-fur"></div>
+                <div class="ts-pill-info">
+                  <span class="ts-pill-name">Fur Plush Pack</span>
+                  <span class="ts-pill-desc">Cosy 3D velvet-textured folders &amp; fluffy badges</span>
                 </div>
-                <div class="goal-slide">
-                  <span class="slide-badge">Detail Drawer</span>
-                  <img src="goal tracker 2.png" alt="Milestone Checklist Drawer" class="goal-slider-img">
+                <span class="ts-pill-check" aria-hidden="true">✓</span>
+              </button>
+
+              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="glow" id="ts-folder-btn-glow" aria-label="Glow folder icon style">
+                <div class="ts-pill-swatch ts-swatch-glow"></div>
+                <div class="ts-pill-info">
+                  <span class="ts-pill-name">Glow Pack</span>
+                  <span class="ts-pill-desc">Luminescent neon outlines &amp; radiant 3D folder art</span>
                 </div>
+                <span class="ts-pill-check" aria-hidden="true">✓</span>
+              </button>
+
+              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="luna" id="ts-folder-btn-luna" aria-label="Hand Draw folder icon style">
+                <div class="ts-pill-swatch ts-swatch-luna"></div>
+                <div class="ts-pill-info">
+                  <span class="ts-pill-name">Hand Draw (Luna)</span>
+                  <span class="ts-pill-desc">Playful sketchy yellow folders &amp; doodle badges</span>
+                </div>
+                <span class="ts-pill-check" aria-hidden="true">✓</span>
+              </button>
+
+              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="kawaii" id="ts-folder-btn-kawaii" aria-label="Kawaii folder icon style">
+                <div class="ts-pill-swatch ts-swatch-kawaii-folder"></div>
+                <div class="ts-pill-info">
+                  <span class="ts-pill-name">Kawaii Pack</span>
+                  <span class="ts-pill-desc">Cute pastel aesthetics with charming custom badges</span>
+                </div>
+                <span class="ts-pill-check" aria-hidden="true">✓</span>
+              </button>
+
+              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="cat" id="ts-folder-btn-cat" aria-label="Cat folder icon style">
+                <div class="ts-pill-swatch ts-swatch-cat"></div>
+                <div class="ts-pill-info">
+                  <span class="ts-pill-name">Cat Pack</span>
+                  <span class="ts-pill-desc">Adorable feline-themed illustrated folder art</span>
+                </div>
+                <span class="ts-pill-check" aria-hidden="true">✓</span>
+              </button>
+
+              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="flat" id="ts-folder-btn-flat" aria-label="Flat folder icon style">
+                <div class="ts-pill-swatch ts-swatch-flat"></div>
+                <div class="ts-pill-info">
+                  <span class="ts-pill-name">Flat Pack</span>
+                  <span class="ts-pill-desc">Crisp, clean 2D vector minimalism</span>
+                </div>
+                <span class="ts-pill-check" aria-hidden="true">✓</span>
+              </button>
+
+              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="low-poly" id="ts-folder-btn-low-poly" aria-label="Low Poly folder icon style">
+                <div class="ts-pill-swatch ts-swatch-lowpoly"></div>
+                <div class="ts-pill-info">
+                  <span class="ts-pill-name">Low Poly Pack</span>
+                  <span class="ts-pill-desc">Faceted 3D polygonal folder geometry</span>
+                </div>
+                <span class="ts-pill-check" aria-hidden="true">✓</span>
+              </button>
+
+              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="pillow" id="ts-folder-btn-pillow" aria-label="Pillow folder icon style">
+                <div class="ts-pill-swatch ts-swatch-pillow"></div>
+                <div class="ts-pill-info">
+                  <span class="ts-pill-name">Pillow Pack</span>
+                  <span class="ts-pill-desc">Puffy, soft-body tactile cushion badges</span>
+                </div>
+                <span class="ts-pill-check" aria-hidden="true">✓</span>
+              </button>
+
+              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="plastic" id="ts-folder-btn-plastic" aria-label="Plastic folder icon style">
+                <div class="ts-pill-swatch ts-swatch-plastic"></div>
+                <div class="ts-pill-info">
+                  <span class="ts-pill-name">Plastic Pack</span>
+                  <span class="ts-pill-desc">Glossy, vibrant &amp; modern 3D folder icons</span>
+                </div>
+                <span class="ts-pill-check" aria-hidden="true">✓</span>
+              </button>
+
+              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="voxel" id="ts-folder-btn-voxel" aria-label="Voxel folder icon style">
+                <div class="ts-pill-swatch ts-swatch-voxel"></div>
+                <div class="ts-pill-info">
+                  <span class="ts-pill-name">Voxel Pack</span>
+                  <span class="ts-pill-desc">3D blocky pixel-art isometric styling</span>
+                </div>
+                <span class="ts-pill-check" aria-hidden="true">✓</span>
+              </button>
+            </div>
+
+            <div class="ts-custom-icon-note">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span>Set custom images as <strong>folder covers or file icons</strong> individually for any project directory or file extension.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ─── Bottom Info ─── -->
+      <div class="ts-bottom-cta text-center">
+        <p class="ts-cta-copy">7 themes · 10 folder &amp; file icon packs · Custom folder covers &amp; extension badges · Infinite personality combinations</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Built-In App Suite Section -->
+  <section class="usecases-section" id="features">
+    <div class="container">
+      <div class="section-header text-center reveal-fade">
+        <span class="section-tag">Built-In App Suite</span>
+        <h2 class="section-title">All your tools. <span class="text-gradient">One sidebar.</span></h2>
+        <p class="section-desc">
+          No extra plugins to download or monthly cloud subscriptions. Panora comes packed with custom built-in productivity apps ready out of the box.
+        </p>
+      </div>
+
+      <!-- Clean App Dock Grid Selector -->
+      <div class="app-suite-grid" id="app-suite-grid">
+        <button class="app-suite-btn active" data-app="notes">
+          <span class="app-btn-icon">📝</span>
+          <span class="app-btn-label">Notes</span>
+        </button>
+        <button class="app-suite-btn" data-app="note-deck">
+          <span class="app-btn-icon">🗂️</span>
+          <span class="app-btn-label">Note Deck</span>
+        </button>
+        <button class="app-suite-btn" data-app="kanban">
+          <span class="app-btn-icon">📋</span>
+          <span class="app-btn-label">Kanban Board</span>
+        </button>
+        <button class="app-suite-btn" data-app="goal-tracker">
+          <span class="app-btn-icon">🎯</span>
+          <span class="app-btn-label">Goal Tracker</span>
+        </button>
+        <button class="app-suite-btn" data-app="diary">
+          <span class="app-btn-icon">📓</span>
+          <span class="app-btn-label">Diary</span>
+        </button>
+        <button class="app-suite-btn" data-app="canvaya">
+          <span class="app-btn-icon">🗺️</span>
+          <span class="app-btn-label">Canvaya</span>
+        </button>
+        <button class="app-suite-btn" data-app="excalidraw">
+          <span class="app-btn-icon">✏️</span>
+          <span class="app-btn-label">Excalidraw</span>
+        </button>
+        <button class="app-suite-btn" data-app="folder-forge">
+          <span class="app-btn-icon">📁</span>
+          <span class="app-btn-label">Folder Forge</span>
+        </button>
+      </div>
+
+      <!-- Single Interactive App Showcase Frame -->
+      <div class="app-showcase-stage" id="app-showcase-stage">
+
+        <!-- 1. Notes -->
+        <div class="app-showcase-card active" id="app-card-notes">
+          <div class="app-card-content">
+            <div class="app-card-header-top">
+              <div class="app-card-title-group">
+                <span class="app-badge">Writing &amp; Document Editor</span>
+                <h3 class="app-title">📝 Notes</h3>
               </div>
-              <div class="slider-controls">
-                <button class="slider-btn active" data-slide="0" aria-label="Go to slide 1"></button>
-                <button class="slider-btn" data-slide="1" aria-label="Go to slide 2"></button>
+              <div class="app-tags">
+                <span class="seg-tag">Block editor</span>
+                <span class="seg-tag">Folder library</span>
+                <span class="seg-tag">Local media</span>
               </div>
+            </div>
+            <p class="app-desc">A BlockNote-powered rich writing space with nested folder organization, card library scanning, slash commands, and local image embedding. Everything autosaves quietly on your drive.</p>
+          </div>
+          <div class="app-card-visual">
+            <div class="app-screenshot-frame">
+              <img src="images/notes%20example/notes.png" alt="Panora BlockNote Writing Workspace" class="app-feature-screenshot" loading="lazy">
             </div>
           </div>
         </div>
 
-        <!-- Bento Card 5: PDF Studio -->
-        <div class="bento-card pdf-highlight">
-          <div class="card-badge">PDF utility</div>
-          <div class="card-content">
-            <h3>PDF Studio</h3>
-            <p>Split document pages, rotate templates, merge files, compress assets, and read documents with zero external server uploads.</p>
-            <div class="pdf-studio-preview">
-              <img src="pdf viewer.png" alt="PDF Studio Document Reader" class="pdf-img">
+        <!-- 2. Note Deck -->
+        <div class="app-showcase-card" id="app-card-note-deck">
+          <div class="app-card-content">
+            <div class="app-card-header-top">
+              <div class="app-card-title-group">
+                <span class="app-badge">Multi-Board Card Library</span>
+                <h3 class="app-title">🗂️ Note Deck</h3>
+              </div>
+              <div class="app-tags">
+                <span class="seg-tag">Multi-board</span>
+                <span class="seg-tag">Flashcards &amp; Budget</span>
+                <span class="seg-tag">Split storage</span>
+              </div>
+            </div>
+            <p class="app-desc">Freeform boards packed with note, checklist, bookmark, photo, flashcard, budget, and time-block cards. Organize work, home, and travel plans in independent boards.</p>
+          </div>
+          <div class="app-card-visual">
+            <div class="app-screenshot-frame">
+              <img src="images/note%20deck%20example/note%20deck.png" alt="Panora Note Deck Multi-Board Studio" class="app-feature-screenshot" loading="lazy">
             </div>
           </div>
         </div>
 
-        <!-- Bento Card 6: Image Studio -->
-        <div class="bento-card image-highlight">
-          <div class="card-badge">Image Processing</div>
-          <div class="card-content">
-            <h3>Image Studio</h3>
-            <p>Crop layouts, remove image backgrounds locally, and convert images into web-ready formats (PNG, WebP, JPG, SVG, HEIC, PDF).</p>
+        <!-- 3. Kanban Board -->
+        <div class="app-showcase-card" id="app-card-kanban">
+          <div class="app-card-content">
+            <div class="app-card-header-top">
+              <div class="app-card-title-group">
+                <span class="app-badge">Project &amp; Task Management</span>
+                <h3 class="app-title">📋 Kanban Board</h3>
+              </div>
+              <div class="app-tags">
+                <span class="seg-tag">CSV Import</span>
+                <span class="seg-tag">Timeline Bar</span>
+                <span class="seg-tag">File Attachments</span>
+              </div>
+            </div>
+            <p class="app-desc">Manage tasks visually with custom columns, CSV import preview, priority flags, elapsed timeline progress bars, and direct local file attachments on cards.</p>
+          </div>
+          <div class="app-card-visual">
+            <div class="app-screenshot-frame">
+              <img src="images/kanban%20example/kanban.png" alt="Panora Kanban Board Task View" class="app-feature-screenshot" loading="lazy">
+            </div>
           </div>
         </div>
+
+        <!-- 4. Goal Tracker -->
+        <div class="app-showcase-card" id="app-card-goal-tracker">
+          <div class="app-card-content">
+            <div class="app-card-header-top">
+              <div class="app-card-title-group">
+                <span class="app-badge">Visual Milestone Mapping</span>
+                <h3 class="app-title">🎯 Goal Tracker</h3>
+              </div>
+              
+              <!-- Dual View Switcher Pills -->
+              <div class="goal-view-pills" id="goal-view-pills" role="tablist" aria-label="Goal Tracker View Switcher">
+                <button class="goal-view-pill active" data-goal-view="map" id="goal-btn-map" role="tab" aria-selected="true">
+                  <span class="pill-icon">🗺️</span> Map Canvas
+                </button>
+                <button class="goal-view-pill" data-goal-view="board" id="goal-btn-board" role="tab" aria-selected="false">
+                  <span class="pill-icon">🎯</span> Milestone View
+                </button>
+              </div>
+            </div>
+
+            <p class="app-desc">Pin interactive milestones over custom background maps. Track sub-task checklists, set due dates, and monitor completion through side drawer previews.</p>
+            
+            <div class="app-tags">
+              <span class="seg-tag">Custom Map Image</span>
+              <span class="seg-tag">Sub-task Progress</span>
+              <span class="seg-tag">Milestone Pins</span>
+            </div>
+          </div>
+          <div class="app-card-visual">
+            <div class="app-screenshot-frame goal-screenshot-wrap">
+              <img id="goal-img-map"   src="images/goal%20tracker%20example/goal%20tracker.png"   alt="Panora Goal Tracker Map Canvas View"      class="app-feature-screenshot goal-view-img active" data-goal-img="map">
+              <img id="goal-img-board" src="images/goal%20tracker%20example/goal%20tracker%202.png" alt="Panora Goal Tracker Milestone Roadmap View" class="app-feature-screenshot goal-view-img"        data-goal-img="board">
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Diary -->
+        <div class="app-showcase-card diary-large-showcase" id="app-card-diary">
+          <!-- Top Header & Spread Tabs -->
+          <div class="diary-clean-header">
+            <div class="diary-title-row">
+              <h3 class="app-title">📓 Diary</h3>
+              <span class="diary-clean-subtitle">Two-page scrapbook spreads &bull; 100% offline</span>
+            </div>
+            
+            <!-- Spread Selector Pills -->
+            <div class="diary-spread-pills" id="diary-spread-pills" role="tablist" aria-label="Diary Spread Switcher">
+              <button class="diary-spread-pill active" data-spread="0" role="tab" aria-selected="true">
+                <span class="pill-icon">🇯🇵</span> Japan
+              </button>
+              <button class="diary-spread-pill" data-spread="1" role="tab" aria-selected="false">
+                <span class="pill-icon">💻</span> Dev Sprint
+              </button>
+              <button class="diary-spread-pill" data-spread="2" role="tab" aria-selected="false">
+                <span class="pill-icon">🌙</span> Reflections
+              </button>
+              <button class="diary-spread-pill" data-spread="3" role="tab" aria-selected="false">
+                <span class="pill-icon">🗺️</span> Berlin
+              </button>
+              <button class="diary-spread-pill" data-spread="4" role="tab" aria-selected="false">
+                <span class="pill-icon">🌿</span> Mindfulness
+              </button>
+            </div>
+          </div>
+
+          <!-- Large Book Spread Hero Display -->
+          <div class="diary-hero-viewport" id="diary-book-wrapper" title="Click to view full size">
+            <img id="diary-active-spread-img" src="images/diary%20example/diary2.png" alt="Panora Diary Spread" class="diary-spread-img-large" loading="eager">
+          </div>
+
+          <!-- Clean Bottom Navigation Bar -->
+          <div class="diary-clean-footer">
+            <button class="diary-nav-btn prev" id="diary-prev-btn" aria-label="Previous diary spread">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            
+            <div class="diary-spread-counter">
+              <span id="diary-spread-number">Spread 1 of 5</span>
+              <span class="diary-pages-label" id="diary-pages-label">(Pages 1–2)</span>
+            </div>
+
+            <div class="diary-dots" id="diary-dots">
+              <span class="diary-dot active" data-spread="0"></span>
+              <span class="diary-dot" data-spread="1"></span>
+              <span class="diary-dot" data-spread="2"></span>
+              <span class="diary-dot" data-spread="3"></span>
+              <span class="diary-dot" data-spread="4"></span>
+            </div>
+
+            <button class="diary-nav-btn next" id="diary-next-btn" aria-label="Next diary spread">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- 6. Canvaya -->
+        <div class="app-showcase-card" id="app-card-canvaya">
+          <div class="app-card-content">
+            <div class="app-card-header-top">
+              <div class="app-card-title-group">
+                <span class="app-badge">Infinite Freeform Canvas</span>
+                <h3 class="app-title">🗺️ Canvaya</h3>
+              </div>
+              <div class="app-tags">
+                <span class="seg-tag">Infinite Canvas</span>
+                <span class="seg-tag">Multi-Board Library</span>
+                <span class="seg-tag">Custom Nodes</span>
+              </div>
+            </div>
+            <p class="app-desc">React Flow-powered whiteboard for spatial thinkers. Place note cards, checklists, bookmarks, tables, shapes, and group frames anywhere on a freeform canvas.</p>
+          </div>
+          <div class="app-card-visual">
+            <div class="app-screenshot-frame">
+              <img src="images/canvaya%20example/canvaya.png" alt="Panora Canvaya Freeform Whiteboard Studio" class="app-feature-screenshot" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Excalidraw -->
+        <div class="app-showcase-card" id="app-card-excalidraw">
+          <div class="app-card-content">
+            <div class="app-card-header-top">
+              <div class="app-card-title-group">
+                <span class="app-badge">Hand-Drawn Whiteboard</span>
+                <h3 class="app-title">✏️ Excalidraw</h3>
+              </div>
+              <div class="app-tags">
+                <span class="seg-tag">Native .excalidraw</span>
+                <span class="seg-tag">Hand-Drawn Styling</span>
+                <span class="seg-tag">Diagram Shapes</span>
+              </div>
+            </div>
+            <p class="app-desc">Sketch wireframes, system diagrams, and architectural mind-maps with a virtual hand-drawn aesthetic. Native <code>.excalidraw</code> file support.</p>
+          </div>
+          <div class="app-card-visual">
+            <div class="app-screenshot-frame">
+              <img src="images/excalidraw/rag.png" alt="Panora Excalidraw Architecture &amp; System Diagram" class="app-feature-screenshot" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Folder Forge -->
+        <div class="app-showcase-card" id="app-card-folder-forge">
+          <div class="app-card-content">
+            <div class="app-card-header-top">
+              <div class="app-card-title-group">
+                <span class="app-badge">Text-to-Folder Generator</span>
+                <h3 class="app-title">📁 Folder Forge</h3>
+              </div>
+              <div class="app-tags">
+                <span class="seg-tag">Text to Directory</span>
+                <span class="seg-tag">Tree Preview</span>
+                <span class="seg-tag">One-Click Create</span>
+              </div>
+            </div>
+            <p class="app-desc">Convert plain-text outlines into real nested folder structures on disk. Live tree view preview, project templates, and one-click batch directory creation.</p>
+          </div>
+          <div class="app-card-visual">
+            <div class="app-screenshot-frame">
+              <img src="images/folder%20forge%20example/folder.png" alt="Panora Folder Forge Text to Folder Generator" class="app-feature-screenshot" loading="lazy">
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Local First Section -->
-  <section class="local-first-section" id="local-first">
+  <!-- Pricing & Value Comparison Section -->
+  <section class="pricing-section" id="pricing">
     <div class="container">
-      <div class="local-grid">
-        <div class="local-content">
-          <span class="section-tag highlight-tag">Privacy Promise</span>
-          <h2 class="section-title reveal-left">Your files. Your computer.<br>Absolute ownership.</h2>
-          <p class="section-desc">
-            Many productivity tools lock your files in their databases and force monthly subscriptions. Panora takes a different stand. Everything you create resides securely on your local disk.
-          </p>
-          
-          <div class="local-features-group">
-            <div class="local-feature-item">
-              <div class="icon-wrap">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-              </div>
-              <div class="feature-text">
-                <h3>Absolute Privacy</h3>
-                <p>Data never leaves your system. No trackers, no cookies, no profiling. Safe for corporate documents and personal diary entries.</p>
-              </div>
-            </div>
+      <div class="section-header text-center reveal-fade">
+        <span class="section-tag highlight-tag">One-Time Payment</span>
+        <h2 class="section-title">Pay once. <span class="text-gradient">Own it forever.</span></h2>
+        <p class="section-desc">
+          Stop paying recurring monthly fees for single-purpose web apps. Panora combines 8+ essential productivity tools into one local workspace for a fraction of the cost.
+        </p>
+      </div>
 
-            <div class="local-feature-item">
-              <div class="icon-wrap">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-              </div>
-              <div class="feature-text">
-                <h3>Zero Latency</h3>
-                <p>Since all processors run on your machine's CPU/GPU, tasks initiate instantly. No loading spinners or cloud timeouts.</p>
-              </div>
-            </div>
-
-            <div class="local-feature-item">
-              <div class="icon-wrap">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-              </div>
-              <div class="feature-text">
-                <h3>100% Offline Capability</h3>
-                <p>Work on flights, subways, or remote locations. Panora operates perfectly without an internet connection.</p>
-              </div>
-            </div>
+      <div class="pricing-comparison-grid">
+        <!-- Panora Lifetime Card -->
+        <div class="pricing-card panora-card featured-pricing">
+          <div class="pricing-ribbon">🔥 66% OFF LAUNCH OFFER</div>
+          <div class="pricing-card-header">
+            <span class="pricing-card-badge panora-badge">All-In-One Workspace</span>
+            <h3>Panora Lifetime</h3>
+            <p class="pricing-card-sub">Single one-time payment. Zero subscriptions.</p>
           </div>
-        </div>
-
-        <div class="local-visual-display reveal-right">
-          <div class="local-map-container">
-            <div class="device-node main-device">
-              <div class="device-icon">💻</div>
-              <span class="device-label">Your Machine</span>
-              <span class="status-indicator online">Local data</span>
-            </div>
-            
-            <div class="data-stream-lines">
-              <span class="stream-item doc-tag">Diary Spreads</span>
-              <span class="stream-item media-tag">Video Clips</span>
-              <span class="stream-item file-tag">Kanban Files</span>
-            </div>
-
-            <div class="cloud-shield">
-              <span class="shield-label">Privacy Shield Active</span>
-            </div>
+          <div class="pricing-amount-box">
+            <span class="pricing-currency">$</span>
+            <span class="pricing-big-num">19.99</span>
+            <span class="pricing-original">$60</span>
+            <span class="pricing-period">one-time lifetime</span>
           </div>
+          <ul class="pricing-feature-list">
+            <li><span class="list-icon check-mark">✓</span> <strong>All 8+ Built-In Apps Included</strong></li>
+            <li><span class="list-icon check-mark">✓</span> Notes, Note Deck, Kanban, Diary &amp; Canvaya</li>
+            <li><span class="list-icon check-mark">✓</span> Excalidraw, Goal Tracker &amp; Folder Forge</li>
+            <li><span class="list-icon check-mark">✓</span> Built-in PDF Studio &amp; File Converters</li>
+            <li><span class="list-icon check-mark">✓</span> 100% Offline &amp; Private (Data on your drive)</li>
+            <li><span class="list-icon check-mark">✓</span> Lifetime Updates &amp; Zero Monthly Fees</li>
+            <li><span class="list-icon check-mark">✓</span> Native Windows 10 &amp; 11 Support</li>
+          </ul>
+          <a href="https://panoralab.gumroad.com/l/panora" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large pricing-cta-btn">Get Panora for $19.99 →</a>
         </div>
       </div>
     </div>
@@ -635,11 +1317,11 @@
 
         <div class="faq-item" id="faq-item-2">
           <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
-            <span>Is Panora really free?</span>
+            <span>How much does Panora cost?</span>
             <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
           </button>
           <div class="faq-answer" id="faq-answer-2" hidden>
-            <p>Yes! Panora is fully open-source and free to download. There are no monthly payments, hidden features behind paywalls, or cloud subscriptions.</p>
+            <p>Panora is currently available for a special launch offer of <strong>$19.99 one-time</strong> (66% discount off the regular <s style="opacity:0.75;">$60</s> price). There are no monthly subscriptions, hidden paywalls, or per-app fees. Pay once and own all 8+ built-in apps and future updates forever.</p>
           </div>
         </div>
 
@@ -649,7 +1331,7 @@
             <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
           </button>
           <div class="faq-answer" id="faq-answer-3" hidden>
-            <p>We officially build and distribute binaries for Windows (.exe installers), macOS (.dmg packages, supporting both M1/M2 Apple Silicon and older Intel architectures), and Linux installations (.AppImage packages).</p>
+            <p>Panora is built exclusively for <strong>Windows</strong> (Windows 10 and Windows 11, 64-bit). You will receive a standard Windows installer (.exe) with lifetime access and updates.</p>
           </div>
         </div>
 
@@ -659,7 +1341,7 @@
             <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
           </button>
           <div class="faq-answer" id="faq-answer-4" hidden>
-            <p>Absolutely! The app features multiple built-in design visual skins: standard layouts, cozy warm-toned workspace aesthetics (Nest Theme), and colorful cute pastel motifs (Mello Theme), including folder customizations, colors, and textures.</p>
+            <p>Yes, extensively! Choose from 7 built-in themes — <strong>Clean, Flow, Graphite, Mello, Nest, Profes, and Verve</strong> — and 10 folder &amp; file icon packs (Fur, Glow, Luna, Kawaii, Cat, Flat, Low Poly, Pillow, Plastic, and Voxel). You can also customize folder card colors, images, and presets, and personalize the File Explorer with custom icons per file extension. Each app has its own style controls — page textures in Diary, font themes in Canvaya, column accent colors in Kanban, and more.</p>
           </div>
         </div>
       </div>
@@ -669,16 +1351,16 @@
   <!-- CTA Download Section -->
   <section class="cta-download-section" id="download">
     <div class="container text-center">
-      <h2 class="cta-title">Start organizing your spaces today</h2>
-      <p class="cta-desc">Download Panora for desktop and experience a new, local-first workflow.</p>
+      <h2 class="cta-title">Get your All-In-One workspace today</h2>
+      <p class="cta-desc">Special Launch Offer: $19.99 one-time payment (regularly <s style="opacity:0.7;">$60</s>). Own Panora forever.</p>
       
       <div class="cta-buttons-wrapper">
-        <button class="btn btn-primary btn-large download-trigger" id="footer-download-btn">
+        <a href="https://panoralab.gumroad.com/l/panora" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large download-trigger" id="footer-download-btn">
           <svg class="download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-          <span>Get Panora for Desktop</span>
-        </button>
+          <span>Get Panora for $19.99 <s style="opacity:0.65;font-weight:400;margin-left:4px;">$60</s> (Lifetime License)</span>
+        </a>
       </div>
-      <p class="license-note">Licensed under MIT. Source code available on GitHub.</p>
+      <p class="license-note">Instant download • Lifetime access • 100% Privacy • Windows 10 &amp; 11</p>
     </div>
   </section>
 
@@ -686,26 +1368,26 @@
   <footer class="footer-layout">
     <div class="container footer-container">
       <div class="footer-brand">
-        <span class="logo-text">Panora</span>
-        <p class="footer-slogan">Step into your spaces and pick up where you left off.</p>
+        <div class="footer-logo-wrap">
+          <img src="panora-icon.svg" alt="Panora Icon" class="logo-icon-img" width="28" height="28">
+          <span class="logo-text">Panora</span>
+        </div>
+        <p class="footer-slogan">Step into your folders and pick up where you left off.</p>
       </div>
       
       <div class="footer-links-wrapper">
         <div class="footer-links-column">
           <h4>Product</h4>
           <a href="#features">Features</a>
-          <a href="#spaces">Spaces</a>
-          <a href="#download">Download App</a>
+          <a href="#spaces">File Browser</a>
+          <a href="#themes">Themes</a>
+          <a href="#pricing">Pricing</a>
         </div>
         <div class="footer-links-column">
-          <h4>Privacy</h4>
-          <a href="#local-first">Security Model</a>
-          <a href="#local-first">Local Storage</a>
-        </div>
-        <div class="footer-links-column">
-          <h4>Development</h4>
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <h4>Support &amp; FAQ</h4>
           <a href="#faq">Documentation</a>
+          <a href="#faq">FAQ</a>
+          <a href="https://panoralab.gumroad.com/l/panora" target="_blank" rel="noopener noreferrer">Download App</a>
         </div>
       </div>
     </div>
@@ -713,6 +1395,59 @@
       <p class="copyright-text">&copy; 2026 Panora App. All rights reserved. Created with 🤍 for beautiful workspaces.</p>
     </div>
   </footer>
+
+  <!-- Diary Fullscreen Lightbox Modal -->
+  <div class="diary-lightbox-modal" id="diary-lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Diary Spread Fullscreen Inspector">
+    <div class="diary-lightbox-backdrop" id="diary-lightbox-backdrop"></div>
+    <div class="diary-lightbox-content">
+      <div class="diary-lightbox-header">
+        <div class="diary-lightbox-title-wrap">
+          <span class="diary-lightbox-badge">Panora Diary Studio</span>
+          <h3 class="diary-lightbox-title" id="diary-modal-title">Spread 1: Japan Travel Journal</h3>
+          <span class="diary-lightbox-subtitle" id="diary-modal-subtitle">Pages 1–2 • Jul 7, 2026 • Paper Fiber Texture</span>
+        </div>
+        <button class="diary-lightbox-close" id="diary-lightbox-close" aria-label="Close fullscreen modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="diary-lightbox-stage">
+        <button class="diary-lightbox-arrow prev" id="diary-modal-prev" aria-label="Previous spread">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="diary-lightbox-image-wrap">
+          <img id="diary-modal-img" src="images/diary%20example/diary2.png" alt="Diary Full Spread View" class="diary-modal-img">
+        </div>
+        <button class="diary-lightbox-arrow next" id="diary-modal-next" aria-label="Next spread">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+
+      <!-- Thumbnail Strip at bottom of modal -->
+      <div class="diary-lightbox-thumbs" id="diary-modal-thumbs">
+        <button class="diary-thumb-btn active" data-spread="0" title="Spread 1: Japan Travel">
+          <img src="images/diary%20example/diary2.png" alt="Thumb Japan">
+          <span>1. Japan</span>
+        </button>
+        <button class="diary-thumb-btn" data-spread="1" title="Spread 2: Dev Sprint">
+          <img src="images/diary%20example/diary1.png" alt="Thumb Dev Sprint">
+          <span>2. Dev Sprint</span>
+        </button>
+        <button class="diary-thumb-btn" data-spread="2" title="Spread 3: Reflections">
+          <img src="images/diary%20example/diary3.png" alt="Thumb Reflections">
+          <span>3. Reflections</span>
+        </button>
+        <button class="diary-thumb-btn" data-spread="3" title="Spread 4: Berlin Guide">
+          <img src="images/diary%20example/diary4.png" alt="Thumb Berlin">
+          <span>4. Berlin</span>
+        </button>
+        <button class="diary-thumb-btn" data-spread="4" title="Spread 5: Mindfulness">
+          <img src="images/diary%20example/diary5.png" alt="Thumb Mindfulness">
+          <span>5. Mindfulness</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <script src="app.js" defer></script>
 </body>
