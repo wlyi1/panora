@@ -1,1465 +1,991 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Panora is a beautiful, local-first desktop productivity workspace. Organize your files, edit code, split PDFs, remove image backgrounds, track goals, clip videos, and journal in one unified app. Absolute privacy, zero cloud database needed.">
-  <meta name="keywords" content="Panora, desktop app, local-first, productivity tools, document editor, PDF utility, video clipper, Kanban board, goal tracker, diary app, local storage, Electron app">
-  <meta name="author" content="Waliyuddin">
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Panora — Beautiful Local-First Workspace for Desktop">
-  <meta property="og:description" content="Keep your local work in one gorgeous place. Text editing, PDF tools, image conversion, Kanban boards, diaries, and goals. Built for speed and privacy.">
-  <meta property="og:image" content="panora.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panora — Open any file. Edit it right there.</title>
+<meta name="description" content="Panora is a file explorer, editor and nine creative apps in one calm desktop workspace. Diary, Kanban, Notes, Canvas, Goal Tracker, PDF and image tools — all local, all yours.">
+<meta property="og:title" content="Panora — Open any file. Edit it right there.">
+<meta property="og:description" content="Files, notes, diary, kanban, whiteboard, goals, PDFs and images in one beautiful desktop app. One-time purchase.">
+<meta property="og:image" content="assets/theme-flow.webp">
+<meta name="theme-color" content="#FBFAF7">
+<link rel="icon" href="assets/panora-icon.ico" sizes="any">
+<link rel="icon" type="image/png" href="assets/panora-icon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/theme-flow.webp">
+<style>
+:root{
+  --bg:#FBF9F4; --bg-2:#F4F0E6; --cream:#F9F5EB; --card:#FFFFFF;
+  --ink:#16151B; --ink-2:#333333; --muted:#6E6B78; --faint:#A19DAA;
+  --line:#ECE8E1; --line-2:#E2DDD4;
+  --brand:#6C63FF; --brand-ink:#5249E6; --brand-soft:#EFEEFF;
+  --green:#1F9D61; --peach:#FFE9DA;
+  --radius:18px; --radius-lg:26px;
+  --shadow-sm:0 1px 2px rgba(22,21,27,.05),0 2px 8px rgba(22,21,27,.04);
+  --shadow:0 2px 6px rgba(22,21,27,.04),0 18px 50px -12px rgba(40,30,80,.18);
+  --shadow-lg:0 4px 12px rgba(22,21,27,.05),0 40px 100px -24px rgba(50,35,110,.30);
+  --sans:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Instrument Serif",Georgia,serif;
+  --wrap:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:8px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+em.s{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:title" content="Panora — Beautiful Local-First Workspace for Desktop">
-  <meta property="twitter:description" content="Keep your local work in one gorgeous place. Text editing, PDF tools, image conversion, Kanban boards, diaries, and goals. Built for speed and privacy.">
-  <meta property="twitter:image" content="panora.png">
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 26px;border-radius:999px;font-weight:700;font-size:16px;transition:transform .2s,box-shadow .2s,background .2s;white-space:nowrap}
+.btn-primary{background:var(--ink);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.15) inset,0 10px 30px -8px rgba(22,21,27,.45)}
+.btn-primary:hover{transform:translateY(-1px);background:#26242E}
+.btn-ghost{background:var(--card);border:1px solid var(--line-2);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--faint)}
+.btn .price-old{opacity:.5;text-decoration:line-through;font-weight:500}
+.btn-sm{height:40px;padding:0 18px;font-size:14px}
 
-  <title>Panora — Your Local Multi-Tool Workspace</title>
-  <link rel="icon" type="image/svg+xml" href="panora-icon.svg">
-  <link rel="shortcut icon" href="panora-icon.ico">
-  <link rel="apple-touch-icon" href="panora-icon.svg">
+/* ---------- Nav ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(251,250,247,.78);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;height:68px;gap:32px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;letter-spacing:-.02em}
+.logo img{width:30px;height:30px}
+.nav-links{display:flex;gap:28px;margin-left:auto;font-size:15px;font-weight:500;color:var(--muted)}
+.nav-links a:hover{color:var(--ink)}
+.nav .btn{margin-left:4px}
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+/* ---------- Hero ---------- */
+.hero{position:relative;padding:88px 0 40px;text-align:center;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-200px -10% auto;height:900px;z-index:-1;
+  background:radial-gradient(40% 50% at 25% 35%,rgba(110,86,247,.13),transparent 70%),
+             radial-gradient(35% 45% at 78% 30%,rgba(255,170,120,.16),transparent 70%),
+             radial-gradient(40% 40% at 50% 70%,rgba(120,200,230,.10),transparent 70%)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 6px;border-radius:999px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow-sm);font-size:13.5px;font-weight:600;color:var(--ink-2)}
+.eyebrow b{background:var(--brand);color:#fff;border-radius:999px;padding:2px 10px;font-size:12px;letter-spacing:.02em}
+h1{font-size:clamp(42px,7.2vw,84px);line-height:1.02;letter-spacing:-.045em;font-weight:800;margin:26px auto 22px;max-width:14ch}
+h1 em.s{font-size:1.12em;letter-spacing:-.01em;color:var(--brand-ink)}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--muted);max-width:620px;margin:0 auto;line-height:1.55}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+.hero-meta{margin-top:18px;font-size:14px;color:var(--muted);display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+.hero-meta span{display:inline-flex;align-items:center;gap:6px}
+.hero-meta svg{width:16px;height:16px;color:var(--green)}
 
-  <link rel="stylesheet" href="style.css">
+/* App window frame */
+.stage{margin:64px auto 0;max-width:1120px;position:relative}
+.window{border-radius:var(--radius-lg);background:var(--card);padding:10px;border:1px solid var(--line);box-shadow:var(--shadow-lg)}
+.window .screen{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:1800/1050;background:var(--bg-2)}
+.window .screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:0;transition:opacity .6s ease}
+.window .screen img.on{opacity:1}
+.theme-bar{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:22px}
+.theme-bar .lbl{font-size:13px;font-weight:600;color:var(--faint);text-transform:uppercase;letter-spacing:.1em;margin-right:6px}
+.chip{height:36px;padding:0 16px;border-radius:999px;border:1px solid var(--line-2);background:var(--card);font-size:14px;font-weight:600;color:var(--ink-2);display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+.chip:hover{border-color:var(--faint)}
+.chip[aria-pressed="true"],.chip[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip i{width:10px;height:10px;border-radius:50%;display:inline-block}
+
+/* ---------- Strip ---------- */
+.strip{padding:72px 0 24px;text-align:center}
+.strip p{font-size:14px;font-weight:600;color:var(--faint);text-transform:uppercase;letter-spacing:.12em}
+.strip ul{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;margin-top:20px;font-weight:600;color:var(--ink-2);font-size:16px}
+.strip li{display:flex;align-items:center;gap:8px}
+.strip li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--line-2)}
+
+/* ---------- Section heads ---------- */
+section{scroll-margin-top:70px}
+.sec{padding:120px 0}
+.kicker{font-size:13px;font-weight:700;color:var(--brand-ink);text-transform:uppercase;letter-spacing:.14em}
+h2{font-size:clamp(34px,4.8vw,58px);line-height:1.05;letter-spacing:-.04em;font-weight:800;margin-top:14px}
+h2 em.s{font-size:1.1em;letter-spacing:-.01em}
+.sec-head{max-width:720px;margin-bottom:56px}
+.sec-head.center{text-align:center;margin-left:auto;margin-right:auto}
+.sec-head p{margin-top:18px;color:var(--muted);font-size:18px}
+h3{font-size:24px;letter-spacing:-.025em;line-height:1.2;font-weight:700}
+
+/* ---------- Diary feature ---------- */
+.diary{background:linear-gradient(180deg,var(--bg) 0%,#F6F1E8 30%,#F6F1E8 70%,var(--bg) 100%)}
+.diary-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.9fr);gap:56px;align-items:center}
+.diary h2{font-size:clamp(34px,4.2vw,52px)}
+.ticks{list-style:none;margin-top:28px;display:grid;gap:14px}
+.ticks li{display:flex;gap:12px;color:var(--ink-2);font-size:16px;line-height:1.5}
+.ticks li svg{flex:none;width:22px;height:22px;margin-top:1px;color:var(--brand)}
+.diary-view .frame{border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);background:#fff;aspect-ratio:1800/985;position:relative}
+.diary-view .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}
+.diary-view .frame img.on{opacity:1}
+.thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
+.thumbs button{border-radius:10px;overflow:hidden;border:2px solid transparent;opacity:.55;transition:all .2s;aspect-ratio:1800/985}
+.thumbs button img{width:100%;height:100%;object-fit:cover}
+.thumbs button:hover{opacity:.85}
+.thumbs button[aria-selected="true"]{opacity:1;border-color:var(--ink)}
+
+/* ---------- Apps showcase ---------- */
+.apps-grid{display:grid;grid-template-columns:320px minmax(0,1fr);gap:40px;align-items:start}
+.tabs{display:flex;flex-direction:column;gap:4px}
+.tab{text-align:left;padding:16px 18px;border-radius:16px;border:1px solid transparent;transition:background .2s,border-color .2s}
+.tab:hover{background:rgba(22,21,27,.03)}
+.tab .t{display:flex;align-items:center;gap:12px;font-weight:700;font-size:16.5px}
+.tab .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none}
+.tab .ic svg{width:18px;height:18px}
+.tab .d{display:none;color:var(--muted);font-size:14.5px;line-height:1.5;margin:8px 0 0 46px}
+.tab[aria-selected="true"]{background:var(--card);border-color:var(--line);box-shadow:var(--shadow)}
+.tab[aria-selected="true"] .d{display:block}
+.panel{position:sticky;top:100px}
+.panel .frame{border-radius:20px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-lg);aspect-ratio:1800/1060;position:relative}
+.panel .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;opacity:0;transition:opacity .45s}
+.panel .frame img.on{opacity:1}
+.panel .pts{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;min-height:36px}
+.panel .pts span{font-size:13.5px;font-weight:600;color:var(--ink-2);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+
+/* ---------- Personalize ---------- */
+.dark{background:#111015;color:#F3F1F7;border-radius:40px;margin:0 16px}
+.dark .kicker{color:#B3A6FF}
+.dark .sec-head p{color:#A9A5B4}
+.wall-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.wall-grid figure{border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 30px 80px -20px rgba(0,0,0,.6)}
+.wall-grid figcaption{padding:16px 20px;font-size:14.5px;color:#A9A5B4;background:#1A1920}
+.wall-grid figcaption b{color:#fff;font-weight:600}
+.icons-block{margin-top:96px}
+.icons-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:24px}
+.icons-head h3{font-size:clamp(26px,3vw,34px)}
+.icons-head p{color:#A9A5B4;margin-top:8px;max-width:520px}
+.dark .chip{background:transparent;border-color:rgba(255,255,255,.14);color:#D9D6E2}
+.dark .chip:hover{border-color:rgba(255,255,255,.35)}
+.dark .chip[aria-selected="true"]{background:#fff;color:#111015;border-color:#fff}
+.pack-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.pack-frame{border-radius:20px;overflow:hidden;aspect-ratio:1800/1060;position:relative;background:#fff;border:1px solid rgba(255,255,255,.08)}
+.pack-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transition:opacity .4s}
+.pack-frame img.on{opacity:1}
+
+/* ---------- Three questions ---------- */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+.trio div{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px}
+.trio b{display:block;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--brand-ink)}
+.trio p{font-family:var(--serif);font-style:italic;font-size:30px;line-height:1.15;margin-top:10px;color:var(--ink)}
+
+/* ---------- Widgets / Home dashboard ---------- */
+.dash{background:var(--cream);border:1px solid var(--line);border-radius:28px;padding:28px;box-shadow:var(--shadow-lg);display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(0,auto);gap:16px}
+.dash .hd{grid-column:1/-1;display:flex;justify-content:space-between;align-items:end;padding:4px 4px 6px}
+.dash .hd h3{font-size:28px}
+.dash .hd span{font-size:13px;color:var(--muted)}
+.w{background:var(--card);border-radius:18px;padding:20px;border:1px solid rgba(0,0,0,.04);box-shadow:var(--shadow-sm);font-size:14px;min-width:0}
+.w .wt{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);display:flex;justify-content:space-between;margin-bottom:12px}
+.w .row{display:flex;align-items:center;gap:10px;padding:6px 0;color:var(--ink-2)}
+.w .cb{width:18px;height:18px;border-radius:6px;border:1.5px solid var(--line-2);flex:none;display:grid;place-items:center}
+.w .cb.on{background:var(--brand);border-color:var(--brand)}
+.w .cb.on::after{content:"";width:8px;height:4px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translateY(-1px)}
+.w .done{text-decoration:line-through;color:var(--faint)}
+.w .bar{height:6px;border-radius:9px;background:var(--bg-2);margin-top:10px;overflow:hidden}
+.w .bar i{display:block;height:100%;width:66%;background:var(--brand);border-radius:9px}
+.w-timer{text-align:center}
+.w-timer .tm{font-size:48px;font-weight:800;letter-spacing:-.04em;line-height:1;margin:8px 0 14px}
+.w-timer .seg{display:inline-flex;background:var(--bg-2);border-radius:999px;padding:3px;font-size:12px;font-weight:600}
+.w-timer .seg span{padding:4px 10px;border-radius:999px;color:var(--muted)}
+.w-timer .seg span:first-child{background:var(--card);color:var(--ink);box-shadow:var(--shadow-sm)}
+.w-cal .day{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.w-cal .ev{display:flex;gap:10px;align-items:center;margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--brand-soft);color:var(--ink-2);font-weight:600;font-size:13.5px}
+.w-cal .ev i{width:4px;align-self:stretch;border-radius:4px;background:var(--brand)}
+.w-cal .ev small{color:var(--muted);font-weight:500}
+.w-note{background:#FFF6D9;font-family:var(--serif);font-size:26px;line-height:1.15;color:#4A3F25;position:relative}
+.w-note .wt{font-family:var(--sans);color:#B39A5A}
+.w-files .row{border-bottom:1px solid var(--line);padding:9px 0}
+.w-files .row:last-child{border:0}
+.w-files .fi{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:9px;font-weight:800;color:#fff;flex:none}
+.w-habit .days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:10px;text-align:center;font-size:11px;font-weight:600;color:var(--faint)}
+.w-habit .days i{display:block;aspect-ratio:1;border-radius:8px;background:var(--bg-2);margin-top:5px}
+.w-habit .days i.on{background:#7BC79A}
+.w-clock{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:#1B1A22;color:#fff}
+.w-clock .wt{color:#8C88A0}
+.w-clock .tm{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.w-clock small{color:#A9A5B4;margin-top:6px}
+.span2{grid-column:span 2}
+
+.wlib{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:64px}
+.wgroup{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+.wgroup h3{font-size:19px}
+.wgroup>p{color:var(--muted);font-size:14.5px;margin-top:6px}
+.wgroup ul{list-style:none;margin-top:18px;display:grid;gap:12px}
+.wgroup li{display:flex;justify-content:space-between;gap:12px;font-size:15px;font-weight:600;color:var(--ink-2);padding-bottom:12px;border-bottom:1px dashed var(--line-2)}
+.wgroup li:last-child{border:0;padding-bottom:0}
+.wgroup li span{font-weight:500;color:var(--faint);font-size:13px;text-align:right}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:64px;counter-reset:s}
+.steps div{counter-increment:s}
+.steps div::before{content:"0" counter(s);display:block;font-family:var(--serif);font-style:italic;font-size:34px;color:var(--brand);line-height:1;margin-bottom:12px}
+.steps h3{font-size:18px}
+.steps p{color:var(--muted);font-size:15px;margin-top:6px}
+
+/* ---------- Workflows ---------- */
+.who{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:-24px 0 48px}
+.who span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:14.5px;font-weight:600;color:var(--ink-2)}
+.flows{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.flow{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px}
+.flow .n{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--brand)}
+.flow h3{font-size:22px;margin-top:4px}
+.flow ol{list-style:none;margin-top:18px;display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center}
+.flow li{position:relative;font-size:13.5px;font-weight:600;color:var(--ink-2);background:var(--bg-2);border-radius:8px;padding:6px 11px}
+.flow li:not(:last-child)::after{content:"→";position:absolute;right:-17px;top:50%;transform:translateY(-50%);color:var(--faint);font-weight:500}
+.flow p{color:var(--muted);font-size:15px;margin-top:16px}
+
+/* ---------- Tools ---------- */
+.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.tool{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;transition:transform .25s,box-shadow .25s}
+.tool:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.tool .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;margin-bottom:20px}
+.tool .ic svg{width:22px;height:22px}
+.tool h3{font-size:19px}
+.tool p{color:var(--muted);font-size:15px;margin-top:8px;line-height:1.55}
+.tool .fmt{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.tool.wide{grid-column:span 2}
+.tool .req{display:block;font-size:12.5px;color:var(--faint);margin-top:10px}
+.tool .fmt span{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--ink-2);background:var(--bg-2);border-radius:6px;padding:3px 8px}
+
+/* ---------- Local ---------- */
+.local{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;border-top:1px solid var(--line);padding-top:48px}
+.local h3{font-size:19px;display:flex;align-items:center;gap:10px}
+.local h3 svg{width:22px;height:22px;color:var(--brand)}
+.local p{color:var(--muted);font-size:15.5px;margin-top:10px}
+
+/* ---------- Pricing ---------- */
+.pricing{position:relative}
+.price-card{max-width:980px;margin:0 auto;display:grid;grid-template-columns:1.05fr 1fr;background:var(--card);border:1px solid var(--line);border-radius:32px;box-shadow:var(--shadow-lg);overflow:hidden}
+.price-left{padding:52px}
+.price-right{padding:52px;background:linear-gradient(160deg,#F3F0FF 0%,#FFF3EA 100%);border-left:1px solid var(--line)}
+.badge{display:inline-block;background:#FFE4E0;color:#C03A2B;font-weight:700;font-size:13px;padding:5px 12px;border-radius:999px}
+.amount{display:flex;align-items:baseline;gap:14px;margin:22px 0 6px}
+.amount .now{font-size:76px;font-weight:800;letter-spacing:-.05em;line-height:1}
+.amount .now sup{font-size:.42em;vertical-align:.95em;margin-right:2px;letter-spacing:0}
+.amount .was{font-size:26px;color:var(--faint);text-decoration:line-through;font-weight:600}
+.price-left .note{color:var(--muted);font-size:15px}
+.price-left .btn{width:100%;margin-top:30px;height:58px;font-size:17px}
+.price-left .fine{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:16px;font-size:13.5px;color:var(--muted)}
+.price-left .fine span{display:inline-flex;align-items:center;gap:6px}
+.price-left .fine svg{width:15px;height:15px;color:var(--green)}
+.price-right h3{font-size:16px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-2)}
+.price-right .ticks{margin-top:20px;gap:12px}
+.price-right .ticks li{font-size:15.5px}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:780px;margin:0 auto}
+.faq details{border-bottom:1px solid var(--line);padding:4px 0}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font-weight:700;font-size:18px;letter-spacing:-.01em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";width:12px;height:12px;flex:none;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg) translateY(-4px);transition:transform .25s}
+.faq details[open] summary::after{transform:rotate(225deg) translate(-2px,-2px)}
+.faq details p{color:var(--muted);padding:0 40px 24px 0;font-size:16px}
+
+/* ---------- Final CTA / Footer ---------- */
+.final{text-align:center;padding:120px 0 100px}
+.final h2{max-width:16ch;margin:0 auto}
+.final .hero-cta{margin-top:34px}
+footer{border-top:1px solid var(--line);padding:36px 0;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer nav{display:flex;gap:24px}
+footer a:hover{color:var(--ink)}
+
+/* ---------- Reveal ---------- */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}
+  *{transition-duration:0s!important}
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:980px){
+  .nav-links{display:none}
+  .nav .btn{margin-left:auto}
+  .diary-grid,.apps-grid,.price-card{grid-template-columns:1fr}
+  .diary-grid{gap:36px}
+  .tabs{flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory;gap:8px;padding-bottom:6px;margin:0 -24px;padding-left:24px;padding-right:24px;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:none;scroll-snap-align:start;padding:10px 14px;border-color:var(--line);background:var(--card)}
+  .tab .ic{width:28px;height:28px}
+  .tab .t{font-size:15px;gap:10px}
+  .tab[aria-selected="true"] .d{display:none}
+  .tab[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .panel{position:static}
+  .panel .desc{display:block!important}
+  .tools{grid-template-columns:1fr 1fr}
+  .tool.media{grid-column:auto}
+  .local{grid-template-columns:1fr;gap:28px}
+  .trio,.wlib{grid-template-columns:1fr}
+  .dash{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .flows{grid-template-columns:1fr}
+  .price-right{border-left:0;border-top:1px solid var(--line)}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{padding:0 16px}
+  .tabs{margin:0 -16px;padding-left:16px;padding-right:16px}
+  .hero{padding-top:56px}
+  .stage{margin-top:44px}
+  .window{padding:5px;border-radius:16px}
+  .window .screen{border-radius:12px}
+  .sec{padding:84px 0}
+  .dark{border-radius:28px;margin:0 8px}
+  .wall-grid{grid-template-columns:1fr}
+  .tools{grid-template-columns:1fr}
+  .tool.wide{grid-column:auto}
+  .dash{grid-template-columns:1fr;padding:16px;border-radius:22px}
+  .span2{grid-column:auto}
+  .dash .hd{flex-direction:column;align-items:start;gap:2px}
+  .steps{grid-template-columns:1fr;gap:24px}
+  .trio p{font-size:26px}
+  .flow{padding:24px}
+  .price-left,.price-right{padding:32px 24px}
+  .amount .now{font-size:64px}
+  .hero-cta .btn{width:100%}
+  .theme-bar .lbl{width:100%;margin:0 0 4px}
+  .thumbs{gap:6px}
+  .nav .btn-sm{padding:0 14px}
+}
+.panel .desc{display:none;color:var(--muted);font-size:15.5px;margin-top:16px}
+</style>
 </head>
-<body class="theme-nest">
+<body>
 
-  <!-- Scroll Progress Bar -->
-  <div class="scroll-progress-bar" id="scroll-progress"></div>
+<!-- Set your checkout link here (Gumroad, Lemon Squeezy, Paddle, etc.) -->
+<script>window.PANORA_BUY_URL = "https://panoralab.gumroad.com/l/panora";</script>
 
-  <!-- Floating Toast Notification -->
-  <div id="download-toast" class="toast-notification hidden" role="alert" aria-live="assertive">
-    <div class="toast-content">
-      <svg class="toast-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-      <div class="toast-text">
-        <h4 class="toast-title">Download Initiated!</h4>
-        <p class="toast-desc">Thank you for downloading Panora. Your installer is starting.</p>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Panora home">
+      <img src="assets/panora-logo.png" alt="" width="30" height="30">
+      Panora
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#tools">Files</a>
+      <a href="#apps">Apps</a>
+      <a href="#widgets">Widgets</a>
+      <a href="#personalize">Themes</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-primary btn-sm buy" href="https://panoralab.gumroad.com/l/panora">Get Panora</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow rv"><b>Launch offer</b> Save 67% this week only</span>
+    <h1 class="rv">Open any file. <em class="s">Edit it</em> right there.</h1>
+    <p class="lead rv">Panora is a file explorer that opens your files inside it. View and edit PDFs, spreadsheets, images, videos, Word documents, code and notebooks without launching another app. It also has built-in apps for notes, diary, kanban and goals, plus a Home screen of useful widgets: timers, calendars, habits, pinned files and more.</p>
+    <div class="hero-cta rv">
+      <a class="btn btn-primary buy" href="https://panoralab.gumroad.com/l/panora">Get Panora — $19.99 <span class="price-old">$60</span></a>
+      <a class="btn btn-ghost" href="#apps">See what's inside</a>
+    </div>
+    <div class="hero-meta rv">
+      <span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8.3 13.3 4.9 9.9l-1.4 1.4 4.8 4.8 8.6-8.6-1.4-1.4z"/></svg>One-time payment</span>
+      <span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8.3 13.3 4.9 9.9l-1.4 1.4 4.8 4.8 8.6-8.6-1.4-1.4z"/></svg>No subscription</span>
+      <span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8.3 13.3 4.9 9.9l-1.4 1.4 4.8 4.8 8.6-8.6-1.4-1.4z"/></svg>Your files stay local</span>
+    </div>
+
+    <div class="stage rv">
+      <div class="window">
+        <div class="screen" id="themeScreen">
+          <img class="on" src="assets/theme-flow.webp" alt="Panora home screen in the Flow theme, with folders shown as floating islands" width="1800" height="1036" data-k="flow">
+          <img src="assets/theme-nest.webp" alt="Panora home screen in the Nest theme, with folders shown as cozy rooms" width="1800" height="1023" loading="lazy" data-k="nest">
+          <img src="assets/theme-mello.webp" alt="Panora home screen in the Mello theme, with cute pastel folders" width="1800" height="1045" loading="lazy" data-k="mello">
+          <img src="assets/theme-verve.webp" alt="Panora home screen in the Verve theme, with illustrated folder cards" width="1800" height="1076" loading="lazy" data-k="verve">
+          <img src="assets/theme-clean.webp" alt="Panora home screen in the Clean theme, with recent files and system status" width="1800" height="1066" loading="lazy" data-k="clean">
+          <img src="assets/theme-graphite.webp" alt="Panora home screen in the dark Graphite theme" width="1800" height="1049" loading="lazy" data-k="graphite">
+          <img src="assets/theme-profes.webp" alt="Panora Profes theme showing desktop applications and a clock widget" width="1800" height="1062" loading="lazy" data-k="profes">
+        </div>
+      </div>
+      <div class="theme-bar" role="group" aria-label="Preview home themes">
+        <span class="lbl">Home themes</span>
+        <button class="chip" data-k="flow" aria-pressed="true"><i style="background:#8FC9EC"></i>Flow</button>
+        <button class="chip" data-k="nest" aria-pressed="false"><i style="background:#D9A76A"></i>Nest</button>
+        <button class="chip" data-k="mello" aria-pressed="false"><i style="background:#F6A9B8"></i>Mello</button>
+        <button class="chip" data-k="verve" aria-pressed="false"><i style="background:#B9A8F0"></i>Verve</button>
+        <button class="chip" data-k="clean" aria-pressed="false"><i style="background:#9DC9B4"></i>Clean</button>
+        <button class="chip" data-k="graphite" aria-pressed="false"><i style="background:#2B2B30"></i>Graphite</button>
+        <button class="chip" data-k="profes" aria-pressed="false"><i style="background:#C9CCD3"></i>Profes</button>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Header Section -->
-  <header class="navbar-header" id="navbar">
-    <div class="container navbar-container">
-      <a href="#" class="logo-link" id="logo-brand">
-        <img src="panora-icon.svg" alt="Panora Icon" class="logo-icon-img" width="28" height="28">
-        <span class="logo-text">Panora</span>
-      </a>
-      
-      <nav class="nav-menu" id="nav-menu" aria-label="Main Navigation">
-        <a href="#features" class="nav-link">For You</a>
-        <a href="#spaces" class="nav-link">File Browser</a>
-        <a href="#themes" class="nav-link">Themes</a>
-        <a href="#pricing" class="nav-link">Pricing</a>
-        <a href="#faq" class="nav-link">FAQ</a>
-      </nav>
+<!-- ================= STRIP ================= -->
+<div class="strip">
+  <div class="wrap">
+    <p class="rv">One app instead of a folder full of them</p>
+    <ul class="rv">
+      <li>File explorer</li><li>Code editor</li><li>Diary</li><li>Kanban</li><li>Notes</li><li>Note Deck</li>
+      <li>Whiteboard</li><li>Goal tracker</li><li>Excalidraw</li><li>PDF studio</li><li>Image studio</li>
+    </ul>
+  </div>
+</div>
 
-      <div class="navbar-actions">
-        <!-- Theme Dropdown selector (mirrors the app theme switcher) -->
-        <div class="theme-dropdown-container">
-          <label for="app-theme-selector" class="sr-only">Choose Theme</label>
-          <div class="theme-selector-trigger" id="theme-selector-trigger">
-            <span id="active-theme-label">NEST</span>
-            <svg class="arrow-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </div>
-          <div class="theme-dropdown-options" id="theme-dropdown-options">
-            <button class="theme-option active" data-theme="nest" id="theme-btn-nest">NEST</button>
-            <button class="theme-option" data-theme="mello" id="theme-btn-mello">MELLO</button>
-            <button class="theme-option" data-theme="clean" id="theme-btn-clean">CLEAN</button>
-          </div>
-        </div>
-
-        <a href="https://panoralab.gumroad.com/l/panora" target="_blank" rel="noopener noreferrer" class="btn btn-secondary nav-cta-btn" id="nav-download-btn">Download</a>
+<!-- ================= TOOLS ================= -->
+<section class="sec" id="tools" style="padding-top:72px">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="kicker">File explorer</span>
+      <h2>Every kind of file, <em class="s">one window.</em></h2>
+      <p>No more double-clicking and waiting for another program to load. Files open in tabs right next to your folders, so you can view them, edit them, convert them and save them.</p>
+    </div>
+    <div class="tools">
+      <div class="tool wide rv">
+        <div class="ic" style="background:#FFF6DB;color:#C48A00"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+        <h3>File Explorer</h3>
+        <p>Browse folders in grid, list or tree view. Add colored tags and short notes to files, then search by name, tag or note text. Favorites and visual folder cards take you straight back to the places you use most.</p>
+        <div class="fmt"><span>GRID</span><span>LIST</span><span>TREE</span><span>TAGS</span><span>NOTES</span><span>FAVORITES</span><span>GALLERY</span></div>
+      </div>
+      <div class="tool rv">
+        <div class="ic" style="background:#FFE9E6;color:#D23F2E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg></div>
+        <h3>PDF Studio</h3>
+        <p>Merge, split, rotate, reorder, delete and compress pages. You can also export pages as images.</p>
+        <div class="fmt"><span>MERGE</span><span>SPLIT</span><span>COMPRESS</span><span>PNG/JPG/WEBP</span></div>
+      </div>
+      <div class="tool rv">
+        <div class="ic" style="background:#E8F1FF;color:#2F6FE0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg></div>
+        <h3>Image Studio</h3>
+        <p>Crop, convert and remove backgrounds. It also opens HEIC photos from your phone.</p>
+        <div class="fmt"><span>PNG</span><span>JPEG</span><span>WEBP</span><span>ICO</span><span>SVG</span><span>HEIC</span></div>
+      </div>
+      <div class="tool rv">
+        <div class="ic" style="background:#E6F6EC;color:#1F9D61"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg></div>
+        <h3>Data & Spreadsheets</h3>
+        <p>View big CSV and Excel files as tables and convert between formats in one click.</p>
+        <div class="fmt"><span>CSV</span><span>TSV</span><span>XLSX</span><span>JSON</span><span>PARQUET</span></div>
+      </div>
+      <div class="tool rv">
+        <div class="ic" style="background:#F1ECFF;color:#6C63FF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg></div>
+        <h3>Code & Text Editor</h3>
+        <p>A tabbed editor with syntax highlighting. It stays responsive with large files.</p>
+        <div class="fmt"><span>JS</span><span>HTML</span><span>CSS</span><span>SQL</span><span>MARKDOWN</span></div>
+      </div>
+      <div class="tool rv">
+        <div class="ic" style="background:#FFF2E0;color:#D9822B"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M5 7a9 9 0 0 1 14 0M5 17a9 9 0 0 0 14 0"/></svg></div>
+        <h3>Jupyter Notebooks</h3>
+        <p>Open .ipynb files and run Python cells with charts and images shown inline.</p>
+        <span class="req">Needs Python installed on your computer.</span>
+        <div class="fmt"><span>IPYNB</span><span>PYTHON</span><span>KERNEL</span></div>
+      </div>
+      <div class="tool wide media rv">
+        <div class="ic" style="background:#FFE9EE;color:#D6436A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg></div>
+        <h3>Media & Documents</h3>
+        <p>Play local videos in the built-in player, preview Word documents and read PDFs, all in tabs. Your reference material stays in the same workspace as your notes.</p>
+        <div class="fmt"><span>MP4</span><span>MKV</span><span>DOCX</span><span>DOC</span><span>PDF</span></div>
       </div>
     </div>
-  </header>
 
-  <!-- Hero Section -->
-  <section class="hero-section" id="hero">
-    <!-- Animated Particles Canvas -->
-    <canvas class="particles-canvas" id="particles-canvas"></canvas>
-    <!-- Dynamic Decorative Elements -->
-    <div class="hero-bg-accent glow-nest"></div>
-    <div class="hero-bg-accent glow-mello"></div>
-    <div class="decorative-sparkle sparkle-1">✦</div>
-    <div class="decorative-sparkle sparkle-2">✦</div>
-    <div class="decorative-sparkle sparkle-3">✦</div>
-    
-    <div class="container hero-container">
-      <div class="hero-content reveal-left">
-        <div class="hero-tagline" id="hero-tagline">
-          <span class="tag-icon">🗂️</span> <span id="tagline-text">Your files are scattered. Your apps are everywhere.</span>
-        </div>
-        
-        <h1 class="hero-title" id="hero-main-title">
-          Your desktop, finally<br><span class="text-gradient" id="typed-text">all together.</span>
-        </h1>
-        
-        <p class="hero-desc" id="hero-main-desc">
-          Panora is one local workspace where your files, tasks, notes, and goals actually live side by side — beautifully organized, completely offline, no subscriptions, no tab switching.
-        </p>
-
-        <div class="hero-cta-wrapper">
-          <div class="download-button-group">
-            <a href="https://panoralab.gumroad.com/l/panora" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large download-trigger" id="primary-download-btn">
-              <svg class="download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-              <span id="download-text">Get Panora for Windows — $19.99 <s style="opacity:0.65;font-weight:400;margin-left:4px;">$60</s></span>
-            </a>
-          </div>
-          <span class="cta-subtext" id="cta-subtext">✨ One-time payment. Zero monthly subscriptions. Windows 10 &amp; 11.</span>
-        </div>
-
-        <!-- Hero Feature Highlights Grid -->
-        <div class="hero-feature-highlights">
-          <div class="hero-highlight-pill">
-            <span class="highlight-emoji">📂</span>
-            <div class="highlight-text">
-              <strong>Files &amp; Custom Icons</strong>
-              <span>Open, edit, style — 20+ file types</span>
-            </div>
-          </div>
-          <div class="hero-highlight-pill accent-highlight">
-            <span class="highlight-emoji">🧩</span>
-            <div class="highlight-text">
-              <strong>One workspace. Everything.</strong>
-              <span>Kanban · Goals · Notes · PDF · Media</span>
-            </div>
-          </div>
-          <div class="hero-highlight-pill">
-            <span class="highlight-emoji">🔒</span>
-            <div class="highlight-text">
-              <strong>Yours. Offline. Forever.</strong>
-              <span>No cloud, no fees, no tracking</span>
-            </div>
-          </div>
-        </div>
+    <div class="local rv" style="margin-top:96px">
+      <div>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Local by design</h3>
+        <p>Your notes, boards and diaries are saved on your own computer. No cloud account holds your files.</p>
       </div>
-
-      <!-- App Preview Frame -->
-      <div class="hero-preview-wrapper reveal-right" id="hero-preview-frame">
-        <div class="macbook-frame">
-          <div class="frame-header">
-            <div class="window-controls">
-              <span class="control-dot close"></span>
-              <span class="control-dot minimize"></span>
-              <span class="control-dot expand"></span>
-            </div>
-            <div class="frame-title" id="preview-frame-title">Panora - Nest Folder</div>
-          </div>
-          <div class="frame-body">
-            <!-- Nest Theme Screenshot -->
-            <img src="panora.png" alt="Panora Desktop App Dashboard - Nest Theme" class="app-screenshot active" id="screenshot-nest">
-            <!-- Mello Theme Screenshot -->
-            <img src="panora2.png" alt="Panora Desktop App Dashboard - Mello Theme" class="app-screenshot" id="screenshot-mello">
-            <!-- Clean Theme Screenshot -->
-            <img src="images/clean-theme.png" alt="Panora Desktop App Dashboard - Clean Theme" class="app-screenshot" id="screenshot-clean">
-          </div>
-        </div>
+      <div>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg>Stays fast as you grow</h3>
+        <p>Each board, note and diary page is saved separately, so a big library still opens quickly.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- Soft Hook Intro Statement Section -->
-  <section class="intro-statement-section reveal-fade" id="overview">
-    <div class="container">
-      <div class="intro-statement-card">
-
-        <div class="intro-hook-line">
-          <span class="intro-hook-quote">"My files are in one place, my tasks in another, my notes in a third app…"</span>
-          <span class="intro-hook-label">Sound familiar?</span>
-        </div>
-
-        <h2 class="intro-heading">
-          Panora puts it all in one place —
-          <span class="text-gradient">right on your desktop.</span>
-        </h2>
-        <p class="intro-lead">
-          No more jumping between a file manager, a cloud task board, a separate PDF tool, and a notes app. Panora is a single local workspace where your files live right next to your Kanban boards, goal trackers, journals, and media tools. Everything is already here. Just organized beautifully.
-        </p>
-        
-        <div class="intro-grid-preview">
-          <div class="intro-grid-item">
-            <div class="intro-icon-box">📁</div>
-            <h4>File &amp; Code Studio</h4>
-            <p>Open, browse, and edit code, Markdown, PDFs, spreadsheets, and images — 20+ file types, zero tab switching.</p>
-          </div>
-          <div class="intro-grid-item featured-item">
-            <div class="intro-icon-box">📋</div>
-            <h4>Kanban Boards</h4>
-            <p>Drag &amp; drop task cards with priorities, local file attachments, due dates, and CSV import — all stored locally.</p>
-          </div>
-          <div class="intro-grid-item">
-            <div class="intro-icon-box">🎯</div>
-            <h4>Visual Goal Tracker</h4>
-            <p>Map milestones, track habits, and visualize progress on interactive goal maps. Offline and private.</p>
-          </div>
-          <div class="intro-grid-item">
-            <div class="intro-icon-box">📓</div>
-            <h4>Block Notes &amp; Diary</h4>
-            <p>Rich block writing with slash commands, local media, filing cabinet folders, and a personal diary journal.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Core Explorer Section -->
-  <section class="core-explorer-section" id="explorer">
-    <div class="container">
-      <div class="explorer-grid">
-        <div class="explorer-content reveal-left">
-          <span class="section-tag">Core File Browser</span>
-          <h2 class="section-title">View and edit files, <br><span class="text-gradient">no external apps needed.</span></h2>
-          <p class="section-desc">
-            Panora is built on a high-performance local file browser. Open code, spreadsheets, PDFs, or media files instantly in custom-built tabs. No slow load times, no application switching.
-          </p>
-          
-          <div class="file-type-categories">
-            <button class="category-pill active" data-cat="documents" id="pill-docs">📄 Documents</button>
-            <button class="category-pill" data-cat="spreadsheets" id="pill-sheets">📊 Sheets & Data</button>
-            <button class="category-pill" data-cat="media" id="pill-media">🖼️ Media Files</button>
-            <button class="category-pill" data-cat="code" id="pill-code">💻 Code & Notes</button>
-          </div>
-          
-          <div class="category-details">
-            <div class="category-panel active" id="cat-panel-documents">
-              <p>Preview and edit office and text documents directly. Full formatting, layout rendering, and OCR capabilities are integrated locally.</p>
-              <div class="badges-group">
-                <span class="file-badge badge-view">PDF (Read & Split)</span>
-                <span class="file-badge badge-view">DOCX / DOC (Preview)</span>
-                <span class="file-badge badge-edit">Markdown (Edit)</span>
-                <span class="file-badge badge-edit">TXT (Edit)</span>
-              </div>
-            </div>
-            <div class="category-panel" id="cat-panel-spreadsheets">
-              <p>Manage raw datasets and heavy tabular data. Open heavy spreadsheets, edit cells in a visual table, and convert instantly.</p>
-              <div class="badges-group">
-                <span class="file-badge badge-view">XLSX / XLS (Read)</span>
-                <span class="file-badge badge-edit">CSV / TSV (Table Edit)</span>
-                <span class="file-badge badge-view">Parquet (Browse)</span>
-                <span class="file-badge badge-edit">JSON (Convert)</span>
-              </div>
-            </div>
-            <div class="category-panel" id="cat-panel-media">
-              <p>Process graphics and video without launching heavy editing suites. Crop images, remove backgrounds, convert formats, or stream YouTube downloads directly into the app.</p>
-              <div class="badges-group">
-                <span class="file-badge badge-edit">PNG / JPG / WebP (Crop)</span>
-                <span class="file-badge badge-view">HEIC (Preview)</span>
-                <span class="file-badge badge-edit">MP4 / YouTube (Play)</span>
-                <span class="file-badge badge-view">SVG / ICO (Convert)</span>
-              </div>
-            </div>
-            <div class="category-panel" id="cat-panel-code">
-              <p>An integrated developer workspace. Edit script files using CodeMirror syntax highlighting, or run Jupyter notebooks cell-by-cell.</p>
-              <div class="badges-group">
-                <span class="file-badge badge-edit">Jupyter (.ipynb)</span>
-                <span class="file-badge badge-edit">JS / HTML / CSS</span>
-                <span class="file-badge badge-edit">SQL Scripts</span>
-                <span class="file-badge badge-edit">JSON Configs</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="explorer-visual reveal-right">
-          <!-- Mock File Explorer Frame -->
-          <div class="explorer-mockup-window">
-            <div class="mockup-sidebar">
-              <span class="sidebar-header">FILES</span>
-              <button class="sidebar-item active" data-file="notes" id="side-item-notes">📝 notes.md</button>
-              <button class="sidebar-item" data-file="analysis" id="side-item-analysis">📊 sales.csv</button>
-              <button class="sidebar-item" data-file="paper" id="side-item-paper">🧠 brain.pdf</button>
-            </div>
-            <div class="mockup-viewer-pane">
-              <!-- notes.md preview -->
-              <div class="viewer-content active" id="view-notes">
-                <div class="pane-header">notes.md <span class="badge-edit-mode">Editable</span></div>
-                <div class="markdown-preview-editor">
-                  <h4 style="font-family:'Outfit',sans-serif;margin-bottom:8px;font-weight:700;"># Project Vision</h4>
-                  <p style="font-size:13px;color:var(--text-secondary);">Panora is the ultimate local-first workspace for managing documents, goals, and visual boards...</p>
-                  <div class="cursor-pulsing">|</div>
-                </div>
-              </div>
-              <!-- sales.csv preview -->
-              <div class="viewer-content" id="view-analysis">
-                <div class="pane-header">sales.csv <span class="badge-view-mode">Table view</span></div>
-                <div class="table-preview-mock">
-                  <table>
-                    <thead>
-                      <tr><th>Month</th><th>Sales</th><th>Growth</th></tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>Jan</td><td>$12,400</td><td>+4.2%</td></tr>
-                      <tr><td>Feb</td><td>$14,200</td><td>+14.5%</td></tr>
-                      <tr><td>Mar</td><td>$15,800</td><td>+11.2%</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <!-- brain.pdf preview -->
-              <div class="viewer-content" id="view-paper">
-                <div class="pane-header">brain.pdf <span class="badge-view-mode">PDF Studio</span></div>
-                <div class="pdf-preview-mini">
-                  <img src="pdf viewer.png" alt="Brain NeuroScience PDF" class="pdf-mini-screenshot">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Spaces Tour Section -->
-  <section class="spaces-section" id="spaces">
-    <div class="container">
-      <div class="section-header text-center reveal-fade">
-        <span class="section-tag">Favorite Folders &amp; Quick Access</span>
-        <h2 class="section-title" id="spaces-title">Pin your favorite folders <span class="text-gradient">right to the front.</span></h2>
-        <p class="section-desc">
-          Pick the folders you use every day and pin them to your home screen. Customize each card with custom art, colors, and icon styles — then jump straight into your files, gallery views, and tools with a single click.
-        </p>
-      </div>
-
-      <div class="spaces-interactive-layout">
-        <!-- Interactive Folder list representing the pinned folders -->
-        <div class="spaces-menu" id="spaces-menu" role="tablist">
-          <button class="space-tab active" data-space="study" id="space-tab-study" role="tab" aria-selected="true" aria-controls="space-panel-study">
-            <span class="space-folder-icon folder-study">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
-            </span>
-            <div class="space-tab-info">
-              <span class="space-name">Study</span>
-              <span class="space-meta" id="study-meta">10 items</span>
-            </div>
-          </button>
-          
-          <button class="space-tab" data-space="work" id="space-tab-work" role="tab" aria-selected="false" aria-controls="space-panel-work">
-            <span class="space-folder-icon folder-work">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
-            </span>
-            <div class="space-tab-info">
-              <span class="space-name">Work</span>
-              <span class="space-meta" id="work-meta">1 item</span>
-            </div>
-          </button>
-          
-          <button class="space-tab" data-space="design" id="space-tab-design" role="tab" aria-selected="false" aria-controls="space-panel-design">
-            <span class="space-folder-icon folder-design">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
-            </span>
-            <div class="space-tab-info">
-              <span class="space-name">Design</span>
-              <span class="space-meta" id="design-meta">3 items</span>
-            </div>
-          </button>
-          
-          <button class="space-tab" data-space="personal" id="space-tab-personal" role="tab" aria-selected="false" aria-controls="space-panel-personal">
-            <span class="space-folder-icon folder-personal">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
-            </span>
-            <div class="space-tab-info">
-              <span class="space-name">Personal</span>
-              <span class="space-meta" id="personal-meta">27 files</span>
-            </div>
-          </button>
-
-          <button class="space-tab" data-space="media" id="space-tab-media" role="tab" aria-selected="false" aria-controls="space-panel-media">
-            <span class="space-folder-icon folder-media">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
-            </span>
-            <div class="space-tab-info">
-              <span class="space-name">Media</span>
-              <span class="space-meta" id="media-meta">1 file</span>
-            </div>
-          </button>
-        </div>
-
-        <!-- Spaces details panels -->
-        <div class="spaces-content-display">
-          <!-- 1. Study Panel -->
-          <div class="spaces-panel active" id="space-panel-study" role="tabpanel">
-            <div class="panel-visual study-color">
-              <div class="folder-preview-card">
-                <div class="folder-card-header">
-                  <div class="folder-card-title-group">
-                    <span class="folder-badge-icon study-badge">📚</span>
-                    <div class="folder-header-text">
-                      <span class="folder-card-name">Study</span>
-                      <span class="folder-card-count">10 items &bull; Pinned Folder</span>
-                    </div>
-                  </div>
-                  <span class="folder-card-dots">&bull;&bull;&bull;</span>
-                </div>
-                <div class="folder-files-list">
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-pdf">PDF</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">syllabus_2026.pdf</span>
-                        <span class="file-meta">1.2 MB &bull; PDF Studio</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">Open</span>
-                  </div>
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-ipynb">IPYNB</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">neural_nets.ipynb</span>
-                        <span class="file-meta">42 KB &bull; Jupyter</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">Run</span>
-                  </div>
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-draw">DRAW</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">concept_map.excalidraw</span>
-                        <span class="file-meta">18 KB &bull; Sketch</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">View</span>
-                  </div>
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-md">MD</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">lecture_notes.md</span>
-                        <span class="file-meta">24 KB &bull; Notes</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">Edit</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="panel-details">
-              <span class="panel-space-tag">Study Folder</span>
-              <h3>Lectures, notes &amp; research</h3>
-              <p>Group all your learning materials in one place. Lecture slides, course PDFs, homework files, reference books, and Jupyter notebooks — everything you need for study sessions lives here.</p>
-              <ul class="panel-feature-list">
-                <li>PDFs, DOCX, and Markdown files for course notes</li>
-                <li>Jupyter notebooks (.ipynb) for data science homework</li>
-                <li>.excalidraw sketches for brainstorm diagrams</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- 2. Work Panel -->
-          <div class="spaces-panel" id="space-panel-work" role="tabpanel">
-            <div class="panel-visual work-color">
-              <div class="folder-preview-card">
-                <div class="folder-card-header">
-                  <div class="folder-card-title-group">
-                    <span class="folder-badge-icon work-badge">💼</span>
-                    <div class="folder-header-text">
-                      <span class="folder-card-name">Work</span>
-                      <span class="folder-card-count">5 items &bull; Pinned Folder</span>
-                    </div>
-                  </div>
-                  <span class="folder-card-dots">&bull;&bull;&bull;</span>
-                </div>
-                <div class="folder-files-list">
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-xlsx">XLSX</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">q3_revenue.xlsx</span>
-                        <span class="file-meta">2.1 MB &bull; Spreadsheet</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">Open</span>
-                  </div>
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-parquet">PARQUET</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">users_cohort.parquet</span>
-                        <span class="file-meta">480 KB &bull; Data Table</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">View</span>
-                  </div>
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-sql">SQL</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">analytics_query.sql</span>
-                        <span class="file-meta">14 KB &bull; SQL Editor</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">Edit</span>
-                  </div>
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-csv">CSV</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">sprint_goals.csv</span>
-                        <span class="file-meta">8.4 KB &bull; Table</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">Open</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="panel-details">
-              <span class="panel-space-tag">Work Folder</span>
-              <h3>Spreadsheets, scripts &amp; client files</h3>
-              <p>Keep your professional files separated from everything else. Drop in CSV reports, Excel worksheets, SQL scripts, Parquet datasets, and client documents — all neatly categorized under one work context.</p>
-              <ul class="panel-feature-list">
-                <li>CSV, TSV, XLSX, and Parquet data files</li>
-                <li>SQL scripts and JSON config files</li>
-                <li>Client DOCX reports and project briefs</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- 3. Design Panel -->
-          <div class="spaces-panel" id="space-panel-design" role="tabpanel">
-            <div class="panel-visual design-color">
-              <div class="folder-preview-card">
-                <div class="folder-card-header">
-                  <div class="folder-card-title-group">
-                    <span class="folder-badge-icon design-badge">⚡</span>
-                    <div class="folder-header-text">
-                      <span class="folder-card-name">Design</span>
-                      <span class="folder-card-count">3 items &bull; Pinned Folder</span>
-                    </div>
-                  </div>
-                  <span class="folder-card-dots">&bull;&bull;&bull;</span>
-                </div>
-                <div class="folder-files-list">
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-png">PNG</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">hero_mockup.png</span>
-                        <span class="file-meta">4.8 MB &bull; Image Studio</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">Crop</span>
-                  </div>
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-draw">DRAW</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">logo_drafts.excalidraw</span>
-                        <span class="file-meta">32 KB &bull; Whiteboard</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">Sketch</span>
-                  </div>
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-svg">SVG</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">icons_pack.svg</span>
-                        <span class="file-meta">118 KB &bull; Vector</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">View</span>
-                  </div>
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-webp">WEBP</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">render_preview.webp</span>
-                        <span class="file-meta">890 KB &bull; Converted</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">Open</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="panel-details">
-              <span class="panel-space-tag">Design Folder</span>
-              <h3>Assets, sketches &amp; visuals</h3>
-              <p>Collect your creative files in one visual folder. Branding images, color references, icon sets, wireframe sketches, and canvas files — everything design-related stays organized here.</p>
-              <ul class="panel-feature-list">
-                <li>PNG, JPG, WebP, SVG, and ICO image assets</li>
-                <li>.excalidraw wireframes and diagram sketches</li>
-                <li>HEIC photos and BMP source files</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- 4. Personal Panel -->
-          <div class="spaces-panel" id="space-panel-personal" role="tabpanel">
-            <div class="panel-visual personal-color">
-              <div class="folder-preview-card">
-                <div class="folder-card-header">
-                  <div class="folder-card-title-group">
-                    <span class="folder-badge-icon personal-badge">🛋️</span>
-                    <div class="folder-header-text">
-                      <span class="folder-card-name">Personal</span>
-                      <span class="folder-card-count">27 files &bull; Pinned Folder</span>
-                    </div>
-                  </div>
-                  <span class="folder-card-dots">&bull;&bull;&bull;</span>
-                </div>
-                <div class="folder-files-list">
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-md">MD</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">diary_2026.md</span>
-                        <span class="file-meta">85 KB &bull; Diary Journal</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">Read</span>
-                  </div>
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-jpg">JPG</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">kyoto_trip.jpg</span>
-                        <span class="file-meta">3.2 MB &bull; Gallery</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">View</span>
-                  </div>
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-md">MD</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">wishlist_2026.md</span>
-                        <span class="file-meta">8 KB &bull; Notes</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">Edit</span>
-                  </div>
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-xlsx">XLSX</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">monthly_budget.xlsx</span>
-                        <span class="file-meta">45 KB &bull; Sheet</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">Open</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="panel-details">
-              <span class="panel-space-tag">Personal Folder</span>
-              <h3>Photos, journals &amp; private files</h3>
-              <p>A private space for the files that are just yours. Family photos, personal documents, journal entries, saved bookmarks, and anything you want to keep separate from work or study.</p>
-              <ul class="panel-feature-list">
-                <li>Personal photos, scanned documents, and receipts</li>
-                <li>Private text files, markdown journals, and saved notes</li>
-                <li>Goal plans, wish lists, and life checklists</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- 5. Media Panel -->
-          <div class="spaces-panel" id="space-panel-media" role="tabpanel">
-            <div class="panel-visual media-color">
-              <div class="folder-preview-card">
-                <div class="folder-card-header">
-                  <div class="folder-card-title-group">
-                    <span class="folder-badge-icon media-badge">🎬</span>
-                    <div class="folder-header-text">
-                      <span class="folder-card-name">Media</span>
-                      <span class="folder-card-count">1 file &bull; Pinned Folder</span>
-                    </div>
-                  </div>
-                  <span class="folder-card-dots">&bull;&bull;&bull;</span>
-                </div>
-                <div class="folder-files-list">
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-mp4">MP4</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">tutorial_record.mp4</span>
-                        <span class="file-meta">180 MB &bull; Video Clipper</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">Play</span>
-                  </div>
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-mp3">MP3</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">voice_memo_01.mp3</span>
-                        <span class="file-meta">4.2 MB &bull; Audio</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">Play</span>
-                  </div>
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-webm">WEBM</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">screen_capture.webm</span>
-                        <span class="file-meta">28 MB &bull; Video</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">View</span>
-                  </div>
-                  <div class="folder-file-row">
-                    <div class="file-info-group">
-                      <span class="file-ext-icon icon-heic">HEIC</span>
-                      <div class="file-name-wrap">
-                        <span class="file-title">camera_shot.heic</span>
-                        <span class="file-meta">12 MB &bull; Image Studio</span>
-                      </div>
-                    </div>
-                    <span class="file-action-badge">Convert</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="panel-details">
-              <span class="panel-space-tag">Media Folder</span>
-              <h3>Videos, music &amp; downloads</h3>
-              <p>Keep all your media files organized — local video recordings, downloaded clips, music tracks, and screen captures. Everything media-heavy goes here so it doesn't clutter your other folders.</p>
-              <ul class="panel-feature-list">
-                <li>MP4, AVI, and MKV video files</li>
-                <li>YouTube downloads and saved clips</li>
-                <li>Audio files and screen recordings</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════════════════════════════════════════
-       THEME CUSTOMIZATION SECTION — "Make It Yours"
-       ════════════════════════════════════════════════ -->
-  <section class="theme-showcase-section" id="themes">
-    <div class="container">
-      <div class="section-header text-center reveal-fade">
-        <span class="section-tag">Full Customization</span>
-        <h2 class="section-title">Make it <span class="text-gradient">yours.</span></h2>
-        <p class="section-desc">
-          Switch between stunning visual themes and icon styles — instantly. Every pixel of Panora can match your personality.
-        </p>
-      </div>
-
-      <!-- ─── Theme Picker ─── -->
-      <div class="ts-tabs-wrapper">
-        <div class="ts-tabs" id="ts-theme-tabs" role="tablist" aria-label="Choose a theme">
-          <button class="ts-tab active" data-theme-preview="clean"  id="ts-btn-clean"  role="tab" aria-selected="true">
-            <span class="ts-tab-dot" style="background:#F8F8F8;border:2px solid #ddd;"></span>
-            <span class="ts-tab-name">Clean</span>
-          </button>
-          <button class="ts-tab" data-theme-preview="flow"   id="ts-btn-flow"   role="tab" aria-selected="false">
-            <span class="ts-tab-dot" style="background:linear-gradient(135deg,#b8d4f8,#f8d4e4);"></span>
-            <span class="ts-tab-name">Flow</span>
-          </button>
-          <button class="ts-tab" data-theme-preview="graphite" id="ts-btn-graphite" role="tab" aria-selected="false">
-            <span class="ts-tab-dot" style="background:linear-gradient(135deg,#18181b,#3f3f46);border:1px solid #52525b;"></span>
-            <span class="ts-tab-name">Graphite</span>
-          </button>
-          <button class="ts-tab" data-theme-preview="mello"  id="ts-btn-mello"  role="tab" aria-selected="false">
-            <span class="ts-tab-dot" style="background:linear-gradient(135deg,#ffd6e0,#ffe9cc);"></span>
-            <span class="ts-tab-name">Mello</span>
-          </button>
-          <button class="ts-tab" data-theme-preview="nest"   id="ts-btn-nest"   role="tab" aria-selected="false">
-            <span class="ts-tab-dot" style="background:linear-gradient(135deg,#c8b89a,#a5d6a7);"></span>
-            <span class="ts-tab-name">Nest</span>
-          </button>
-          <button class="ts-tab" data-theme-preview="profes" id="ts-btn-profes" role="tab" aria-selected="false">
-            <span class="ts-tab-dot" style="background:linear-gradient(135deg,#1e293b,#475569);border:1px solid #334155;"></span>
-            <span class="ts-tab-name">Profes</span>
-          </button>
-          <button class="ts-tab" data-theme-preview="verve"  id="ts-btn-verve"  role="tab" aria-selected="false">
-            <span class="ts-tab-dot" style="background:linear-gradient(135deg,#c5cae9,#e8d5b7);"></span>
-            <span class="ts-tab-name">Verve</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- ─── Main Preview Frame ─── -->
-      <div class="ts-preview-stage reveal-fade">
-        <div class="ts-browser-chrome">
-          <div class="ts-chrome-dots">
-            <span class="ts-dot ts-dot-red"></span>
-            <span class="ts-dot ts-dot-yellow"></span>
-            <span class="ts-dot ts-dot-green"></span>
-          </div>
-          <div class="ts-chrome-title" id="ts-chrome-title">Panora — Clean Theme</div>
-        </div>
-        <div class="ts-preview-viewport" id="ts-preview-viewport">
-          <img src="images/clean-theme.png"  alt="Clean theme preview"    class="ts-preview-img active" id="ts-img-clean"    data-preview="clean">
-          <img src="images/flow-theme.png"   alt="Flow theme preview"     class="ts-preview-img"        id="ts-img-flow"     data-preview="flow">
-          <img src="images/graphite.png"     alt="Graphite theme preview" class="ts-preview-img"        id="ts-img-graphite" data-preview="graphite">
-          <img src="images/mello-theme.png"  alt="Mello theme preview"    class="ts-preview-img"        id="ts-img-mello"    data-preview="mello">
-          <img src="images/nest-theme.png"   alt="Nest theme preview"     class="ts-preview-img"        id="ts-img-nest"     data-preview="nest">
-          <img src="images/profes-theme.png" alt="Profes theme preview"   class="ts-preview-img"        id="ts-img-profes"   data-preview="profes">
-          <img src="images/verve-theme.png"  alt="Verve theme preview"    class="ts-preview-img"        id="ts-img-verve"    data-preview="verve">
-        </div>
-      </div>
-
-      <!-- ─── Folder & File Icon Style Section ─── -->
-      <div class="ts-folder-icon-section">
-        <div class="ts-icon-header">
-          <div class="ts-icon-header-left">
-            <span class="ts-icon-section-tag">Folder &amp; File Customization</span>
-            <h3 class="ts-icon-section-title">Customize folder art &amp; file extension icons.</h3>
-            <p class="ts-icon-section-desc">
-              Personalize your file explorer workspace. Swap folder covers and file extension badges with 10 unique icon packs — from cosy 3D plush velvet textures to playful doodles, neon glow, pastel kawaii, and voxel cubes — or upload your own custom images.
-            </p>
-          </div>
-          <div class="ts-icon-custom-badge">
-            <span class="ts-custom-badge-icon">📂</span>
-            <div>
-              <strong>Extension-aware</strong>
-              <span>Unique icons for .sql, .xlsx, .docx, &amp; more</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="ts-icon-layout">
-
-          <!-- Left: Big zoomed preview for Folder & File Icons -->
-          <div class="ts-icon-big-preview" id="ts-folder-icon-big-preview">
-            <div class="ts-icon-frame-chrome">
-              <div class="ts-chrome-dots">
-                <span class="ts-dot ts-dot-red"></span>
-                <span class="ts-dot ts-dot-yellow"></span>
-                <span class="ts-dot ts-dot-green"></span>
-              </div>
-              <span class="ts-icon-frame-label" id="ts-folder-icon-frame-label">Fur Pack — Soft plush 3D folder &amp; extension icons</span>
-            </div>
-            <div class="ts-icon-zoom-wrap">
-              <img src="images/files%20icons/fur.png"        alt="Fur folder and file icon style preview"      class="ts-folder-zoom-img active" id="ts-folder-zoom-fur"      data-folder-zoom="fur">
-              <img src="images/files%20icons/glow.png"       alt="Glow folder and file icon style preview"     class="ts-folder-zoom-img"        id="ts-folder-zoom-glow"     data-folder-zoom="glow">
-              <img src="images/files%20icons/luna.png"       alt="Hand Draw folder and file icon style preview" class="ts-folder-zoom-img"        id="ts-folder-zoom-luna"     data-folder-zoom="luna">
-              <img src="images/files%20icons/kawaii.png"     alt="Kawaii folder and file icon style preview"   class="ts-folder-zoom-img"        id="ts-folder-zoom-kawaii"   data-folder-zoom="kawaii">
-              <img src="images/files%20icons/cat.png"        alt="Cat folder and file icon style preview"      class="ts-folder-zoom-img"        id="ts-folder-zoom-cat"      data-folder-zoom="cat">
-              <img src="images/files%20icons/flat.png"       alt="Flat folder and file icon style preview"     class="ts-folder-zoom-img"        id="ts-folder-zoom-flat"     data-folder-zoom="flat">
-              <img src="images/files%20icons/low%20poly.png" alt="Low Poly folder and file icon style preview" class="ts-folder-zoom-img"        id="ts-folder-zoom-low-poly" data-folder-zoom="low-poly">
-              <img src="images/files%20icons/pillow.png"     alt="Pillow folder and file icon style preview"   class="ts-folder-zoom-img"        id="ts-folder-zoom-pillow"   data-folder-zoom="pillow">
-              <img src="images/files%20icons/plastic.png"    alt="Plastic folder and file icon style preview"  class="ts-folder-zoom-img"        id="ts-folder-zoom-plastic"  data-folder-zoom="plastic">
-              <img src="images/files%20icons/voxel.png"      alt="Voxel folder and file icon style preview"    class="ts-folder-zoom-img"        id="ts-folder-zoom-voxel"    data-folder-zoom="voxel">
-            </div>
-            <div class="ts-icon-zoom-hint">File Explorer — Custom folder textures &amp; type-aware file badges</div>
-          </div>
-
-          <!-- Right: Folder Style selector -->
-          <div class="ts-icon-selector">
-            <p class="ts-icon-selector-label">Choose an Explorer Icon Pack (10 styles)</p>
-
-            <div class="ts-icon-pills-list">
-              <button class="ts-icon-pill ts-folder-pill active" data-folder-icon-target="fur" id="ts-folder-btn-fur" aria-label="Fur folder icon style">
-                <div class="ts-pill-swatch ts-swatch-fur"></div>
-                <div class="ts-pill-info">
-                  <span class="ts-pill-name">Fur Plush Pack</span>
-                  <span class="ts-pill-desc">Cosy 3D velvet-textured folders &amp; fluffy badges</span>
-                </div>
-                <span class="ts-pill-check" aria-hidden="true">✓</span>
-              </button>
-
-              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="glow" id="ts-folder-btn-glow" aria-label="Glow folder icon style">
-                <div class="ts-pill-swatch ts-swatch-glow"></div>
-                <div class="ts-pill-info">
-                  <span class="ts-pill-name">Glow Pack</span>
-                  <span class="ts-pill-desc">Luminescent neon outlines &amp; radiant 3D folder art</span>
-                </div>
-                <span class="ts-pill-check" aria-hidden="true">✓</span>
-              </button>
-
-              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="luna" id="ts-folder-btn-luna" aria-label="Hand Draw folder icon style">
-                <div class="ts-pill-swatch ts-swatch-luna"></div>
-                <div class="ts-pill-info">
-                  <span class="ts-pill-name">Hand Draw (Luna)</span>
-                  <span class="ts-pill-desc">Playful sketchy yellow folders &amp; doodle badges</span>
-                </div>
-                <span class="ts-pill-check" aria-hidden="true">✓</span>
-              </button>
-
-              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="kawaii" id="ts-folder-btn-kawaii" aria-label="Kawaii folder icon style">
-                <div class="ts-pill-swatch ts-swatch-kawaii-folder"></div>
-                <div class="ts-pill-info">
-                  <span class="ts-pill-name">Kawaii Pack</span>
-                  <span class="ts-pill-desc">Cute pastel aesthetics with charming custom badges</span>
-                </div>
-                <span class="ts-pill-check" aria-hidden="true">✓</span>
-              </button>
-
-              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="cat" id="ts-folder-btn-cat" aria-label="Cat folder icon style">
-                <div class="ts-pill-swatch ts-swatch-cat"></div>
-                <div class="ts-pill-info">
-                  <span class="ts-pill-name">Cat Pack</span>
-                  <span class="ts-pill-desc">Adorable feline-themed illustrated folder art</span>
-                </div>
-                <span class="ts-pill-check" aria-hidden="true">✓</span>
-              </button>
-
-              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="flat" id="ts-folder-btn-flat" aria-label="Flat folder icon style">
-                <div class="ts-pill-swatch ts-swatch-flat"></div>
-                <div class="ts-pill-info">
-                  <span class="ts-pill-name">Flat Pack</span>
-                  <span class="ts-pill-desc">Crisp, clean 2D vector minimalism</span>
-                </div>
-                <span class="ts-pill-check" aria-hidden="true">✓</span>
-              </button>
-
-              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="low-poly" id="ts-folder-btn-low-poly" aria-label="Low Poly folder icon style">
-                <div class="ts-pill-swatch ts-swatch-lowpoly"></div>
-                <div class="ts-pill-info">
-                  <span class="ts-pill-name">Low Poly Pack</span>
-                  <span class="ts-pill-desc">Faceted 3D polygonal folder geometry</span>
-                </div>
-                <span class="ts-pill-check" aria-hidden="true">✓</span>
-              </button>
-
-              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="pillow" id="ts-folder-btn-pillow" aria-label="Pillow folder icon style">
-                <div class="ts-pill-swatch ts-swatch-pillow"></div>
-                <div class="ts-pill-info">
-                  <span class="ts-pill-name">Pillow Pack</span>
-                  <span class="ts-pill-desc">Puffy, soft-body tactile cushion badges</span>
-                </div>
-                <span class="ts-pill-check" aria-hidden="true">✓</span>
-              </button>
-
-              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="plastic" id="ts-folder-btn-plastic" aria-label="Plastic folder icon style">
-                <div class="ts-pill-swatch ts-swatch-plastic"></div>
-                <div class="ts-pill-info">
-                  <span class="ts-pill-name">Plastic Pack</span>
-                  <span class="ts-pill-desc">Glossy, vibrant &amp; modern 3D folder icons</span>
-                </div>
-                <span class="ts-pill-check" aria-hidden="true">✓</span>
-              </button>
-
-              <button class="ts-icon-pill ts-folder-pill" data-folder-icon-target="voxel" id="ts-folder-btn-voxel" aria-label="Voxel folder icon style">
-                <div class="ts-pill-swatch ts-swatch-voxel"></div>
-                <div class="ts-pill-info">
-                  <span class="ts-pill-name">Voxel Pack</span>
-                  <span class="ts-pill-desc">3D blocky pixel-art isometric styling</span>
-                </div>
-                <span class="ts-pill-check" aria-hidden="true">✓</span>
-              </button>
-            </div>
-
-            <div class="ts-custom-icon-note">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <span>Set custom images as <strong>folder covers or file icons</strong> individually for any project directory or file extension.</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- ─── Bottom Info ─── -->
-      <div class="ts-bottom-cta text-center">
-        <p class="ts-cta-copy">7 themes · 10 folder &amp; file icon packs · Custom folder covers &amp; extension badges · Infinite personality combinations</p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Built-In App Suite Section -->
-  <section class="usecases-section" id="features">
-    <div class="container">
-      <div class="section-header text-center reveal-fade">
-        <span class="section-tag">Built-In App Suite</span>
-        <h2 class="section-title">All your tools. <span class="text-gradient">One sidebar.</span></h2>
-        <p class="section-desc">
-          No extra plugins to download or monthly cloud subscriptions. Panora comes packed with custom built-in productivity apps ready out of the box.
-        </p>
-      </div>
-
-      <!-- Clean App Dock Grid Selector -->
-      <div class="app-suite-grid" id="app-suite-grid">
-        <button class="app-suite-btn active" data-app="notes">
-          <span class="app-btn-icon">📝</span>
-          <span class="app-btn-label">Notes</span>
-        </button>
-        <button class="app-suite-btn" data-app="note-deck">
-          <span class="app-btn-icon">🗂️</span>
-          <span class="app-btn-label">Note Deck</span>
-        </button>
-        <button class="app-suite-btn" data-app="kanban">
-          <span class="app-btn-icon">📋</span>
-          <span class="app-btn-label">Kanban Board</span>
-        </button>
-        <button class="app-suite-btn" data-app="goal-tracker">
-          <span class="app-btn-icon">🎯</span>
-          <span class="app-btn-label">Goal Tracker</span>
-        </button>
-        <button class="app-suite-btn" data-app="diary">
-          <span class="app-btn-icon">📓</span>
-          <span class="app-btn-label">Diary</span>
-        </button>
-        <button class="app-suite-btn" data-app="canvaya">
-          <span class="app-btn-icon">🗺️</span>
-          <span class="app-btn-label">Canvaya</span>
-        </button>
-        <button class="app-suite-btn" data-app="excalidraw">
-          <span class="app-btn-icon">✏️</span>
-          <span class="app-btn-label">Excalidraw</span>
-        </button>
-        <button class="app-suite-btn" data-app="folder-forge">
-          <span class="app-btn-icon">📁</span>
-          <span class="app-btn-label">Folder Forge</span>
-        </button>
-      </div>
-
-      <!-- Single Interactive App Showcase Frame -->
-      <div class="app-showcase-stage" id="app-showcase-stage">
-
-        <!-- 1. Notes -->
-        <div class="app-showcase-card active" id="app-card-notes">
-          <div class="app-card-content">
-            <div class="app-card-header-top">
-              <div class="app-card-title-group">
-                <span class="app-badge">Writing &amp; Document Editor</span>
-                <h3 class="app-title">📝 Notes</h3>
-              </div>
-              <div class="app-tags">
-                <span class="seg-tag">Block editor</span>
-                <span class="seg-tag">Folder library</span>
-                <span class="seg-tag">Local media</span>
-              </div>
-            </div>
-            <p class="app-desc">A BlockNote-powered rich writing space with nested folder organization, card library scanning, slash commands, and local image embedding. Everything autosaves quietly on your drive.</p>
-          </div>
-          <div class="app-card-visual">
-            <div class="app-screenshot-frame">
-              <img src="images/notes%20example/notes.png" alt="Panora BlockNote Writing Workspace" class="app-feature-screenshot" loading="lazy">
-            </div>
-          </div>
-        </div>
-
-        <!-- 2. Note Deck -->
-        <div class="app-showcase-card" id="app-card-note-deck">
-          <div class="app-card-content">
-            <div class="app-card-header-top">
-              <div class="app-card-title-group">
-                <span class="app-badge">Multi-Board Card Library</span>
-                <h3 class="app-title">🗂️ Note Deck</h3>
-              </div>
-              <div class="app-tags">
-                <span class="seg-tag">Multi-board</span>
-                <span class="seg-tag">Flashcards &amp; Budget</span>
-                <span class="seg-tag">Split storage</span>
-              </div>
-            </div>
-            <p class="app-desc">Freeform boards packed with note, checklist, bookmark, photo, flashcard, budget, and time-block cards. Organize work, home, and travel plans in independent boards.</p>
-          </div>
-          <div class="app-card-visual">
-            <div class="app-screenshot-frame">
-              <img src="images/note%20deck%20example/note%20deck.png" alt="Panora Note Deck Multi-Board Studio" class="app-feature-screenshot" loading="lazy">
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. Kanban Board -->
-        <div class="app-showcase-card" id="app-card-kanban">
-          <div class="app-card-content">
-            <div class="app-card-header-top">
-              <div class="app-card-title-group">
-                <span class="app-badge">Project &amp; Task Management</span>
-                <h3 class="app-title">📋 Kanban Board</h3>
-              </div>
-              <div class="app-tags">
-                <span class="seg-tag">CSV Import</span>
-                <span class="seg-tag">Timeline Bar</span>
-                <span class="seg-tag">File Attachments</span>
-              </div>
-            </div>
-            <p class="app-desc">Manage tasks visually with custom columns, CSV import preview, priority flags, elapsed timeline progress bars, and direct local file attachments on cards.</p>
-          </div>
-          <div class="app-card-visual">
-            <div class="app-screenshot-frame">
-              <img src="images/kanban%20example/kanban.png" alt="Panora Kanban Board Task View" class="app-feature-screenshot" loading="lazy">
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. Goal Tracker -->
-        <div class="app-showcase-card" id="app-card-goal-tracker">
-          <div class="app-card-content">
-            <div class="app-card-header-top">
-              <div class="app-card-title-group">
-                <span class="app-badge">Visual Milestone Mapping</span>
-                <h3 class="app-title">🎯 Goal Tracker</h3>
-              </div>
-              
-              <!-- Dual View Switcher Pills -->
-              <div class="goal-view-pills" id="goal-view-pills" role="tablist" aria-label="Goal Tracker View Switcher">
-                <button class="goal-view-pill active" data-goal-view="map" id="goal-btn-map" role="tab" aria-selected="true">
-                  <span class="pill-icon">🗺️</span> Map Canvas
-                </button>
-                <button class="goal-view-pill" data-goal-view="board" id="goal-btn-board" role="tab" aria-selected="false">
-                  <span class="pill-icon">🎯</span> Milestone View
-                </button>
-              </div>
-            </div>
-
-            <p class="app-desc">Pin interactive milestones over custom background maps. Track sub-task checklists, set due dates, and monitor completion through side drawer previews.</p>
-            
-            <div class="app-tags">
-              <span class="seg-tag">Custom Map Image</span>
-              <span class="seg-tag">Sub-task Progress</span>
-              <span class="seg-tag">Milestone Pins</span>
-            </div>
-          </div>
-          <div class="app-card-visual">
-            <div class="app-screenshot-frame goal-screenshot-wrap">
-              <img id="goal-img-map"   src="images/goal%20tracker%20example/goal%20tracker.png"   alt="Panora Goal Tracker Map Canvas View"      class="app-feature-screenshot goal-view-img active" data-goal-img="map">
-              <img id="goal-img-board" src="images/goal%20tracker%20example/goal%20tracker%202.png" alt="Panora Goal Tracker Milestone Roadmap View" class="app-feature-screenshot goal-view-img"        data-goal-img="board">
-            </div>
-          </div>
-        </div>
-
-        <!-- 5. Diary -->
-        <div class="app-showcase-card diary-large-showcase" id="app-card-diary">
-          <!-- Top Header & Spread Tabs -->
-          <div class="diary-clean-header">
-            <div class="diary-title-row">
-              <h3 class="app-title">📓 Diary</h3>
-              <span class="diary-clean-subtitle">Two-page scrapbook spreads &bull; 100% offline</span>
-            </div>
-            
-            <!-- Spread Selector Pills -->
-            <div class="diary-spread-pills" id="diary-spread-pills" role="tablist" aria-label="Diary Spread Switcher">
-              <button class="diary-spread-pill active" data-spread="0" role="tab" aria-selected="true">
-                <span class="pill-icon">🇯🇵</span> Japan
-              </button>
-              <button class="diary-spread-pill" data-spread="1" role="tab" aria-selected="false">
-                <span class="pill-icon">💻</span> Dev Sprint
-              </button>
-              <button class="diary-spread-pill" data-spread="2" role="tab" aria-selected="false">
-                <span class="pill-icon">🌙</span> Reflections
-              </button>
-              <button class="diary-spread-pill" data-spread="3" role="tab" aria-selected="false">
-                <span class="pill-icon">🗺️</span> Berlin
-              </button>
-              <button class="diary-spread-pill" data-spread="4" role="tab" aria-selected="false">
-                <span class="pill-icon">🌿</span> Mindfulness
-              </button>
-            </div>
-          </div>
-
-          <!-- Large Book Spread Hero Display -->
-          <div class="diary-hero-viewport" id="diary-book-wrapper" title="Click to view full size">
-            <img id="diary-active-spread-img" src="images/diary%20example/diary2.png" alt="Panora Diary Spread" class="diary-spread-img-large" loading="eager">
-          </div>
-
-          <!-- Clean Bottom Navigation Bar -->
-          <div class="diary-clean-footer">
-            <button class="diary-nav-btn prev" id="diary-prev-btn" aria-label="Previous diary spread">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-            
-            <div class="diary-spread-counter">
-              <span id="diary-spread-number">Spread 1 of 5</span>
-              <span class="diary-pages-label" id="diary-pages-label">(Pages 1–2)</span>
-            </div>
-
-            <div class="diary-dots" id="diary-dots">
-              <span class="diary-dot active" data-spread="0"></span>
-              <span class="diary-dot" data-spread="1"></span>
-              <span class="diary-dot" data-spread="2"></span>
-              <span class="diary-dot" data-spread="3"></span>
-              <span class="diary-dot" data-spread="4"></span>
-            </div>
-
-            <button class="diary-nav-btn next" id="diary-next-btn" aria-label="Next diary spread">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- 6. Canvaya -->
-        <div class="app-showcase-card" id="app-card-canvaya">
-          <div class="app-card-content">
-            <div class="app-card-header-top">
-              <div class="app-card-title-group">
-                <span class="app-badge">Infinite Freeform Canvas</span>
-                <h3 class="app-title">🗺️ Canvaya</h3>
-              </div>
-              <div class="app-tags">
-                <span class="seg-tag">Infinite Canvas</span>
-                <span class="seg-tag">Multi-Board Library</span>
-                <span class="seg-tag">Custom Nodes</span>
-              </div>
-            </div>
-            <p class="app-desc">React Flow-powered whiteboard for spatial thinkers. Place note cards, checklists, bookmarks, tables, shapes, and group frames anywhere on a freeform canvas.</p>
-          </div>
-          <div class="app-card-visual">
-            <div class="app-screenshot-frame">
-              <img src="images/canvaya%20example/canvaya.png" alt="Panora Canvaya Freeform Whiteboard Studio" class="app-feature-screenshot" loading="lazy">
-            </div>
-          </div>
-        </div>
-
-        <!-- 7. Excalidraw -->
-        <div class="app-showcase-card" id="app-card-excalidraw">
-          <div class="app-card-content">
-            <div class="app-card-header-top">
-              <div class="app-card-title-group">
-                <span class="app-badge">Hand-Drawn Whiteboard</span>
-                <h3 class="app-title">✏️ Excalidraw</h3>
-              </div>
-              <div class="app-tags">
-                <span class="seg-tag">Native .excalidraw</span>
-                <span class="seg-tag">Hand-Drawn Styling</span>
-                <span class="seg-tag">Diagram Shapes</span>
-              </div>
-            </div>
-            <p class="app-desc">Sketch wireframes, system diagrams, and architectural mind-maps with a virtual hand-drawn aesthetic. Native <code>.excalidraw</code> file support.</p>
-          </div>
-          <div class="app-card-visual">
-            <div class="app-screenshot-frame">
-              <img src="images/excalidraw/rag.png" alt="Panora Excalidraw Architecture &amp; System Diagram" class="app-feature-screenshot" loading="lazy">
-            </div>
-          </div>
-        </div>
-
-        <!-- 8. Folder Forge -->
-        <div class="app-showcase-card" id="app-card-folder-forge">
-          <div class="app-card-content">
-            <div class="app-card-header-top">
-              <div class="app-card-title-group">
-                <span class="app-badge">Text-to-Folder Generator</span>
-                <h3 class="app-title">📁 Folder Forge</h3>
-              </div>
-              <div class="app-tags">
-                <span class="seg-tag">Text to Directory</span>
-                <span class="seg-tag">Tree Preview</span>
-                <span class="seg-tag">One-Click Create</span>
-              </div>
-            </div>
-            <p class="app-desc">Convert plain-text outlines into real nested folder structures on disk. Live tree view preview, project templates, and one-click batch directory creation.</p>
-          </div>
-          <div class="app-card-visual">
-            <div class="app-screenshot-frame">
-              <img src="images/folder%20forge%20example/folder.png" alt="Panora Folder Forge Text to Folder Generator" class="app-feature-screenshot" loading="lazy">
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing & Value Comparison Section -->
-  <section class="pricing-section" id="pricing">
-    <div class="container">
-      <div class="section-header text-center reveal-fade">
-        <span class="section-tag highlight-tag">One-Time Payment</span>
-        <h2 class="section-title">Pay once. <span class="text-gradient">Own it forever.</span></h2>
-        <p class="section-desc">
-          Stop paying recurring monthly fees for single-purpose web apps. Panora combines 8+ essential productivity tools into one local workspace for a fraction of the cost.
-        </p>
-      </div>
-
-      <div class="pricing-comparison-grid">
-        <!-- Panora Lifetime Card -->
-        <div class="pricing-card panora-card featured-pricing">
-          <div class="pricing-ribbon">🔥 66% OFF LAUNCH OFFER</div>
-          <div class="pricing-card-header">
-            <span class="pricing-card-badge panora-badge">All-In-One Workspace</span>
-            <h3>Panora Lifetime</h3>
-            <p class="pricing-card-sub">Single one-time payment. Zero subscriptions.</p>
-          </div>
-          <div class="pricing-amount-box">
-            <span class="pricing-currency">$</span>
-            <span class="pricing-big-num">19.99</span>
-            <span class="pricing-original">$60</span>
-            <span class="pricing-period">one-time lifetime</span>
-          </div>
-          <ul class="pricing-feature-list">
-            <li><span class="list-icon check-mark">✓</span> <strong>All 8+ Built-In Apps Included</strong></li>
-            <li><span class="list-icon check-mark">✓</span> Notes, Note Deck, Kanban, Diary &amp; Canvaya</li>
-            <li><span class="list-icon check-mark">✓</span> Excalidraw, Goal Tracker &amp; Folder Forge</li>
-            <li><span class="list-icon check-mark">✓</span> Built-in PDF Studio &amp; File Converters</li>
-            <li><span class="list-icon check-mark">✓</span> 100% Offline &amp; Private (Data on your drive)</li>
-            <li><span class="list-icon check-mark">✓</span> Lifetime Updates &amp; Zero Monthly Fees</li>
-            <li><span class="list-icon check-mark">✓</span> Native Windows 10 &amp; 11 Support</li>
-          </ul>
-          <a href="https://panoralab.gumroad.com/l/panora" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large pricing-cta-btn">Get Panora for $19.99 →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section class="faq-section" id="faq">
-    <div class="container">
-      <div class="section-header text-center reveal-fade">
-        <span class="section-tag">FAQ</span>
-        <h2 class="section-title">Got questions? We've got answers.</h2>
-      </div>
-
-      <div class="faq-accordion-wrapper">
-        <div class="faq-item" id="faq-item-1">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
-            <span>Where is my data saved?</span>
-            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-          </button>
-          <div class="faq-answer" id="faq-answer-1" hidden>
-            <p>All user files, text edits, Jupyter configurations, diary indexes, and Kanban layouts are stored locally on your desktop filesystem. Panora does not upload anything to cloud hosting nodes, keeping your data entirely yours.</p>
-          </div>
-        </div>
-
-        <div class="faq-item" id="faq-item-2">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
-            <span>How much does Panora cost?</span>
-            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-          </button>
-          <div class="faq-answer" id="faq-answer-2" hidden>
-            <p>Panora is currently available for a special launch offer of <strong>$19.99 one-time</strong> (66% discount off the regular <s style="opacity:0.75;">$60</s> price). There are no monthly subscriptions, hidden paywalls, or per-app fees. Pay once and own all 8+ built-in apps and future updates forever.</p>
-          </div>
-        </div>
-
-        <div class="faq-item" id="faq-item-3">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
-            <span>What operating systems are supported?</span>
-            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-          </button>
-          <div class="faq-answer" id="faq-answer-3" hidden>
-            <p>Panora is built exclusively for <strong>Windows</strong> (Windows 10 and Windows 11, 64-bit). You will receive a standard Windows installer (.exe) with lifetime access and updates.</p>
-          </div>
-        </div>
-
-        <div class="faq-item" id="faq-item-4">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
-            <span>Can I customize the visual layout?</span>
-            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-          </button>
-          <div class="faq-answer" id="faq-answer-4" hidden>
-            <p>Yes, extensively! Choose from 7 built-in themes — <strong>Clean, Flow, Graphite, Mello, Nest, Profes, and Verve</strong> — and 10 folder &amp; file icon packs (Fur, Glow, Luna, Kawaii, Cat, Flat, Low Poly, Pillow, Plastic, and Voxel). You can also customize folder card colors, images, and presets, and personalize the File Explorer with custom icons per file extension. Each app has its own style controls — page textures in Diary, font themes in Canvaya, column accent colors in Kanban, and more.</p>
-          </div>
-        </div>
-
-        <div class="faq-item" id="faq-item-5">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
-            <span>How can I contact support or ask questions?</span>
-            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-          </button>
-          <div class="faq-answer" id="faq-answer-5" hidden>
-            <p>Have questions before buying, need technical support, or want to suggest a feature? Email us directly at <a href="mailto:panora_lab@protonmail.com" class="faq-email-link">panora_lab@protonmail.com</a> — we'll be happy to help!</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Download Section -->
-  <section class="cta-download-section" id="download">
-    <div class="container text-center">
-      <h2 class="cta-title">Get your All-In-One workspace today</h2>
-      <p class="cta-desc">Special Launch Offer: $19.99 one-time payment (regularly <s style="opacity:0.7;">$60</s>). Own Panora forever.</p>
-      
-      <div class="cta-buttons-wrapper">
-        <a href="https://panoralab.gumroad.com/l/panora" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large download-trigger" id="footer-download-btn">
-          <svg class="download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-          <span>Get Panora for $19.99 <s style="opacity:0.65;font-weight:400;margin-left:4px;">$60</s> (Lifetime License)</span>
-        </a>
-      </div>
-      <p class="license-note">Instant download • Lifetime access • 100% Privacy • Windows 10 &amp; 11</p>
-    </div>
-  </section>
-
-  <!-- Footer Section -->
-  <footer class="footer-layout">
-    <div class="container footer-container">
-      <div class="footer-brand">
-        <div class="footer-logo-wrap">
-          <img src="panora-icon.svg" alt="Panora Icon" class="logo-icon-img" width="28" height="28">
-          <span class="logo-text">Panora</span>
-        </div>
-        <p class="footer-slogan">Step into your folders and pick up where you left off.</p>
-      </div>
-      
-      <div class="footer-links-wrapper">
-        <div class="footer-links-column">
-          <h4>Product</h4>
-          <a href="#features">Features</a>
-          <a href="#spaces">File Browser</a>
-          <a href="#themes">Themes</a>
-          <a href="#pricing">Pricing</a>
-        </div>
-        <div class="footer-links-column">
-          <h4>Support &amp; FAQ</h4>
-          <a href="#faq">Documentation</a>
-          <a href="#faq">FAQ</a>
-          <a href="mailto:panora_lab@protonmail.com">Contact Support</a>
-          <a href="https://panoralab.gumroad.com/l/panora" target="_blank" rel="noopener noreferrer">Download App</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom text-center">
-      <p class="copyright-text">&copy; 2026 Panora App. All rights reserved. Created with 🤍 for beautiful workspaces.</p>
-    </div>
-  </footer>
-
-  <!-- Diary Fullscreen Lightbox Modal -->
-  <div class="diary-lightbox-modal" id="diary-lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Diary Spread Fullscreen Inspector">
-    <div class="diary-lightbox-backdrop" id="diary-lightbox-backdrop"></div>
-    <div class="diary-lightbox-content">
-      <div class="diary-lightbox-header">
-        <div class="diary-lightbox-title-wrap">
-          <span class="diary-lightbox-badge">Panora Diary Studio</span>
-          <h3 class="diary-lightbox-title" id="diary-modal-title">Spread 1: Japan Travel Journal</h3>
-          <span class="diary-lightbox-subtitle" id="diary-modal-subtitle">Pages 1–2 • Jul 7, 2026 • Paper Fiber Texture</span>
-        </div>
-        <button class="diary-lightbox-close" id="diary-lightbox-close" aria-label="Close fullscreen modal">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-      </div>
-
-      <div class="diary-lightbox-stage">
-        <button class="diary-lightbox-arrow prev" id="diary-modal-prev" aria-label="Previous spread">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-        </button>
-        <div class="diary-lightbox-image-wrap">
-          <img id="diary-modal-img" src="images/diary%20example/diary2.png" alt="Diary Full Spread View" class="diary-modal-img">
-        </div>
-        <button class="diary-lightbox-arrow next" id="diary-modal-next" aria-label="Next spread">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </button>
-      </div>
-
-      <!-- Thumbnail Strip at bottom of modal -->
-      <div class="diary-lightbox-thumbs" id="diary-modal-thumbs">
-        <button class="diary-thumb-btn active" data-spread="0" title="Spread 1: Japan Travel">
-          <img src="images/diary%20example/diary2.png" alt="Thumb Japan">
-          <span>1. Japan</span>
-        </button>
-        <button class="diary-thumb-btn" data-spread="1" title="Spread 2: Dev Sprint">
-          <img src="images/diary%20example/diary1.png" alt="Thumb Dev Sprint">
-          <span>2. Dev Sprint</span>
-        </button>
-        <button class="diary-thumb-btn" data-spread="2" title="Spread 3: Reflections">
-          <img src="images/diary%20example/diary3.png" alt="Thumb Reflections">
-          <span>3. Reflections</span>
-        </button>
-        <button class="diary-thumb-btn" data-spread="3" title="Spread 4: Berlin Guide">
-          <img src="images/diary%20example/diary4.png" alt="Thumb Berlin">
-          <span>4. Berlin</span>
-        </button>
-        <button class="diary-thumb-btn" data-spread="4" title="Spread 5: Mindfulness">
-          <img src="images/diary%20example/diary5.png" alt="Thumb Mindfulness">
-          <span>5. Mindfulness</span>
-        </button>
+      <div>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Links, not copies</h3>
+        <p>When you attach a photo or file, Panora links to where it already lives instead of making a copy.</p>
       </div>
     </div>
   </div>
+</section>
 
-  <script src="app.js" defer></script>
+<!-- ================= THREE QUESTIONS ================= -->
+<section class="sec" style="padding-bottom:40px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">Featured apps</span>
+      <h2>A task board, a map <em class="s">and an open book.</em></h2>
+      <p>A project is rarely just one kind of work. Panora gives each kind its own space and keeps them all in the same window.</p>
+    </div>
+    <div class="trio rv">
+      <div><b>Kanban</b><p>"What needs doing?"</p></div>
+      <div><b>Goal Tracker</b><p>"Where am I heading?"</p></div>
+      <div><b>Diary</b><p>"What do I want to remember?"</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DIARY ================= -->
+<section class="sec diary" id="diary">
+  <div class="wrap diary-grid">
+    <div class="rv">
+      <span class="kicker">Diary</span>
+      <h2>A diary that feels like <em class="s">real paper.</em></h2>
+      <p style="margin-top:18px;color:var(--muted);font-size:18px">Fill two-page spreads with words, photos and keepsakes. Arrange everything freely, the way you would in a scrapbook.</p>
+      <ul class="ticks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Polaroids with tape, sticky notes and checklists</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Handwritten, serif, journal and mono fonts</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Paper fiber, linen, notebook and vellum textures</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Washi tape, film frames, torn edges and paperclips</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A bookshelf of diaries, each with its own cover. Use one for travel, one for reading, one for reflection</li>
+      </ul>
+    </div>
+    <div class="diary-view rv">
+      <div class="frame" id="diaryFrame">
+        <img class="on" src="assets/diary-2.webp" alt="Diary spread about a trip to Japan with photos and a gratitude checklist" width="1800" height="1001" loading="lazy">
+        <img src="assets/diary-4.webp" alt="Diary spread about a first day in Berlin with a map, polaroids and notes" width="1800" height="977" loading="lazy">
+        <img src="assets/diary-3.webp" alt="Handwritten poetry diary spread with a polaroid and pressed lavender" width="1800" height="999" loading="lazy">
+        <img src="assets/diary-5.webp" alt="Diary spread with torn paper notes, washi tape and fabric labels" width="1800" height="974" loading="lazy">
+        <img src="assets/diary-1.webp" alt="Diary spread with a to-do checklist, screenshots and a reflection" width="1800" height="977" loading="lazy">
+      </div>
+      <div class="thumbs" role="tablist" aria-label="Diary examples">
+        <button role="tab" aria-selected="true" aria-label="Japan trip"><img src="assets/diary-2.webp" alt="" loading="lazy"></button>
+        <button role="tab" aria-selected="false" aria-label="Berlin"><img src="assets/diary-4.webp" alt="" loading="lazy"></button>
+        <button role="tab" aria-selected="false" aria-label="Poetry"><img src="assets/diary-3.webp" alt="" loading="lazy"></button>
+        <button role="tab" aria-selected="false" aria-label="Mindfulness"><img src="assets/diary-5.webp" alt="" loading="lazy"></button>
+        <button role="tab" aria-selected="false" aria-label="Work log"><img src="assets/diary-1.webp" alt="" loading="lazy"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APPS ================= -->
+<section class="sec" id="apps">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">Built-in apps</span>
+      <h2>Plan, write and think <em class="s">in one place.</em></h2>
+      <p>Each app opens in a tab next to your files. You can attach a document to a Kanban card or drop a photo onto a board without switching windows.</p>
+    </div>
+
+    <div class="apps-grid rv">
+      <div class="tabs" role="tablist" aria-label="Panora apps" id="appTabs">
+        <button class="tab" role="tab" aria-selected="true" data-i="0">
+          <span class="t"><span class="ic" style="background:#E8F1FF;color:#2F6FE0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="11" rx="1.5"/><rect x="17" y="4" width="4" height="7" rx="1.5"/></svg></span>Kanban Board</span>
+          <span class="d">Cards with checklists, subtasks, tags and due dates. A timeline bar shows how much time is left.</span>
+        </button>
+        <button class="tab" role="tab" aria-selected="false" data-i="1">
+          <span class="t"><span class="ic" style="background:#FFEFE3;color:#D9682B"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="14" y="13" width="7" height="8" rx="2"/><path d="M11 7h4a2 2 0 0 1 2 2v4"/></svg></span>Canvaya</span>
+          <span class="d">An infinite canvas where notes, images, links, files and tables connect to each other. Use it to map a project, build a moodboard or link research findings.</span>
+        </button>
+        <button class="tab" role="tab" aria-selected="false" data-i="2">
+          <span class="t"><span class="ic" style="background:#E6F6EC;color:#1F9D61"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4m0 0h11l-2 4 2 4H4"/></svg></span>Goal Tracker</span>
+          <span class="d">Pin milestones along a map and watch your progress fill in as you check things off.</span>
+        </button>
+        <button class="tab" role="tab" aria-selected="false" data-i="3">
+          <span class="t"><span class="ic" style="background:#F1ECFF;color:#6C63FF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span>Notes</span>
+          <span class="d">A block editor for meeting notes, study summaries and project docs. Notes sit in a pinned-paper card library, sorted into folders, and save quietly as you type.</span>
+        </button>
+        <button class="tab" role="tab" aria-selected="false" data-i="4">
+          <span class="t"><span class="ic" style="background:#E2F7F5;color:#14968A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg></span>Note Deck</span>
+          <span class="d">Boards for work, home or travel, with countdowns, priority matrices, time blocks, flashcards and budgets.</span>
+        </button>
+        <button class="tab" role="tab" aria-selected="false" data-i="5">
+          <span class="t"><span class="ic" style="background:#FFF6DB;color:#C48A00"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M12 11v5m-2.5-2.5h5"/></svg></span>Folder Forge</span>
+          <span class="d">Type an outline and Panora creates the whole folder structure on disk.</span>
+        </button>
+        <button class="tab" role="tab" aria-selected="false" data-i="6">
+          <span class="t"><span class="ic" style="background:#FFE9EE;color:#D6436A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5 4 4L8 20H4v-4z"/></svg></span>Excalidraw</span>
+          <span class="d">Sketch rough interfaces and process diagrams by hand. A library with previews and search keeps your drawings easy to find.</span>
+        </button>
+      </div>
+
+      <div class="panel" id="appPanel">
+        <div class="frame">
+          <img class="on" src="assets/app-kanban.webp" alt="Kanban board for learning Japanese with checklists, subtasks and timeline bars" width="1800" height="1006" loading="lazy">
+          <img src="assets/app-canvaya.webp" alt="Canvaya whiteboard planning a Japan trip with checklist, itinerary, photos and budget table" width="1800" height="972" loading="lazy">
+          <img src="assets/app-goal.webp" alt="Goal tracker map with milestone cards along a winding path" width="1538" height="1045" loading="lazy">
+          <img src="assets/app-notes.webp" alt="Notes editor showing a digital marketing document with a table" width="1800" height="1058" loading="lazy">
+          <img src="assets/app-notedeck.webp" alt="Note Deck board with priority matrix, countdown timer, time blocks and to-dos" width="1800" height="1067" loading="lazy">
+          <img src="assets/app-forge.webp" alt="Folder Forge turning a text outline into a folder tree preview" width="1542" height="1027" loading="lazy">
+          <img src="assets/app-excalidraw.webp" alt="Excalidraw diagram explaining how retrieval-augmented generation works" width="1800" height="934" loading="lazy">
+        </div>
+        <p class="desc" id="appDesc"></p>
+        <div class="pts" id="appPts"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WIDGETS ================= -->
+<section class="sec" id="widgets" style="padding-top:40px">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="kicker">Home dashboard</span>
+      <h2>Your day, <em class="s">at a glance.</em></h2>
+      <p>Home is a dashboard you build yourself. Choose from 20 widgets for planning, files and information, then arrange and resize them however you like.</p>
+    </div>
+
+    <div class="dash rv" aria-label="Illustration of a Home dashboard with sample widgets">
+      <div class="hd"><h3>Good morning.</h3><span>Example layout · sample data</span></div>
+
+      <div class="w span2">
+        <div class="wt">Today <span>2 of 3</span></div>
+        <div class="row"><span class="cb on"></span><span class="done">Review project notes</span></div>
+        <div class="row"><span class="cb on"></span><span class="done">Send revision tasks to Kanban</span></div>
+        <div class="row"><span class="cb"></span>Plan tomorrow</div>
+        <div class="bar"><i></i></div>
+      </div>
+      <div class="w w-timer">
+        <div class="wt">Focus timer</div>
+        <div class="tm">25:00</div>
+        <div class="seg"><span>Focus</span><span>Short</span><span>Long</span></div>
+      </div>
+      <div class="w w-clock">
+        <div class="wt">Clock</div>
+        <div class="tm" id="liveClock">09:41</div>
+        <small id="liveDate">Saturday, 3 October</small>
+      </div>
+
+      <div class="w w-cal">
+        <div class="wt">Calendar &amp; agenda</div>
+        <div class="day">Today</div>
+        <div class="ev"><i></i><div>Study session<br><small>10:00 – 11:30</small></div></div>
+        <div class="ev" style="background:#FFF1E6"><i style="background:#F29A5B"></i><div>Call with mentor<br><small>16:00</small></div></div>
+      </div>
+      <div class="w w-note">
+        <div class="wt">Notes</div>
+        Keep the next small step in sight.
+      </div>
+      <div class="w w-files span2">
+        <div class="wt">Pinned files</div>
+        <div class="row"><span class="fi" style="background:#E5484D">PDF</span>Project brief.pdf</div>
+        <div class="row"><span class="fi" style="background:#6C63FF">MD</span>Reading notes.md</div>
+        <div class="row"><span class="fi" style="background:#1F9D61">XLS</span>Budget.xlsx</div>
+      </div>
+
+      <div class="w w-habit span2">
+        <div class="wt">Habit tracker <span>5-day streak</span></div>
+        <div style="font-weight:600;color:var(--ink-2)">Read for 20 minutes</div>
+        <div class="days">
+          <span>M<i class="on"></i></span><span>T<i class="on"></i></span><span>W<i class="on"></i></span><span>T<i class="on"></i></span><span>F<i class="on"></i></span><span>S<i></i></span><span>S<i></i></span>
+        </div>
+      </div>
+      <div class="w span2" style="display:flex;justify-content:space-between;align-items:center;gap:16px">
+        <div><div class="wt" style="margin-bottom:6px">Countdown</div><div style="font-weight:700;font-size:17px">Japan trip</div><div style="color:var(--muted);font-size:13.5px">May 10</div></div>
+        <div style="display:flex;gap:8px;text-align:center">
+          <div style="background:var(--bg-2);border-radius:12px;padding:8px 12px"><div style="font-size:26px;font-weight:800;line-height:1.1">24</div><div style="font-size:10.5px;font-weight:700;color:var(--faint);letter-spacing:.1em">DAYS</div></div>
+          <div style="background:var(--bg-2);border-radius:12px;padding:8px 12px"><div style="font-size:26px;font-weight:800;line-height:1.1">07</div><div style="font-size:10.5px;font-weight:700;color:var(--faint);letter-spacing:.1em">HRS</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wlib">
+      <div class="wgroup rv">
+        <h3>Plan your day</h3>
+        <p>For daily actions, events, focused work and routines.</p>
+        <ul>
+          <li>Today <span>Daily checklist</span></li>
+          <li>Calendar &amp; Agenda <span>Planner · Agenda</span></li>
+          <li>Focus Timer <span>Original · Quiet</span></li>
+          <li>Countdown <span>Featured · Compact</span></li>
+          <li>Habit Tracker <span>Week · Minimal</span></li>
+          <li>Tasks &amp; Reminders <span>Original · Timeline</span></li>
+        </ul>
+      </div>
+      <div class="wgroup rv">
+        <h3>Reach your work faster</h3>
+        <p>Shortcuts back to files, apps, workspaces and copied text.</p>
+        <ul>
+          <li>Quick Launch <span>Original · Dock</span></li>
+          <li>Desktop Apps <span>Original · Launchpad</span></li>
+          <li>Pinned Files <span>Original · Shelf</span></li>
+          <li>Workspace Shortcuts <span>Original · Board</span></li>
+          <li>Recent Files <span>Original · Stack</span></li>
+          <li>Clipboard History <span>Last 15 copies</span></li>
+          <li>Downloads Overview <span>By age, size, type</span></li>
+        </ul>
+      </div>
+      <div class="wgroup rv">
+        <h3>Information with personality</h3>
+        <p>Useful at a glance, and they make Home feel like your own desk.</p>
+        <ul>
+          <li>Clock <span>Digital · Flip · Pixel · Analog</span></li>
+          <li>Notes <span>Paper style</span></li>
+          <li>Photo <span>Original · Frame</span></li>
+          <li>System Status <span>Original · Instrument</span></li>
+          <li>Usage Bars <span>Original · Spectrum</span></li>
+          <li>Storage <span>Original · Dashboard</span></li>
+          <li>Battery &amp; Devices <span>When supported</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="steps rv">
+      <div><h3>Choose your tools</h3><p>Open the widget library and pick the ones you want on Home.</p></div>
+      <div><h3>Arrange &amp; resize</h3><p>Drag and resize widgets freely, or snap them to smart guides or a grid.</p></div>
+      <div><h3>Pick a design</h3><p>Most widgets have more than one look, such as a Quiet timer, a Shelf of files or an Analog clock.</p></div>
+      <div><h3>Set the atmosphere</h3><p>Add a wallpaper, adjust dimming and give panels a soft frosted-glass look.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PERSONALIZE ================= -->
+<section class="sec dark" id="personalize">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">Make it yours</span>
+      <h2>Make it look <em class="s">your way.</em></h2>
+      <p>Start from one of eight presets: Flow, Nest, Mello, Verve, Clean, Graphite, Profes or Hearth. Then make it yours with a wallpaper, light or dark mode, folder cards in your own colors or images, and new icons.</p>
+    </div>
+    <div class="wall-grid rv">
+      <figure>
+        <img src="assets/wall-cat.webp" alt="Panora with a soft photo wallpaper of a sleeping cat and glass widgets" width="1800" height="1066" loading="lazy">
+        <figcaption><b>Any image as your wallpaper.</b> Pinned files and system stats float on top.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/wall-dark.webp" alt="Panora with a dark cinematic wallpaper, pinned files and a dot-matrix clock" width="1800" height="1019" loading="lazy">
+        <figcaption><b>Light or dark, cozy or cinematic.</b> Add widgets like a live clock.</figcaption>
+      </figure>
+    </div>
+
+    <div class="icons-block rv">
+      <div class="icons-head">
+        <div>
+          <h3>10 icon packs. Or bring your own.</h3>
+          <p>Every file type gets a matching icon. Swap packs whenever you like, or upload your own images for folders, extensions and app shortcuts.</p>
+        </div>
+      </div>
+      <div class="pack-chips" role="tablist" aria-label="Icon packs" id="packTabs">
+        <button class="chip" role="tab" aria-selected="true">Fur</button>
+        <button class="chip" role="tab" aria-selected="false">Kawaii</button>
+        <button class="chip" role="tab" aria-selected="false">Cat</button>
+        <button class="chip" role="tab" aria-selected="false">Voxel</button>
+        <button class="chip" role="tab" aria-selected="false">Luna</button>
+        <button class="chip" role="tab" aria-selected="false">Pillow</button>
+        <button class="chip" role="tab" aria-selected="false">Plastic</button>
+        <button class="chip" role="tab" aria-selected="false">Low Poly</button>
+        <button class="chip" role="tab" aria-selected="false">Glow</button>
+        <button class="chip" role="tab" aria-selected="false">Flat</button>
+      </div>
+      <div class="pack-frame" id="packFrame">
+        <img class="on" src="assets/icons-fur.webp" alt="File explorer with the Fur plush icon pack" width="1800" height="1060" loading="lazy">
+        <img src="assets/icons-kawaii.webp" alt="File explorer with the Kawaii icon pack" width="1800" height="1043" loading="lazy">
+        <img src="assets/icons-cat.webp" alt="File explorer with the Cat icon pack" width="1800" height="1075" loading="lazy">
+        <img src="assets/icons-voxel.webp" alt="File explorer with the Voxel icon pack" width="1800" height="1050" loading="lazy">
+        <img src="assets/icons-luna.webp" alt="File explorer with the Luna hand-drawn icon pack" width="1800" height="1053" loading="lazy">
+        <img src="assets/icons-pillow.webp" alt="File explorer with the Pillow icon pack" width="1800" height="1047" loading="lazy">
+        <img src="assets/icons-plastic.webp" alt="File explorer with the Plastic icon pack" width="1800" height="1066" loading="lazy">
+        <img src="assets/icons-lowpoly.webp" alt="File explorer with the Low Poly icon pack" width="1800" height="1046" loading="lazy">
+        <img src="assets/icons-glow.webp" alt="File explorer with the Glow icon pack on a dark background" width="1800" height="1070" loading="lazy">
+        <img src="assets/icons-flat.webp" alt="File explorer with the Flat icon pack" width="1800" height="1078" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WORKFLOWS ================= -->
+<section class="sec" id="workflows">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="kicker">In everyday use</span>
+      <h2>From scattered files <em class="s">to a clear next step.</em></h2>
+      <p>A few ways people combine Panora's tools. You decide the order and Panora keeps everything in one place.</p>
+    </div>
+    <div class="who rv">
+      <span>Students</span><span>Creators</span><span>Developers</span><span>Planners &amp; journalers</span>
+    </div>
+    <div class="flows">
+      <div class="flow rv">
+        <span class="n">01</span>
+        <h3>A study session</h3>
+        <ol><li>Tag readings</li><li>Read the PDF</li><li>Notes</li><li>Excalidraw</li><li>Kanban</li><li>Goal Tracker</li></ol>
+        <p>Tag the key readings in your course folder and capture the main points in Notes. Sketch a hard concept in Excalidraw, add revision tasks to Kanban, and track course milestones in Goal Tracker.</p>
+      </div>
+      <div class="flow rv">
+        <span class="n">02</span>
+        <h3>A creative project</h3>
+        <ol><li>Gallery</li><li>Canvaya</li><li>Image Studio</li><li>Kanban</li><li>Diary</li></ol>
+        <p>Browse images in the gallery and collect references on a Canvaya board. Crop or convert the ones you choose, track production in Kanban with the files attached, and keep a Diary of the story behind the work.</p>
+      </div>
+      <div class="flow rv">
+        <span class="n">03</span>
+        <h3>A weekly reset</h3>
+        <ol><li>Calendar</li><li>Tasks</li><li>Downloads</li><li>Note Deck</li><li>Diary</li></ol>
+        <p>Check upcoming events on Home and review your tasks. Clean up your Downloads folder by age and size, update next week's plans in Note Deck, and finish with a short Diary spread.</p>
+      </div>
+      <div class="flow rv">
+        <span class="n">04</span>
+        <h3>A technical session</h3>
+        <ol><li>Folder Forge</li><li>Code tabs</li><li>CSV table</li><li>Convert</li><li>Notes</li></ol>
+        <p>Set up a new project's folders with Folder Forge. Then open code in tabs, inspect a CSV as a table, convert data to the format you need, and keep working notes next to the files.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRICING ================= -->
+<section class="sec pricing" id="pricing" style="padding-top:40px">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="kicker">Pricing</span>
+      <h2>Pay once. <em class="s">It's yours.</em></h2>
+    </div>
+    <div class="price-card rv">
+      <div class="price-left">
+        <span class="badge">Launch offer · 67% off</span>
+        <div class="amount"><span class="now"><sup>$</sup>19.99</span><span class="was">$60</span></div>
+        <p class="note">One-time payment for the full Panora desktop app. No subscription and no in-app purchases.</p>
+        <a class="btn btn-primary buy" href="https://panoralab.gumroad.com/l/panora">Buy Panora now</a>
+        <div class="fine">
+          <span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8.3 13.3 4.9 9.9l-1.4 1.4 4.8 4.8 8.6-8.6-1.4-1.4z"/></svg>Instant download</span>
+          <span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8.3 13.3 4.9 9.9l-1.4 1.4 4.8 4.8 8.6-8.6-1.4-1.4z"/></svg>Windows desktop app</span>
+        </div>
+      </div>
+      <div class="price-right">
+        <h3>Everything included</h3>
+        <ul class="ticks">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Diary, Kanban, Notes, Note Deck, Canvaya, Goal Tracker, Folder Forge and Excalidraw</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>File explorer with tags, notes, favorites and tree view</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>PDF, Image and Data studios</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Code editor and Jupyter notebooks</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Home dashboard with 20 widgets</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>8 dashboard presets, light &amp; dark, custom wallpapers</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>10 icon packs, plus your own custom icons</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="sec" id="faq" style="padding-top:40px">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="kicker">FAQ</span>
+      <h2>Questions, answered.</h2>
+    </div>
+    <div class="faq rv">
+      <details open>
+        <summary>Is this a subscription?</summary>
+        <p>No. You pay $19.99 once and the app is yours to keep. There are no monthly fees.</p>
+      </details>
+      <details>
+        <summary>Which operating systems does Panora support?</summary>
+        <p>Panora is a desktop app for Windows. You download it and install it like any other program.</p>
+      </details>
+      <details>
+        <summary>Where is my data stored?</summary>
+        <p>On your own computer. Your files stay where they are on disk, and notes, boards, diaries and goals are saved locally by the app. Photos and attachments link to their original location, so if you move or delete the original file, Panora can't show it anymore.</p>
+      </details>
+      <details>
+        <summary>Does Panora sync to the cloud or back up my data?</summary>
+        <p>No. Panora is local-first. It has no cloud sync, no automatic backup and no real-time collaboration. Back up your computer the way you normally do, and your Panora data comes along with it.</p>
+      </details>
+      <details>
+        <summary>Does it need an internet connection?</summary>
+        <p>No, the file explorer, editors and apps all work offline. Running Jupyter notebooks also needs Python installed on your computer.</p>
+      </details>
+      <details>
+        <summary>Does Panora replace File Explorer?</summary>
+        <p>It works alongside it. You can browse, open and organize files in Panora, and you can always open any file in its default app or show it in File Explorer.</p>
+      </details>
+      <details>
+        <summary>Can I use my own icons and wallpapers?</summary>
+        <p>Yes. Choose from 10 icon packs or upload your own images for folders, file types and app shortcuts. Any image can be your home wallpaper.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="final">
+  <div class="wrap">
+    <h2 class="rv">Give your files a <em class="s">beautiful</em> home.</h2>
+    <p class="lead rv" style="margin-top:18px">A personal desktop workspace for files, ideas, plans and memories. It has the warmth of a notebook and the flexibility of a digital canvas. Get it at the launch price before it goes back to $60.</p>
+    <div class="hero-cta rv">
+      <a class="btn btn-primary buy" href="https://panoralab.gumroad.com/l/panora">Get Panora — $19.99 <span class="price-old">$60</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="#top" class="logo" style="font-size:16px">
+      <img src="assets/panora-logo.png" alt="" width="24" height="24" style="width:24px;height:24px">
+      Panora
+    </a>
+    <nav aria-label="Footer">
+      <a href="#apps">Apps</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+      <a href="mailto:hello@example.com">Contact</a>
+    </nav>
+    <span>© 2026 Panora</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  // Buy links
+  const buyUrl = window.PANORA_BUY_URL;
+  if (buyUrl && buyUrl !== "#pricing") document.querySelectorAll(".buy").forEach(a => { a.href = buyUrl; });
+
+  // Sticky nav border
+  const nav = document.getElementById("nav");
+  const onScroll = () => nav.classList.toggle("scrolled", scrollY > 8);
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  // Reveal on scroll
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  }), { rootMargin: "0px 0px -8% 0px" });
+  document.querySelectorAll(".rv").forEach(el => io.observe(el));
+
+  // Generic switcher: buttons -> images
+  function switcher(buttons, images, attr, onChange) {
+    let cur = 0;
+    const set = i => {
+      cur = i;
+      buttons.forEach((b, j) => b.setAttribute(attr, String(i === j)));
+      images.forEach((im, j) => {
+        if (i === j) im.loading = "eager";
+        im.classList.toggle("on", i === j);
+      });
+      onChange && onChange(i);
+    };
+    buttons.forEach((b, i) => b.addEventListener("click", () => set(i)));
+    return { set, get: () => cur, n: buttons.length };
+  }
+
+  // Hero theme preview (auto-rotates until the visitor picks one)
+  const themeBtns = [...document.querySelectorAll(".theme-bar .chip")];
+  const themeImgs = themeBtns.map(b => document.querySelector(`#themeScreen img[data-k="${b.dataset.k}"]`));
+  const theme = switcher(themeBtns, themeImgs, "aria-pressed");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let timer = reduce ? null : setInterval(() => theme.set((theme.get() + 1) % theme.n), 4200);
+  themeBtns.forEach(b => b.addEventListener("click", () => { clearInterval(timer); timer = null; }));
+  // Warm the cache for theme images after first paint
+  addEventListener("load", () => themeImgs.forEach(im => { im.loading = "eager"; }));
+
+  // Diary
+  switcher([...document.querySelectorAll(".thumbs button")], [...document.querySelectorAll("#diaryFrame img")], "aria-selected");
+
+  // Apps showcase
+  const pts = [
+    ["Checklists & subtasks", "Start → due timeline", "CSV import", "Send a file to a board"],
+    ["Pan, zoom & connect", "Group frames", "Tables & checklists", "Font themes"],
+    ["Milestones on a map", "Progress per milestone", "Custom map image", "Multiple trackers"],
+    ["Slash commands", "Folders & search", "Quiet autosave", "Export to PDF"],
+    ["Countdowns", "Priority matrix", "Time blocks", "Flashcards & budgets"],
+    ["Outline → folders", "Live tree preview", "Ready-made templates", "Skips existing folders"],
+    ["Hand-drawn style", "Library with previews", "Search drawings", "Saved locally"],
+  ];
+  const tabs = [...document.querySelectorAll("#appTabs .tab")];
+  const ptsEl = document.getElementById("appPts"), descEl = document.getElementById("appDesc");
+  switcher(tabs, [...document.querySelectorAll("#appPanel img")], "aria-selected", i => {
+    ptsEl.innerHTML = pts[i].map(t => `<span>${t}</span>`).join("");
+    descEl.textContent = tabs[i].querySelector(".d").textContent;
+  }).set(0);
+
+  // Live clock in the dashboard illustration
+  const clk = document.getElementById("liveClock"), dt = document.getElementById("liveDate");
+  const tick = () => { const d = new Date();
+    clk.textContent = d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    dt.textContent = d.toLocaleDateString([], { weekday: "long", day: "numeric", month: "long" }); };
+  tick(); setInterval(tick, 15000);
+
+  // Icon packs
+  switcher([...document.querySelectorAll("#packTabs .chip")], [...document.querySelectorAll("#packFrame img")], "aria-selected");
+})();
+</script>
 </body>
 </html>
