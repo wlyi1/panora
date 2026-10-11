@@ -58,6 +58,9 @@ em.s{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0
 .logo img{width:30px;height:30px}
 .nav-links{display:flex;gap:28px;margin-left:auto;font-size:15px;font-weight:500;color:var(--muted)}
 .nav-links a:hover{color:var(--ink)}
+.nav-links .nav-free{color:var(--brand-ink);font-weight:700;display:inline-flex;align-items:center;gap:5px}
+.nav-links .nav-free::before{content:"✦";font-size:10px;opacity:.7}
+.nav-links .nav-free:hover{color:var(--brand)}
 .nav .btn{margin-left:4px}
 
 /* ---------- Hero ---------- */
@@ -117,9 +120,28 @@ h3{font-size:24px;letter-spacing:-.025em;line-height:1.2;font-weight:700}
 .diary-view .frame{border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);background:#fff;aspect-ratio:1800/985;position:relative}
 .diary-view .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}
 .diary-view .frame img.on{opacity:1}
+
+/* ---------- Kanban feature ---------- */
+.kanban-feat{background:linear-gradient(180deg,var(--bg) 0%,#EDF2FA 35%,#EDF2FA 65%,var(--bg) 100%)}
+.kanban-grid{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:56px;align-items:center}
+.kanban-grid h2{font-size:clamp(34px,4.2vw,52px)}
+.kanban-view .frame{border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);background:#fff;aspect-ratio:1800/1030;position:relative}
+.kanban-view .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}
+.kanban-view .frame img.on{opacity:1}
+
+/* ---------- Projects feature ---------- */
+.projects-feat{background:linear-gradient(180deg,var(--bg) 0%,#F1F7F4 35%,#F1F7F4 65%,var(--bg) 100%)}
+.projects-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.9fr);gap:56px;align-items:center}
+.projects-grid h2{font-size:clamp(34px,4.2vw,52px)}
+.projects-view .frame{border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);background:#fff;aspect-ratio:1800/1080;position:relative}
+.projects-view .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}
+.projects-view .frame img.on{opacity:1}
+
 .thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
-.thumbs button{border-radius:10px;overflow:hidden;border:2px solid transparent;opacity:.55;transition:all .2s;aspect-ratio:1800/985}
+.thumbs.eight-thumbs{grid-template-columns:repeat(4,1fr);gap:8px}
+.thumbs button{border-radius:10px;overflow:hidden;border:2px solid transparent;opacity:.55;transition:all .2s;aspect-ratio:1800/985;position:relative}
 .thumbs button img{width:100%;height:100%;object-fit:cover}
+.thumbs button span{position:absolute;bottom:0;left:0;right:0;background:rgba(22,21,27,.75);color:#fff;font-size:10px;font-weight:700;text-align:center;padding:3px 2px;letter-spacing:.04em;backdrop-filter:blur(2px);text-transform:uppercase}
 .thumbs button:hover{opacity:.85}
 .thumbs button[aria-selected="true"]{opacity:1;border-color:var(--ink)}
 
@@ -299,8 +321,8 @@ footer a:hover{color:var(--ink)}
 @media (max-width:980px){
   .nav-links{display:none}
   .nav .btn{margin-left:auto}
-  .diary-grid,.apps-grid,.price-card{grid-template-columns:1fr}
-  .diary-grid{gap:36px}
+  .diary-grid,.kanban-grid,.projects-grid,.apps-grid,.price-card{grid-template-columns:1fr}
+  .diary-grid,.kanban-grid,.projects-grid{gap:36px}
   .tabs{flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory;gap:8px;padding-bottom:6px;margin:0 -24px;padding-left:24px;padding-right:24px;scrollbar-width:none}
   .tabs::-webkit-scrollbar{display:none}
   .tab{flex:none;scroll-snap-align:start;padding:10px 14px;border-color:var(--line);background:var(--card)}
@@ -343,6 +365,7 @@ footer a:hover{color:var(--ink)}
   .hero-cta .btn{width:100%}
   .theme-bar .lbl{width:100%;margin:0 0 4px}
   .thumbs{gap:6px}
+  .thumbs.eight-thumbs{grid-template-columns:repeat(2,1fr)}
   .nav .btn-sm{padding:0 14px}
 }
 .panel .desc{display:none;color:var(--muted);font-size:15.5px;margin-top:16px}
@@ -364,8 +387,10 @@ footer a:hover{color:var(--ink)}
       <a href="#apps">Apps</a>
       <a href="#widgets">Widgets</a>
       <a href="#personalize">Themes</a>
+      <a href="tutorials.html">Tutorials</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
+      <a href="templates.html" class="nav-free">Free Templates</a>
     </nav>
     <a class="btn btn-primary btn-sm buy" href="https://panoralab.gumroad.com/l/panora">Get Panora</a>
   </div>
@@ -420,7 +445,7 @@ footer a:hover{color:var(--ink)}
   <div class="wrap">
     <p class="rv">One app instead of a folder full of them</p>
     <ul class="rv">
-      <li>File explorer</li><li>Code editor</li><li>Diary</li><li>Kanban</li><li>Notes</li><li>Note Deck</li>
+      <li>File explorer</li><li>Projects</li><li>Diary</li><li>Kanban</li><li>Notes</li><li>Note Deck</li>
       <li>Whiteboard</li><li>Goal tracker</li><li>Excalidraw</li><li>PDF studio</li><li>Image studio</li>
     </ul>
   </div>
@@ -513,6 +538,40 @@ footer a:hover{color:var(--ink)}
   </div>
 </section>
 
+<!-- ================= KANBAN ================= -->
+<section class="sec kanban-feat" id="kanban">
+  <div class="wrap kanban-grid">
+    <div class="kanban-view rv">
+      <div class="frame" id="kanbanFrame">
+        <img class="on" src="assets/kanban-classic.webp" alt="Panora Kanban in Classic layout" width="1800" height="1015" loading="lazy">
+        <img src="assets/kanban-bento.webp" alt="Panora Kanban in Bento layout" width="1800" height="1031" loading="lazy">
+        <img src="assets/kanban-aurora.webp" alt="Panora Kanban in Aurora layout" width="1800" height="1049" loading="lazy">
+        <img src="assets/kanban-focus.webp" alt="Panora Kanban in Focus layout" width="1800" height="1010" loading="lazy">
+        <img src="assets/kanban-ticket.webp" alt="Panora Kanban in Ticket layout" width="1800" height="1022" loading="lazy">
+      </div>
+      <div class="thumbs" role="tablist" aria-label="Kanban visual styles" id="kanbanThumbs">
+        <button role="tab" aria-selected="true" aria-label="Classic layout"><img src="assets/kanban-classic.webp" alt="" loading="lazy"><span>Classic</span></button>
+        <button role="tab" aria-selected="false" aria-label="Bento layout"><img src="assets/kanban-bento.webp" alt="" loading="lazy"><span>Bento</span></button>
+        <button role="tab" aria-selected="false" aria-label="Aurora layout"><img src="assets/kanban-aurora.webp" alt="" loading="lazy"><span>Aurora</span></button>
+        <button role="tab" aria-selected="false" aria-label="Focus layout"><img src="assets/kanban-focus.webp" alt="" loading="lazy"><span>Focus</span></button>
+        <button role="tab" aria-selected="false" aria-label="Ticket layout"><img src="assets/kanban-ticket.webp" alt="" loading="lazy"><span>Ticket</span></button>
+      </div>
+    </div>
+    <div class="rv">
+      <span class="kicker">Kanban Board</span>
+      <h2>A task board that adapts to <em class="s">how you work.</em></h2>
+      <p style="margin-top:18px;color:var(--muted);font-size:18px">Choose from five distinct aesthetic styles — from clean minimal boards to vibrant aurora and structured ticket workflows. Plan projects and move cards without clutter.</p>
+      <ul class="ticks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>5 visual board styles: Classic, Bento, Aurora, Focus, and Ticket</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cards with subtasks, checklists, priority tags, and due dates</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Timeline bars calculate elapsed time and remaining days</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Attach local files and web URLs straight to cards</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>CSV import creates columns and maps fields automatically</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- ================= DIARY ================= -->
 <section class="sec diary" id="diary">
   <div class="wrap diary-grid">
@@ -536,12 +595,52 @@ footer a:hover{color:var(--ink)}
         <img src="assets/diary-5.webp" alt="Diary spread with torn paper notes, washi tape and fabric labels" width="1800" height="974" loading="lazy">
         <img src="assets/diary-1.webp" alt="Diary spread with a to-do checklist, screenshots and a reflection" width="1800" height="977" loading="lazy">
       </div>
-      <div class="thumbs" role="tablist" aria-label="Diary examples">
+      <div class="thumbs" role="tablist" aria-label="Diary examples" id="diaryThumbs">
         <button role="tab" aria-selected="true" aria-label="Japan trip"><img src="assets/diary-2.webp" alt="" loading="lazy"></button>
         <button role="tab" aria-selected="false" aria-label="Berlin"><img src="assets/diary-4.webp" alt="" loading="lazy"></button>
         <button role="tab" aria-selected="false" aria-label="Poetry"><img src="assets/diary-3.webp" alt="" loading="lazy"></button>
         <button role="tab" aria-selected="false" aria-label="Mindfulness"><img src="assets/diary-5.webp" alt="" loading="lazy"></button>
         <button role="tab" aria-selected="false" aria-label="Work log"><img src="assets/diary-1.webp" alt="" loading="lazy"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section class="sec projects-feat" id="projects">
+  <div class="wrap projects-grid">
+    <div class="rv">
+      <span class="kicker">Projects</span>
+      <h2>Your initiatives, deadlines &amp; files <em class="s">in one hub.</em></h2>
+      <p style="margin-top:18px;color:var(--muted);font-size:18px">Stay on top of major goals with visual timeline overviews. Switch between four distinct progress perspectives, track milestones, and drop shortcuts to every folder and link you need.</p>
+      <ul class="ticks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>4 visual overview modes: Speedometer Gauge, Circular Ring, Day Calendar, and Countdown</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Built-in seamless Light and Dark modes designed for deep focus</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Live timeline metrics: elapsed days, days remaining, deadline counter, and completion %</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Milestone checklists with real-time completion progress tracking</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Pin project folders and web resources straight to the project dashboard</li>
+      </ul>
+    </div>
+    <div class="projects-view rv">
+      <div class="frame" id="projectsFrame">
+        <img class="on" src="assets/project-gauge-light.webp" alt="Projects Gauge view in light mode" width="1800" height="1094" loading="lazy">
+        <img src="assets/project-ring-light.webp" alt="Projects Ring view in light mode" width="1800" height="1037" loading="lazy">
+        <img src="assets/project-calendar-light.webp" alt="Projects Day Calendar view in light mode" width="1800" height="1191" loading="lazy">
+        <img src="assets/project-countdown-light.webp" alt="Projects Countdown view in light mode" width="1800" height="1057" loading="lazy">
+        <img src="assets/project-gauge-dark.webp" alt="Projects Gauge view in dark mode" width="1800" height="1108" loading="lazy">
+        <img src="assets/project-ring-dark.webp" alt="Projects Ring view in dark mode" width="1800" height="1030" loading="lazy">
+        <img src="assets/project-calendar-dark.webp" alt="Projects Day Calendar view in dark mode" width="1800" height="1191" loading="lazy">
+        <img src="assets/project-countdown-dark.webp" alt="Projects Countdown view in dark mode" width="1800" height="1143" loading="lazy">
+      </div>
+      <div class="thumbs eight-thumbs" role="tablist" aria-label="Projects visual styles" id="projectsThumbs">
+        <button role="tab" aria-selected="true" aria-label="Gauge Light"><img src="assets/project-gauge-light.webp" alt="" loading="lazy"><span>Gauge</span></button>
+        <button role="tab" aria-selected="false" aria-label="Ring Light"><img src="assets/project-ring-light.webp" alt="" loading="lazy"><span>Ring</span></button>
+        <button role="tab" aria-selected="false" aria-label="Calendar Light"><img src="assets/project-calendar-light.webp" alt="" loading="lazy"><span>Calendar</span></button>
+        <button role="tab" aria-selected="false" aria-label="Countdown Light"><img src="assets/project-countdown-light.webp" alt="" loading="lazy"><span>Countdown</span></button>
+        <button role="tab" aria-selected="false" aria-label="Gauge Dark"><img src="assets/project-gauge-dark.webp" alt="" loading="lazy"><span>Dark Gauge</span></button>
+        <button role="tab" aria-selected="false" aria-label="Ring Dark"><img src="assets/project-ring-dark.webp" alt="" loading="lazy"><span>Dark Ring</span></button>
+        <button role="tab" aria-selected="false" aria-label="Calendar Dark"><img src="assets/project-calendar-dark.webp" alt="" loading="lazy"><span>Calendar Dark</span></button>
+        <button role="tab" aria-selected="false" aria-label="Countdown Dark"><img src="assets/project-countdown-dark.webp" alt="" loading="lazy"><span>Dark Count</span></button>
       </div>
     </div>
   </div>
@@ -586,17 +685,22 @@ footer a:hover{color:var(--ink)}
           <span class="t"><span class="ic" style="background:#FFE9EE;color:#D6436A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5 4 4L8 20H4v-4z"/></svg></span>Excalidraw</span>
           <span class="d">Sketch rough interfaces and process diagrams by hand. A library with previews and search keeps your drawings easy to find.</span>
         </button>
+        <button class="tab" role="tab" aria-selected="false" data-i="7">
+          <span class="t"><span class="ic" style="background:#EBF7F2;color:#1B9968"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="M12 2v4"/><path d="m12 18 3-3"/></svg></span>Projects</span>
+          <span class="d">Visual hubs for your major initiatives. Switch between Gauge, Ring, Calendar, and Countdown overviews, track milestones, and drop shortcuts to folders.</span>
+        </button>
       </div>
 
       <div class="panel" id="appPanel">
         <div class="frame">
-          <img class="on" src="assets/app-kanban.webp" alt="Kanban board for learning Japanese with checklists, subtasks and timeline bars" width="1800" height="1006" loading="lazy">
+          <img class="on" src="assets/kanban-classic.webp" alt="Kanban board with subtasks, checklists, priority tags and timeline bars" width="1800" height="1015" loading="lazy">
           <img src="assets/app-canvaya.webp" alt="Canvaya whiteboard planning a Japan trip with checklist, itinerary, photos and budget table" width="1800" height="972" loading="lazy">
           <img src="assets/app-goal.webp" alt="Goal tracker map with milestone cards along a winding path" width="1538" height="1045" loading="lazy">
           <img src="assets/app-notes.webp" alt="Notes editor showing a digital marketing document with a table" width="1800" height="1058" loading="lazy">
           <img src="assets/app-notedeck.webp" alt="Note Deck board with priority matrix, countdown timer, time blocks and to-dos" width="1800" height="1067" loading="lazy">
           <img src="assets/app-forge.webp" alt="Folder Forge turning a text outline into a folder tree preview" width="1542" height="1027" loading="lazy">
           <img src="assets/app-excalidraw.webp" alt="Excalidraw diagram explaining how retrieval-augmented generation works" width="1800" height="934" loading="lazy">
+          <img src="assets/app-projects.webp" alt="Panora Projects dashboard with gauge timeline, milestones and folder shortcuts" width="1800" height="1094" loading="lazy">
         </div>
         <p class="desc" id="appDesc"></p>
         <div class="pts" id="appPts"></div>
@@ -906,7 +1010,7 @@ footer a:hover{color:var(--ink)}
       Panora
     </a>
     <nav aria-label="Footer">
-      <a href="#apps">Apps</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+      <a href="#apps">Apps</a><a href="templates.html">Free Templates</a><a href="tutorials.html">Tutorials</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
       <a href="mailto:hello@example.com">Contact</a>
     </nav>
     <span>© 2026 Panora</span>
@@ -956,8 +1060,14 @@ footer a:hover{color:var(--ink)}
   // Warm the cache for theme images after first paint
   addEventListener("load", () => themeImgs.forEach(im => { im.loading = "eager"; }));
 
+  // Kanban styles
+  switcher([...document.querySelectorAll("#kanbanThumbs button")], [...document.querySelectorAll("#kanbanFrame img")], "aria-selected");
+
   // Diary
-  switcher([...document.querySelectorAll(".thumbs button")], [...document.querySelectorAll("#diaryFrame img")], "aria-selected");
+  switcher([...document.querySelectorAll("#diaryThumbs button")], [...document.querySelectorAll("#diaryFrame img")], "aria-selected");
+
+  // Projects styles
+  switcher([...document.querySelectorAll("#projectsThumbs button")], [...document.querySelectorAll("#projectsFrame img")], "aria-selected");
 
   // Apps showcase
   const pts = [
@@ -968,6 +1078,7 @@ footer a:hover{color:var(--ink)}
     ["Countdowns", "Priority matrix", "Time blocks", "Flashcards & budgets"],
     ["Outline → folders", "Live tree preview", "Ready-made templates", "Skips existing folders"],
     ["Hand-drawn style", "Library with previews", "Search drawings", "Saved locally"],
+    ["Gauge, Ring & Calendar", "Milestones & progress", "Countdown to deadlines", "Link folders & URLs"],
   ];
   const tabs = [...document.querySelectorAll("#appTabs .tab")];
   const ptsEl = document.getElementById("appPts"), descEl = document.getElementById("appDesc");

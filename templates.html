@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Daily Planner Templates — Download &amp; Print</title>
+<meta name="description" content="Download free daily planner templates — printable and editable. No sign-up needed. Made by the Panora team.">
+<meta property="og:title" content="Free Daily Planner Templates — Download & Print">
+<meta property="og:description" content="Beautiful daily planner templates, totally free. No sign-up needed.">
+<meta property="og:image" content="assets/theme-flow.webp">
+<meta name="theme-color" content="#FBFAF7">
+<link rel="icon" href="assets/panora-icon.ico" sizes="any">
+<link rel="icon" type="image/png" href="assets/panora-icon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF9F4; --bg-2:#F4F0E6; --cream:#F9F5EB; --card:#FFFFFF;
+  --ink:#16151B; --ink-2:#333333; --muted:#6E6B78; --faint:#A19DAA;
+  --line:#ECE8E1; --line-2:#E2DDD4;
+  --brand:#6C63FF; --brand-ink:#5249E6; --brand-soft:#EFEEFF;
+  --green:#1F9D61; --peach:#FFE9DA;
+  --radius:18px; --radius-lg:26px;
+  --shadow-sm:0 1px 2px rgba(22,21,27,.05),0 2px 8px rgba(22,21,27,.04);
+  --shadow:0 2px 6px rgba(22,21,27,.04),0 18px 50px -12px rgba(40,30,80,.18);
+  --shadow-lg:0 4px 12px rgba(22,21,27,.05),0 40px 100px -24px rgba(50,35,110,.30);
+  --sans:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Instrument Serif",Georgia,serif;
+  --wrap:1100px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:8px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+em.s{font-family:var(--serif);font-style:italic;font-weight:400}
+
+/* ---------- Nav ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(251,250,247,.88);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;height:68px;gap:32px;max-width:1180px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;letter-spacing:-.02em}
+.logo img{width:30px;height:30px}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:14px}
+.nav-right a{font-size:14px;font-weight:600;color:var(--muted)}
+.nav-right a:hover{color:var(--ink)}
+.btn-sm{display:inline-flex;align-items:center;height:40px;padding:0 18px;border-radius:999px;font-weight:700;font-size:14px;background:var(--ink);color:#fff;transition:transform .2s,background .2s;white-space:nowrap}
+.btn-sm:hover{background:#26242E;transform:translateY(-1px)}
+
+/* ---------- Hero ---------- */
+.hero{padding:80px 0 56px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-120px -10% auto;height:700px;z-index:-1;
+  background:radial-gradient(45% 55% at 20% 30%,rgba(108,99,255,.10),transparent 70%),
+             radial-gradient(40% 45% at 80% 25%,rgba(255,190,100,.13),transparent 70%)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 14px 5px 5px;border-radius:999px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow-sm);font-size:13px;font-weight:600;color:var(--ink-2);margin-bottom:22px}
+.eyebrow b{background:var(--green);color:#fff;border-radius:999px;padding:2px 9px;font-size:11.5px}
+h1{font-size:clamp(38px,6vw,68px);line-height:1.04;letter-spacing:-.045em;font-weight:800;margin-bottom:16px}
+h1 em.s{color:var(--brand-ink);font-size:1.07em}
+.lead{font-size:clamp(15px,1.8vw,18px);color:var(--muted);max-width:520px;margin:0 auto 16px;line-height:1.58}
+.hero-meta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:13.5px;color:var(--muted)}
+.hero-meta span{display:inline-flex;align-items:center;gap:5px}
+.hero-meta svg{width:14px;height:14px;color:var(--green)}
+
+/* ---------- Templates Grid ---------- */
+.templates-section{padding:60px 0 96px}
+.section-label{font-size:12.5px;font-weight:700;color:var(--brand-ink);text-transform:uppercase;letter-spacing:.14em;margin-bottom:10px}
+.section-sub{font-size:15px;color:var(--muted);margin-top:6px}
+.templates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+
+/* Template card — links to its own sub-page */
+.t-card{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.t-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+
+/* Preview mock area */
+.preview{aspect-ratio:3/4;position:relative;overflow:hidden;display:flex;align-items:stretch}
+.preview-inner{width:100%;padding:18px;display:flex;flex-direction:column;gap:8px}
+.mock .m-date{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin-bottom:3px}
+.mock .m-title{font-size:13px;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin-bottom:8px}
+.mock .m-sec{font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin:6px 0 3px}
+.mock .m-line{height:1.5px;border-radius:2px;background:var(--line-2);margin-bottom:5px}
+.mock .m-row{display:flex;align-items:center;gap:5px;margin-bottom:4px;font-size:7.5px;color:var(--ink-2)}
+.mock .m-cb{width:8px;height:8px;border-radius:2px;border:1.5px solid var(--line-2);flex:none}
+.mock .m-cb.on{border-color:var(--brand);background:var(--brand)}
+.mock .m-block{border-radius:5px;padding:5px 7px;margin-bottom:5px;font-size:7.5px;font-weight:600;color:var(--ink-2)}
+.mock .m-bar{height:3.5px;border-radius:4px;background:var(--bg-2);overflow:hidden;margin-bottom:6px}
+.mock .m-bar i{display:block;height:100%;border-radius:4px}
+.mock .m-note{border-radius:5px;border:1.5px dashed var(--line-2);padding:6px;font-size:7px;color:var(--faint);font-style:italic;flex:1;min-height:28px}
+.mock .m-ev{flex:1;border-radius:3px;padding:3px 5px;font-size:7px;font-weight:600}
+.mock .m-time{font-size:6.5px;color:var(--faint);width:20px;flex:none}
+
+/* Card info bottom */
+.t-card .info{padding:18px 20px 20px;flex:1;display:flex;flex-direction:column}
+.t-card .info h3{font-size:16px;font-weight:700;letter-spacing:-.02em;line-height:1.3;margin-bottom:6px}
+.t-card .info p{color:var(--muted);font-size:13.5px;line-height:1.5;flex:1}
+.t-card .info-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:14px;flex-wrap:wrap}
+.fmt-chips{display:flex;gap:5px}
+.fmt-chip{font-size:10.5px;font-weight:700;letter-spacing:.04em;color:var(--ink-2);background:var(--bg-2);border-radius:5px;padding:2px 7px}
+.card-link{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 16px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:700;transition:background .2s,transform .2s;white-space:nowrap}
+.card-link:hover{background:#26242E;transform:translateY(-1px)}
+.card-link svg{width:14px;height:14px}
+
+/* "Coming soon" state */
+.t-card.soon{opacity:.6;pointer-events:none}
+.soon-badge{display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:999px;background:var(--bg-2);border:1px solid var(--line-2);color:var(--faint);font-size:12.5px;font-weight:600}
+
+/* ---- Panora soft CTA strip ---- */
+.panora-strip{background:var(--cream);border:1px solid var(--line-2);border-radius:24px;padding:30px 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:56px}
+.panora-strip .left h3{font-size:20px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
+.panora-strip .left p{color:var(--muted);font-size:14.5px;max-width:500px;line-height:1.5}
+.panora-strip .pill-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.p-pill{font-size:12.5px;font-weight:600;color:var(--ink-2);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+.btn-strip{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 24px;border-radius:999px;background:var(--ink);color:#fff;font-size:15px;font-weight:700;box-shadow:var(--shadow);transition:transform .2s,background .2s;white-space:nowrap;flex:none}
+.btn-strip:hover{transform:translateY(-2px);background:#26242E}
+.btn-strip svg{width:15px;height:15px}
+
+/* ---------- Reveal ---------- */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .65s cubic-bezier(.2,.7,.2,1),transform .65s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* ---------- Footer ---------- */
+footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer nav{display:flex;gap:24px}
+footer a:hover{color:var(--ink)}
+
+/* ---------- Responsive ---------- */
+@media(max-width:900px){.templates-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){
+  .templates-grid{grid-template-columns:1fr}
+  .panora-strip{flex-direction:column;align-items:flex-start}
+  .btn-strip{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="index.html" class="logo">
+      <img src="assets/panora-logo.png" alt="" width="30" height="30">
+      Panora
+    </a>
+    <div class="nav-right">
+      <a href="tutorials.html">Tutorials</a>
+      <a href="index.html">Back to main site</a>
+      <a class="btn-sm" href="https://panoralab.gumroad.com/l/panora">Get Panora — $19.99</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow rv"><b>Free</b> No sign-up. No email. Just download.</div>
+    <h1 class="rv">Daily Planner<br><em class="s">Templates</em></h1>
+    <p class="lead rv">Pick a template, click download. That's it. Free, printable and editable — no strings attached.</p>
+    <div class="hero-meta rv">
+      <span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8.3 13.3 4.9 9.9l-1.4 1.4 4.8 4.8 8.6-8.6-1.4-1.4z"/></svg>Free forever</span>
+      <span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8.3 13.3 4.9 9.9l-1.4 1.4 4.8 4.8 8.6-8.6-1.4-1.4z"/></svg>No sign-up needed</span>
+      <span><svg viewBox="0 0 20 20" fill="currentColor"><path d="M8.3 13.3 4.9 9.9l-1.4 1.4 4.8 4.8 8.6-8.6-1.4-1.4z"/></svg>Opens in Word &amp; Google Docs</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TEMPLATES GRID ===== -->
+<section class="templates-section">
+  <div class="wrap">
+
+    <div class="section-label rv">Templates — click any to download</div>
+
+    <div class="templates-grid">
+
+      <!-- ✅ CARD 1 — Cozy Daily Planner (real file) -->
+      <div class="t-card rv">
+        <div class="preview" style="background:#FDFCF8">
+          <div class="preview-inner">
+            <div class="mock">
+              <div class="m-date">Monday, Oct 13</div>
+              <div class="m-title">Cozy Daily Planner</div>
+              <div class="m-sec">Top Priorities</div>
+              <div class="m-row"><span class="m-cb on"></span><span>Finish project proposal</span></div>
+              <div class="m-row"><span class="m-cb"></span><span>Review team feedback</span></div>
+              <div class="m-row"><span class="m-cb"></span><span>Send weekly update</span></div>
+              <div class="m-sec">Schedule</div>
+              <div class="m-row"><span class="m-time">9 AM</span><span class="m-ev" style="background:#EFEEFF;color:#5249E6;flex:1">Deep work block</span></div>
+              <div class="m-row"><span class="m-time">11 AM</span><span class="m-ev" style="background:#E6F6EC;color:#1F9D61;flex:1">Team standup</span></div>
+              <div class="m-row"><span class="m-time">2 PM</span><span class="m-ev" style="background:#FFF3E0;color:#D9822B;flex:1">Client call</span></div>
+              <div class="m-sec">Notes</div>
+              <div class="m-note">Jot down thoughts here…</div>
+            </div>
+          </div>
+        </div>
+        <div class="info">
+          <h3>Cozy Daily Planner</h3>
+          <p>Warm and minimal. Top priorities, hourly schedule and a notes section. Perfect for calm, focused workdays.</p>
+          <div class="info-footer">
+            <div class="fmt-chips">
+              <span class="fmt-chip">DOCX</span>
+              <span class="fmt-chip">A4</span>
+            </div>
+            <a class="card-link" href="download/cozy-daily-planner.html">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>
+              Download
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 — Coming soon -->
+      <div class="t-card soon rv">
+        <div class="preview" style="background:#F7F4FF">
+          <div class="preview-inner">
+            <div class="mock">
+              <div class="m-date">Tuesday, Oct 14</div>
+              <div class="m-title" style="color:#5249E6">Time Block Planner</div>
+              <div class="m-sec">Morning</div>
+              <div class="m-block" style="background:#EFEEFF;color:#5249E6">06:00 – 09:00 · Deep focus work</div>
+              <div class="m-block" style="background:#EFEEFF;color:#5249E6">09:00 – 10:00 · Emails</div>
+              <div class="m-sec">Afternoon</div>
+              <div class="m-block" style="background:#E6F6EC;color:#1F9D61">13:00 – 15:00 · Meetings</div>
+              <div class="m-block" style="background:#E6F6EC;color:#1F9D61">15:00 – 17:00 · Review</div>
+              <div class="m-sec">Energy level</div>
+              <div class="m-bar"><i style="width:72%;background:#5249E6"></i></div>
+              <div class="m-note" style="border-color:#D9D4FF">Reflection…</div>
+            </div>
+          </div>
+        </div>
+        <div class="info">
+          <h3>Time Block Planner</h3>
+          <p>Block your whole day into focused sessions. Great for deep work and anyone who loves a structured schedule.</p>
+          <div class="info-footer">
+            <div class="fmt-chips"><span class="fmt-chip">DOCX</span><span class="fmt-chip">A4</span></div>
+            <span class="soon-badge">Coming soon</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3 — Coming soon -->
+      <div class="t-card soon rv">
+        <div class="preview" style="background:#F4FAF7">
+          <div class="preview-inner">
+            <div class="mock">
+              <div class="m-date">Wednesday, Oct 15</div>
+              <div class="m-title" style="color:#1F9D61">Focus + Habits</div>
+              <div class="m-sec">Today's Focus</div>
+              <div class="m-note" style="border-color:#B8E8D0;font-style:normal;color:var(--ink-2);font-size:7.5px">Complete the design mockups before EOD.</div>
+              <div class="m-sec">Daily Habits</div>
+              <div class="m-row"><span class="m-cb on" style="background:#1F9D61;border-color:#1F9D61"></span><span>Drink 8 glasses of water</span></div>
+              <div class="m-row"><span class="m-cb on" style="background:#1F9D61;border-color:#1F9D61"></span><span>Exercise 30 minutes</span></div>
+              <div class="m-row"><span class="m-cb"></span><span>Read 20 pages</span></div>
+              <div class="m-row"><span class="m-cb"></span><span>Meditate 10 minutes</span></div>
+              <div class="m-sec">Mood</div>
+              <div style="display:flex;gap:5px;font-size:12px;margin-bottom:4px">😊 😐 😴 😤 🥳</div>
+            </div>
+          </div>
+        </div>
+        <div class="info">
+          <h3>Focus + Habit Tracker</h3>
+          <p>One clear intention for the day, habit tracker and mood log. Perfect for building daily routines.</p>
+          <div class="info-footer">
+            <div class="fmt-chips"><span class="fmt-chip">DOCX</span><span class="fmt-chip">A4</span></div>
+            <span class="soon-badge">Coming soon</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4 — Coming soon -->
+      <div class="t-card soon rv">
+        <div class="preview" style="background:#FFF8F0">
+          <div class="preview-inner">
+            <div class="mock">
+              <div class="m-date">Thursday, Oct 16</div>
+              <div class="m-title" style="color:#D9822B">Morning Ritual</div>
+              <div class="m-sec">Morning Intentions</div>
+              <div class="m-line"></div><div class="m-line"></div>
+              <div class="m-sec">Gratitude (3 things)</div>
+              <div class="m-row"><span>1.</span></div>
+              <div class="m-row"><span>2.</span></div>
+              <div class="m-row"><span>3.</span></div>
+              <div class="m-sec">Tasks</div>
+              <div class="m-row"><span class="m-cb"></span><span style="flex:1;border-bottom:1px solid var(--line)"></span></div>
+              <div class="m-row"><span class="m-cb"></span><span style="flex:1;border-bottom:1px solid var(--line)"></span></div>
+              <div class="m-sec">Evening Reflection</div>
+              <div class="m-note" style="border-color:#FFD8B0">What went well?</div>
+            </div>
+          </div>
+        </div>
+        <div class="info">
+          <h3>Morning Ritual</h3>
+          <p>Intentions, gratitude and tasks in the morning, reflection at night. A gentle frame for a meaningful day.</p>
+          <div class="info-footer">
+            <div class="fmt-chips"><span class="fmt-chip">DOCX</span><span class="fmt-chip">A4</span></div>
+            <span class="soon-badge">Coming soon</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 5 — Coming soon -->
+      <div class="t-card soon rv">
+        <div class="preview" style="background:#F4F8FF">
+          <div class="preview-inner">
+            <div class="mock">
+              <div class="m-date">Friday, Oct 17</div>
+              <div class="m-title" style="color:#2F6FE0">Study Planner</div>
+              <div class="m-sec">Subject Goals</div>
+              <div class="m-block" style="background:#E8F1FF;color:#2F6FE0">Math — Chapter 5 exercises</div>
+              <div class="m-block" style="background:#E8F1FF;color:#2F6FE0">History — essay outline</div>
+              <div class="m-sec">Pomodoro tracker</div>
+              <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px">
+                <span style="width:14px;height:14px;border-radius:3px;background:#2F6FE0;display:inline-block"></span>
+                <span style="width:14px;height:14px;border-radius:3px;background:#2F6FE0;display:inline-block"></span>
+                <span style="width:14px;height:14px;border-radius:3px;background:#2F6FE0;display:inline-block"></span>
+                <span style="width:14px;height:14px;border-radius:3px;background:#E8F1FF;display:inline-block"></span>
+                <span style="width:14px;height:14px;border-radius:3px;background:#E8F1FF;display:inline-block"></span>
+              </div>
+              <div class="m-sec">Progress</div>
+              <div class="m-bar"><i style="width:60%;background:#2F6FE0"></i></div>
+              <div class="m-note" style="border-color:#C5D9F7">Key terms to review…</div>
+            </div>
+          </div>
+        </div>
+        <div class="info">
+          <h3>Study Planner</h3>
+          <p>Break subjects into sessions, track pomodoro blocks and measure progress — all on one sheet.</p>
+          <div class="info-footer">
+            <div class="fmt-chips"><span class="fmt-chip">DOCX</span><span class="fmt-chip">A4</span></div>
+            <span class="soon-badge">Coming soon</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 6 — Coming soon -->
+      <div class="t-card soon rv">
+        <div class="preview" style="background:#FFF4F8">
+          <div class="preview-inner">
+            <div class="mock">
+              <div class="m-date">Week of Oct 13 – Oct 19</div>
+              <div class="m-title" style="color:#C0306E">Weekly Spread</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:6px">
+                <div style="background:#FFF0F6;border-radius:4px;padding:4px;font-size:6.5px"><div style="font-weight:700;color:#C0306E;margin-bottom:2px">MON</div><div class="m-line"></div></div>
+                <div style="background:#FFF0F6;border-radius:4px;padding:4px;font-size:6.5px"><div style="font-weight:700;color:#C0306E;margin-bottom:2px">TUE</div><div class="m-line"></div></div>
+                <div style="background:#FFF0F6;border-radius:4px;padding:4px;font-size:6.5px"><div style="font-weight:700;color:#C0306E;margin-bottom:2px">WED</div><div class="m-line"></div></div>
+                <div style="background:#FFF0F6;border-radius:4px;padding:4px;font-size:6.5px"><div style="font-weight:700;color:#C0306E;margin-bottom:2px">THU</div><div class="m-line"></div></div>
+              </div>
+              <div class="m-sec">Weekly goals</div>
+              <div class="m-row"><span class="m-cb on" style="background:#C0306E;border-color:#C0306E"></span><span>Launch product update</span></div>
+              <div class="m-row"><span class="m-cb"></span><span>Read 2 chapters</span></div>
+              <div class="m-sec">Wins this week</div>
+              <div class="m-note" style="border-color:#F5C0D8">Write it down…</div>
+            </div>
+          </div>
+        </div>
+        <div class="info">
+          <h3>Weekly Spread</h3>
+          <p>See your whole week at a glance. Day columns, weekly goals and a wins section to close out strong.</p>
+          <div class="info-footer">
+            <div class="fmt-chips"><span class="fmt-chip">DOCX</span><span class="fmt-chip">A4</span></div>
+            <span class="soon-badge">Coming soon</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /templates-grid -->
+
+    <!-- ===== PANORA SOFT CTA ===== -->
+    <div class="panora-strip rv">
+      <div class="left">
+        <h3>Want a digital version of all this?</h3>
+        <p>Panora is a Windows desktop app with 30+ built-in tools — kanban board, goal tracker, diary, note deck and more. All local. One-time purchase.</p>
+        <div class="pill-row">
+          <span class="p-pill">Projects</span>
+          <span class="p-pill">Kanban Board</span>
+          <span class="p-pill">Goal Tracker</span>
+          <span class="p-pill">Diary</span>
+          <span class="p-pill">Note Deck</span>
+          <span class="p-pill">Notes</span>
+          <span class="p-pill">File Explorer</span>
+          <span class="p-pill">+ 24 more tools</span>
+        </div>
+      </div>
+      <a class="btn-strip" href="https://panoralab.gumroad.com/l/panora">
+        Get Panora — $19.99
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="index.html" class="logo" style="font-size:16px">
+      <img src="assets/panora-logo.png" alt="" width="24" height="24" style="width:24px;height:24px">
+      Panora
+    </a>
+    <nav aria-label="Footer">
+      <a href="index.html#apps">Apps</a>
+      <a href="tutorials.html">Tutorials</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="mailto:hello@example.com">Contact</a>
+    </nav>
+    <span>© 2026 Panora</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const nav = document.getElementById("nav");
+  const onScroll = () => nav.classList.toggle("scrolled", scrollY > 8);
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  }), { rootMargin: "0px 0px -6% 0px" });
+  document.querySelectorAll(".rv").forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
